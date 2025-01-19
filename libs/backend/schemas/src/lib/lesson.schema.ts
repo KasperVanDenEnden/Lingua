@@ -1,25 +1,30 @@
-import { ILesson } from "@lingua/api";
+import { ILesson, IsObjectId } from "@lingua/api";
 import { Types } from "mongoose";
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { IsMongoId, IsString, IsNotEmpty, IsDate } from "class-validator";
+import { IsString, IsNotEmpty, IsDate } from "class-validator";
 
 export type LessonDocument = Lesson & Document;
 
 @Schema()
 export class Lesson implements ILesson {
     @Prop()
+    @IsObjectId()
     @IsNotEmpty()
-    @IsMongoId()
+    _id!: Types.ObjectId;
+    
+    @Prop()
+    @IsNotEmpty()
+    @IsObjectId()
     class!: Types.ObjectId;
 
     @Prop()
     @IsNotEmpty()
-    @IsMongoId()
+    @IsObjectId()
     classroom!: Types.ObjectId;
 
     @Prop()
     @IsNotEmpty()
-    @IsMongoId()
+    @IsObjectId()
     teacher!: Types.ObjectId;
 
     @Prop()

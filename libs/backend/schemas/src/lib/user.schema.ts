@@ -1,7 +1,7 @@
-import { IUser, Role } from "@lingua/api";
+import { IsObjectId, IUser, Role } from "@lingua/api";
 import { Types } from "mongoose";
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { IsMongoId, IsString, IsEnum, IsNotEmpty } from "class-validator";
+import { IsString, IsEnum, IsNotEmpty } from "class-validator";
 
 export type UserDocument = User & Document;
 
@@ -9,7 +9,7 @@ export type UserDocument = User & Document;
 export class User  implements IUser {
     @Prop()
     @IsNotEmpty()
-    @IsMongoId()
+    @IsObjectId()
     _id!: Types.ObjectId;
     
     @Prop({type: String, enum: Object.values(Role)})

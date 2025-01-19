@@ -14,7 +14,7 @@ export enum Language {
 }
 
 export interface IClass {
-    id: Id;
+    _id: Id;
     title: string;
     description: string;
     status: ClassStatus;

@@ -1,7 +1,7 @@
-import { IComment } from "@lingua/api";
+import { IComment, IsObjectId } from "@lingua/api";
 import { Types } from "mongoose";
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { IsMongoId, IsString, IsNotEmpty, IsDate, IsInt } from "class-validator";
+import { IsString, IsNotEmpty, IsDate, IsInt } from "class-validator";
 
 export type CommentDocument = Comment & Document;
 
@@ -9,17 +9,17 @@ export type CommentDocument = Comment & Document;
 export class Comment implements IComment {
     @Prop()
     @IsNotEmpty()
-    @IsMongoId()
+    @IsObjectId()
     _id!: Types.ObjectId;
     
     @Prop()
     @IsNotEmpty()
-    @IsMongoId()
+    @IsObjectId()
     student!: Types.ObjectId;
     
     @Prop()
     @IsNotEmpty()
-    @IsMongoId()
+    @IsObjectId()
     class!: Types.ObjectId;
     
     @Prop()

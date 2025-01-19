@@ -1,7 +1,7 @@
-import { ILocation, Province } from "@lingua/api";
+import { ILocation, IsObjectId, Province } from "@lingua/api";
 import { Types } from "mongoose";
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { IsMongoId, IsString, IsEnum, IsNotEmpty } from "class-validator";
+import { IsString, IsEnum, IsNotEmpty } from "class-validator";
 
 export type LocationDocument = Location & Document;
 
@@ -9,12 +9,12 @@ export type LocationDocument = Location & Document;
 export class Location implements ILocation {
     @Prop()
     @IsNotEmpty()
-    @IsMongoId()
+    @IsObjectId()
     _id!: Types.ObjectId;
     
     @Prop()
     @IsNotEmpty()
-    @IsMongoId()
+    @IsObjectId()
     createdBy!: Types.ObjectId;
 
     @Prop()

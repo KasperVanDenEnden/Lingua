@@ -1,7 +1,7 @@
-import { ClassStatus, IClass, Language } from "@lingua/api";
+import { ClassStatus, IClass, IsObjectId, Language } from "@lingua/api";
 import { Types } from "mongoose";
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { IsMongoId, IsString, IsEnum, IsNotEmpty, IsDate, ArrayMinSize, IsArray } from "class-validator";
+import { IsString, IsEnum, IsNotEmpty, IsDate, ArrayMinSize, IsArray } from "class-validator";
 import { CommentSchema } from "./comment.schema";
 
 export type ClassDocument = Class & Document;
@@ -10,7 +10,12 @@ export type ClassDocument = Class & Document;
 export class Class implements IClass {
     @Prop()
     @IsNotEmpty()
-    @IsMongoId()
+    @IsObjectId()
+    _id!: Types.ObjectId;
+    
+    @Prop()
+    @IsNotEmpty()
+    @IsObjectId()
     id!: Types.ObjectId;
     
     @Prop()
@@ -40,11 +45,12 @@ export class Class implements IClass {
     
     @Prop()
     @IsNotEmpty()
-    @IsMongoId()
+    @IsObjectId()
     teacher!: Types.ObjectId;
     
     @Prop()
-    @IsMongoId({each:true, message: 'Each asstisant must be a valid ObjectId'})
+    @IsNotEmpty()
+    @IsObjectId({each:true, message: 'Each asstisant must be a valid ObjectId'})
     @IsArray()
     @ArrayMinSize(0,{message: 'Assistants must be an array (can be empty)'})
     assistants!: Types.ObjectId[];

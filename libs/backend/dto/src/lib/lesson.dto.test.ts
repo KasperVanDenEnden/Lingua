@@ -1,0 +1,112 @@
+import { Types } from "mongoose";
+import { CreateLessonDto } from "./lesson.dto";
+import { validate } from "class-validator";
+
+describe('LessonDto Tests', () => {
+    let DTO: CreateLessonDto;
+
+    beforeEach(() => {
+        DTO = new CreateLessonDto
+        DTO.class = new Types.ObjectId()
+        DTO.teacher = new Types.ObjectId();
+        DTO.classroom = new Types.ObjectId();
+        DTO.startTime = new Date();
+        DTO.endTime = new Date();
+    })
+
+    it('should pass validation with valid data', async () => {
+        const errors = await validate(DTO);
+        expect(errors.length).toBe(0);
+    })
+
+    it('should fail validation when location is missing', async () => {
+        DTO.class = undefined as any;
+        const errors = await validate(DTO);
+        
+        expect(errors.length).toBeGreaterThan(0);
+        expect(errors[0].property).toBe('class');
+        expect(errors[0].constraints?.["isNotEmpty"]).toBe('class should not be empty');
+    })
+  
+    it('should fail validation when teacher is missing', async () => {
+        DTO.teacher = undefined as any;
+        const errors = await validate(DTO);
+        
+        expect(errors.length).toBeGreaterThan(0);
+        expect(errors[0].property).toBe('teacher');
+        expect(errors[0].constraints?.["isNotEmpty"]).toBe('teacher should not be empty');
+    })
+  
+    it('should fail validation when classroom is missing', async () => {
+        DTO.classroom = undefined as any;
+        const errors = await validate(DTO);
+        
+        expect(errors.length).toBeGreaterThan(0);
+        expect(errors[0].property).toBe('classroom');
+        expect(errors[0].constraints?.["isNotEmpty"]).toBe('classroom should not be empty');
+    })
+  
+    it('should fail validation when startTime is missing', async () => {
+        DTO.startTime = undefined as any;
+        const errors = await validate(DTO);
+        
+        expect(errors.length).toBeGreaterThan(0);
+        expect(errors[0].property).toBe('startTime');
+        expect(errors[0].constraints?.["isNotEmpty"]).toBe('startTime should not be empty');
+    })
+   
+    it('should fail validation when endTime is missing', async () => {
+        DTO.endTime = undefined as any;
+        const errors = await validate(DTO);
+        
+        expect(errors.length).toBeGreaterThan(0);
+        expect(errors[0].property).toBe('endTime');
+        expect(errors[0].constraints?.["isNotEmpty"]).toBe('endTime should not be empty');
+    })
+  
+    it('should fail validation when class is not valid type', async () => {
+        DTO.class = 'invalid' as any;
+        const errors = await validate(DTO);
+        
+        expect(errors.length).toBeGreaterThan(0);
+        expect(errors[0].property).toBe('class');
+        expect(errors[0].constraints?.["isObjectId"]).toBe('class must be a valid ObjectId');
+    })
+   
+    it('should fail validation when teacher is not valid type', async () => {
+        DTO.teacher = 'invalid' as any;
+        const errors = await validate(DTO);
+        
+        expect(errors.length).toBeGreaterThan(0);
+        expect(errors[0].property).toBe('teacher');
+        expect(errors[0].constraints?.["isObjectId"]).toBe('teacher must be a valid ObjectId');
+    })
+  
+    it('should fail validation when classroom is not valid type', async () => {
+        DTO.classroom = 'invalid' as any;
+        const errors = await validate(DTO);
+        
+        expect(errors.length).toBeGreaterThan(0);
+        expect(errors[0].property).toBe('classroom');
+        expect(errors[0].constraints?.["isObjectId"]).toBe('classroom must be a valid ObjectId');
+    })
+
+    it('should fail validation when startTime is not valid type', async () => {
+        DTO.startTime = 'invalid' as any;
+        const errors = await validate(DTO);
+        
+        expect(errors.length).toBeGreaterThan(0);
+        expect(errors[0].property).toBe('startTime');
+        expect(errors[0].constraints?.["isDate"]).toBe('startTime must be a Date instance');
+    })
+   
+    it('should fail validation when endTime is not valid type', async () => {
+        DTO.endTime = 'invalid' as any;
+        const errors = await validate(DTO);
+        
+        expect(errors.length).toBeGreaterThan(0);
+        expect(errors[0].property).toBe('endTime');
+        expect(errors[0].constraints?.["isDate"]).toBe('endTime must be a Date instance');
+    })
+
+})

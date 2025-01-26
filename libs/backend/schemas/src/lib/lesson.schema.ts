@@ -7,45 +7,45 @@ export type LessonDocument = Lesson & Document;
 
 @Schema()
 export class Lesson implements ILesson {
-    @Prop()
-    @IsObjectId()
-    @IsNotEmpty()
-    _id!: Types.ObjectId;
-    
-    @Prop()
-    @IsNotEmpty()
-    @IsObjectId()
-    class!: Types.ObjectId;
+  @Prop()
+  @IsObjectId()
+  @IsNotEmpty()
+  _id!: Types.ObjectId;
 
-    @Prop()
-    @IsNotEmpty()
-    @IsObjectId()
-    classroom!: Types.ObjectId;
+  @Prop()
+  @IsNotEmpty()
+  @IsObjectId()
+  class!: Types.ObjectId;
 
-    @Prop()
-    @IsNotEmpty()
-    @IsObjectId()
-    teacher!: Types.ObjectId;
+  @Prop()
+  @IsNotEmpty()
+  @IsObjectId()
+  classroom!: Types.ObjectId;
 
-    @Prop()
-    @IsNotEmpty()
-    @IsString()
-    title!: string;
+  @Prop()
+  @IsNotEmpty()
+  @IsObjectId()
+  teacher!: Types.ObjectId;
 
-    @Prop()
-    @IsNotEmpty()
-    @IsString()
-    description!: string;
+  @Prop()
+  @IsNotEmpty()
+  @IsString()
+  title!: string;
 
-    @Prop()
-    @IsNotEmpty()
-    @IsDate()
-    startTime!: Date;
+  @Prop()
+  @IsNotEmpty()
+  @IsString()
+  description!: string;
 
-    @Prop()
-    @IsNotEmpty()
-    @IsDate()
-    endTime!: Date;
+  @Prop()
+  @IsNotEmpty()
+  @IsDate()
+  startTime!: Date;
+
+  @Prop()
+  @IsNotEmpty()
+  @IsDate()
+  endTime!: Date;
 }
 
 export const LessonSchema = SchemaFactory.createForClass(Lesson);

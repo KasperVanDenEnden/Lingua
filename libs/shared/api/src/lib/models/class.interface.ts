@@ -14,7 +14,7 @@ export enum Language {
 }
 
 export interface IClass {
-    id: Id;
+    _id: Id;
     title: string;
     description: string;
     status: ClassStatus;
@@ -23,6 +23,7 @@ export interface IClass {
     
     teacher: Id; // Id from main teacher
     assistants: Id[]; // Id from teacher assistants
+    comments: Comment[];
 }
 
 export type ICreateClass = Pick<IClass, 'title' | 'description' | 'language' | 'teacher' | 'assistants'>;

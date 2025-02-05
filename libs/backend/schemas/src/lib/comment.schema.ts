@@ -12,12 +12,12 @@ export class Comment implements IComment {
   @IsObjectId()
   id!: Types.ObjectId;
 
-  @Prop()
+  @Prop({ type: Types.ObjectId, ref: 'User' })
   @IsNotEmpty()
   @IsObjectId()
   student!: Types.ObjectId;
 
-  @Prop()
+  @Prop({ type: Types.ObjectId, ref: 'Class' })
   @IsNotEmpty()
   @IsObjectId()
   class!: Types.ObjectId;

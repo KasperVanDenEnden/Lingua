@@ -17,6 +17,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserService } from './user/user.service';
 import { RoomController } from './room/room.controller';
 import { RoomService } from './room/room.service';
+import { LessonController } from './lesson/lesson.controller';
+import { LessonService } from './lesson/lesson.service';
+import { ClassService } from './class/class.service';
 
 @Module({
   imports: [
@@ -24,7 +27,7 @@ import { RoomService } from './room/room.service';
       { name: Location.name, schema: LocationSchema },
       { name: Class.name, schema: ClassSchema },
       { name: User.name, schema: UserSchema },
-      { name: Room.name, schema: RoomSchema }
+      { name: Room.name, schema: RoomSchema },
     ]),
   ],
   controllers: [
@@ -32,8 +35,15 @@ import { RoomService } from './room/room.service';
     UserController,
     ClassController,
     RoomController,
+    LessonController,
   ],
-  providers: [LocationService, UserService, RoomService],
+  providers: [
+    LocationService,
+    UserService,
+    RoomService,
+    LessonService,
+    ClassService,
+  ],
   exports: [],
 })
 export class FeaturesModule {}

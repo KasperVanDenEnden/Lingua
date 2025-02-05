@@ -12,17 +12,17 @@ export class Lesson implements ILesson {
   @IsNotEmpty()
   id!: Types.ObjectId;
 
-  @Prop()
+  @Prop({ type: Types.ObjectId, ref: 'Class' })
   @IsNotEmpty()
   @IsObjectId()
   class!: Types.ObjectId;
 
-  @Prop()
+  @Prop({ type: Types.ObjectId, ref: 'Room' })
   @IsNotEmpty()
   @IsObjectId()
   room!: Types.ObjectId;
 
-  @Prop()
+  @Prop({ type: Types.ObjectId, ref: 'User' })
   @IsNotEmpty()
   @IsObjectId()
   teacher!: Types.ObjectId;

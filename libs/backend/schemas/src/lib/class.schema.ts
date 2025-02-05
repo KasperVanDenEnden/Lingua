@@ -28,7 +28,7 @@ export class Class implements IClass {
   @IsEnum(ClassStatus, { message: 'Status must be a valid enum value' })
   status!: ClassStatus;
 
-  @Prop()
+  @Prop({ default: Date.now()})
   @IsNotEmpty()
   @IsDate()
   createdOn!: Date;

@@ -1,7 +1,7 @@
 import { Id } from "./id";
 
 export interface IComment {
-    _id: Id;
+    id: Id;
 
     student: Id; // user Id
     class: Id; // class Id

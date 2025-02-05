@@ -3,7 +3,7 @@ import { Id } from "./id";
 export interface ILesson {
     class: Id;
 
-    classroom: Id; // classroom Id
+    room: Id; // Room Id
     teacher: Id; // teacher Id
 
     title:string;
@@ -13,6 +13,6 @@ export interface ILesson {
     endTime: Date;
 }
 
-export type ICreateLesson = Pick<ILesson, 'class' | 'classroom' |'teacher' | 'startTime' | 'endTime'>;
+export type ICreateLesson = Pick<ILesson, 'class' | 'room' |'teacher' | 'startTime' | 'endTime'>;
 export type IUpdateLesson = Partial<Omit<ILesson, 'id'>>;
 export type IUpsertLesson = ILesson;

@@ -22,6 +22,8 @@ import { RoomService } from './room/room.service';
 import { LessonController } from './lesson/lesson.controller';
 import { LessonService } from './lesson/lesson.service';
 import { ClassService } from './class/class.service';
+import { AssistantController } from './class/assistant/assistant.controller';
+import { AssistantService } from './class/assistant/assistant.service';
 
 @Module({
   imports: [
@@ -30,7 +32,7 @@ import { ClassService } from './class/class.service';
       { name: Class.name, schema: ClassSchema },
       { name: User.name, schema: UserSchema },
       { name: Room.name, schema: RoomSchema },
-      { name: Lesson.name, schema: LessonSchema }
+      { name: Lesson.name, schema: LessonSchema },
     ]),
   ],
   controllers: [
@@ -39,6 +41,7 @@ import { ClassService } from './class/class.service';
     ClassController,
     RoomController,
     LessonController,
+    AssistantController,
   ],
   providers: [
     LocationService,
@@ -46,6 +49,7 @@ import { ClassService } from './class/class.service';
     RoomService,
     LessonService,
     ClassService,
+    AssistantService,
   ],
   exports: [],
 })

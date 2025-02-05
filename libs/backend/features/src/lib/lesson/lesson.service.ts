@@ -37,26 +37,26 @@ export class LessonService {
       async update(id: Id, changes: IUpdateLesson): Promise<ILesson> {
         Logger.log('update', this.TAG);
     
-        const updatedRoom = await this.lessonModel.findByIdAndUpdate(
+        const updatedLesson = await this.lessonModel.findByIdAndUpdate(
           { _id: id },
           changes,
           { new: true }
         );
     
-        if (!updatedRoom)
+        if (!updatedLesson)
           throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
     
-        return updatedRoom;
+        return updatedLesson;
       }
     
       async delete(id: Id) {
         Logger.log('delete', this.TAG);
     
-        const deletedRoom = await this.lessonModel.findByIdAndDelete(id);
+        const deletedLesson = await this.lessonModel.findByIdAndDelete(id);
     
-        if (!deletedRoom)
+        if (!deletedLesson)
           throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
     
-        return deletedRoom;
+        return deletedLesson;
       }
 }

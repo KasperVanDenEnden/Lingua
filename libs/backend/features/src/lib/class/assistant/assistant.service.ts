@@ -60,6 +60,13 @@ export class AssistantService {
     async addAssistant(id: Types.ObjectId, classId: Types.ObjectId): Promise<IClass> {
         Logger.log('addAssistant', this.TAG);
 
+        const existingClass = await this.classModel.findOne({
+            _id: classId,
+            assistants: id
+        });
+
+        if (existingClass) throw new HttpException('Assistant already in class', HttpStatus.BAD_REQUEST);
+
         const updatedClass = await this.classModel.findByIdAndUpdate(
             {_id:classId},
             { 
@@ -80,6 +87,14 @@ export class AssistantService {
     
     async removeAssistant(id: Types.ObjectId, classId: Types.ObjectId):  Promise<IClass> {
         Logger.log('removeAssistant', this.TAG);
+
+        const existingClass = await this.classModel.findOne({
+            _id: classId,
+            assistants: id
+        });
+
+        if (!existingClass) throw new HttpException('Assistant not found in class', HttpStatus.NOT_FOUND);
+
 
         const updatedClass = await this.classModel.findByIdAndUpdate(
             {_id:classId},

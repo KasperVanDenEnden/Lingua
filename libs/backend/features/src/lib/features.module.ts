@@ -34,11 +34,7 @@ import { CommentService } from './comment/comment.service';
       { name: Class.name, schema: ClassSchema },
       { name: User.name, schema: UserSchema },
       { name: Room.name, schema: RoomSchema },
-<<<<<<< HEAD
-      { name: Lesson.name, schema: LessonSchema }
-=======
       { name: Lesson.name, schema: LessonSchema },
->>>>>>> c5510c30f42e50955395669c19f088359d33857f
     ]),
   ],
   controllers: [

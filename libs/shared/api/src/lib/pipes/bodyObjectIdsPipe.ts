@@ -7,19 +7,36 @@ import { Types } from 'mongoose';
 export class BodyObjectIdsPipe implements PipeTransform<any, any> {
   transform(value: any, metadata: ArgumentMetadata): any {
     if (typeof value !== 'object' || value === null) {
-      throw new BadRequestException('Invalid input. Expecting an object with string properties.');
+      throw new BadRequestException(
+        'Invalid input. Expecting an object with string properties.'
+      );
     }
 
     const transformedObject: any = { ...value };
 
     // ✅ Alleen de velden die een ObjectId moeten zijn, converteren
-    const objectIdFields = ['id', 'userId', 'locationId']; // Voeg hier relevante ID-velden toe
+    const objectIdFields = [
+      'id',
+      'createdBy',
+      'teacher',
+      'assistants',
+      'room',
+      'student',
+      'location',
+      'class',
+    ]; // Voeg hier relevante ID-velden toe
 
     objectIdFields.forEach((key) => {
-      if (value[key] && typeof value[key] === 'string' && Types.ObjectId.isValid(value[key])) {
+      if (
+        value[key] &&
+        typeof value[key] === 'string' &&
+        Types.ObjectId.isValid(value[key])
+      ) {
         transformedObject[key] = new Types.ObjectId(value[key]);
       } else if (value[key]) {
-        throw new BadRequestException(`Invalid ObjectId for property '${key}'.`);
+        throw new BadRequestException(
+          `Invalid ObjectId for property '${key}'.`
+        );
       }
     });
 

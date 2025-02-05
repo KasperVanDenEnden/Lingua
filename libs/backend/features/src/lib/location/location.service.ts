@@ -19,6 +19,7 @@ export class LocationService {
 
   async getOne(id: Id): Promise<ILocation> {
     Logger.log('getOne', this.TAG);
+
     const location = await this.locationModel.findById(id).exec();
 
     if (!location)
@@ -27,16 +28,10 @@ export class LocationService {
     return location;
   }
 
-  async getMany(idArray: Id[]): Promise<ILocation[]> {
-    Logger.log('getMany', this.TAG);
+  async create(body: ILocation): Promise<ILocation> {
+    Logger.log('create', this.TAG);
 
-    const locations = await this.locationModel
-      .find({
-        _id: { in: idArray },
-      })
-      .exec();
-
-    return locations;
+    return await this.locationModel.create(body);
   }
 
   async update(id: Id, changes: IUpdateLocation): Promise<ILocation> {
@@ -47,19 +42,21 @@ export class LocationService {
       changes,
       { new: true }
     );
-    
-    if (!updatedLocation) 
+
+    if (!updatedLocation)
       throw new HttpException('Location not found', HttpStatus.NOT_FOUND);
-    
+
     return updatedLocation;
   }
 
   async delete(id: Id) {
     Logger.log('delete', this.TAG);
 
-    const deletedLocation = await this.locationModel.findByIdAndDelete({_id:id});
+    const deletedLocation = await this.locationModel.findByIdAndDelete({
+      _id: id,
+    });
 
-    if (!deletedLocation) 
+    if (!deletedLocation)
       throw new HttpException('Location not found', HttpStatus.NOT_FOUND);
 
     return deletedLocation;

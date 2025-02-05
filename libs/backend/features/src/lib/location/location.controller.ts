@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Logger, Param, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Put, Post } from '@nestjs/common';
 import { LocationService } from './location.service';
 import { BodyObjectIdsPipe, Id, ILocation, IUpdateLocation, stringObjectIdPipe } from '@lingua/api'
 
@@ -14,6 +14,12 @@ export class LocationController {
     async getOne(@Param('id', stringObjectIdPipe) id:Id): Promise<ILocation> {
         Logger.log('getAll', this.TAG);
         return await this.locationService.getOne(id);
+    }
+
+    @Post()
+    async create(@Body(BodyObjectIdsPipe) body: ILocation): Promise<ILocation> {
+        Logger.log('create', this.TAG);
+        return await this.locationService.create(body)
     }
     
     @Put(':id')

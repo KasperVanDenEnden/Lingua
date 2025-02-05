@@ -32,7 +32,7 @@ export class Comment implements IComment {
   @IsInt()
   rating!: number;
 
-  @Prop()
+  @Prop({ default: Date.now()})
   @IsNotEmpty()
   @IsDate()
   createdAt!: Date;

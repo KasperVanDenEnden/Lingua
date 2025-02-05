@@ -24,6 +24,8 @@ import { LessonService } from './lesson/lesson.service';
 import { ClassService } from './class/class.service';
 import { AssistantController } from './class/assistant/assistant.controller';
 import { AssistantService } from './class/assistant/assistant.service';
+import { CommentController } from './comment/comment.controller';
+import { CommentService } from './comment/comment.service';
 
 @Module({
   imports: [
@@ -42,6 +44,7 @@ import { AssistantService } from './class/assistant/assistant.service';
     RoomController,
     LessonController,
     AssistantController,
+    CommentController,
   ],
   providers: [
     LocationService,
@@ -50,6 +53,7 @@ import { AssistantService } from './class/assistant/assistant.service';
     LessonService,
     ClassService,
     AssistantService,
+    CommentService,
   ],
   exports: [],
 })

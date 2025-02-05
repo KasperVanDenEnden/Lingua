@@ -22,6 +22,8 @@ import { RoomService } from './room/room.service';
 import { LessonController } from './lesson/lesson.controller';
 import { LessonService } from './lesson/lesson.service';
 import { ClassService } from './class/class.service';
+import { AssistantController } from './class/assistant/assistant.controller';
+import { AssistantService } from './class/assistant/assistant.service';
 import { CommentController } from './comment/comment.controller';
 import { CommentService } from './comment/comment.service';
 
@@ -41,6 +43,7 @@ import { CommentService } from './comment/comment.service';
     ClassController,
     RoomController,
     LessonController,
+    AssistantController,
     CommentController,
   ],
   providers: [
@@ -49,6 +52,7 @@ import { CommentService } from './comment/comment.service';
     RoomService,
     LessonService,
     ClassService,
+    AssistantService,
     CommentService,
   ],
   exports: [],

@@ -2,7 +2,6 @@ import { IRoom, IsObjectId } from '@lingua/api';
 import { Types } from 'mongoose';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { IsString, IsNotEmpty, IsInt, IsBoolean } from 'class-validator';
-import { User } from './user.schema';
 
 export type RoomDocument = Room & Document;
 
@@ -39,4 +38,4 @@ export class Room implements IRoom {
   hasMonitor!: boolean;
 }
 
-export const RoomSchema = SchemaFactory.createForClass(User);
+export const RoomSchema = SchemaFactory.createForClass(Room);

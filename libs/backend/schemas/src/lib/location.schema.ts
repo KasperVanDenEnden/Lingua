@@ -12,7 +12,7 @@ export class Location implements ILocation {
   @IsObjectId()
   id!: Types.ObjectId;
 
-  @Prop()
+  @Prop({ type: Types.ObjectId, ref: 'User' })
   @IsNotEmpty()
   @IsObjectId()
   createdBy!: Types.ObjectId;

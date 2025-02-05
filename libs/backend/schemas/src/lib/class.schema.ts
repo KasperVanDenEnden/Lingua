@@ -38,12 +38,12 @@ export class Class implements IClass {
   @IsEnum(Language, { message: 'Language must be a valid enum value' })
   language!: Language;
 
-  @Prop()
+  @Prop({ type: Types.ObjectId, ref: 'User' })
   @IsNotEmpty()
   @IsObjectId()
   teacher!: Types.ObjectId;
 
-  @Prop()
+  @Prop({ type: [Types.ObjectId], ref: 'User' })
   @IsNotEmpty()
   @IsObjectId({
     each: true,

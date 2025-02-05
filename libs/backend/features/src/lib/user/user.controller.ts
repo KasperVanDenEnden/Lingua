@@ -9,6 +9,7 @@ export class UserController {
 
   @Get()
   async getAll(): Promise<IUser[]> {
+    Logger.log('getAll', this.TAG);
     return await this.userService.getAll();
   }
 
@@ -36,7 +37,6 @@ export class UserController {
   @Delete(':id')
   async delete(@Param('id', stringObjectIdPipe) id: Id) {
     Logger.log('delete', this.TAG);
-    console.log(id);
     return this.userService.delete(id);
   }
 }

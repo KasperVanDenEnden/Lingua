@@ -18,7 +18,7 @@
     ],
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
-  "nxCloudId": "678aaf2367d2b552c001ac25",
+  "nxCloudId": "67a34ca41bd7e159fe850d31",
   "targetDefaults": {
     "@angular-devkit/build-angular:application": {
       "cache": true,
@@ -37,19 +37,16 @@
     "@nx/jest:jest": {
       "cache": true,
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-      "options": {
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      }
+      "options": { "passWithNoTests": true },
+      "configurations": { "ci": { "ci": true, "codeCoverage": true } }
     },
+<<<<<<< HEAD
     "e2e-ci--**/*": {
       "dependsOn": ["^build"]
     },
+=======
+    "e2e-ci--**/*": { "dependsOn": ["^build"] },
+>>>>>>> f34e99828fe6652a3cc5c248de4b569e2c9f5b34
     "@nx/js:tsc": {
       "cache": true,
       "dependsOn": ["^build"],
@@ -66,12 +63,7 @@
         "ciTargetName": "e2e-ci"
       }
     },
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      }
-    },
+    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
     {
       "plugin": "@nx/webpack/plugin",
       "options": {
@@ -88,12 +80,7 @@
       "style": "css",
       "unitTestRunner": "jest"
     },
-    "@nx/angular:library": {
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nx/angular:component": {
-      "style": "css"
-    }
+    "@nx/angular:library": { "linter": "eslint", "unitTestRunner": "jest" },
+    "@nx/angular:component": { "style": "css" }
   }
 }

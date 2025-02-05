@@ -1,4 +1,62 @@
-import { Injectable } from '@nestjs/common';
+import { Id, ILesson, IUpdateLesson } from '@lingua/api';
+import { Lesson, LessonDocument } from '@lingua/schemas';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
-export class LessonService {}
+export class LessonService {
+      private TAG = 'LessonService';
+      constructor(@InjectModel(Lesson.name) private lessonModel: Model<LessonDocument>) {}
+    
+      async getAll(): Promise<ILesson[]> {
+        Logger.log('getAll', this.TAG);
+        return await this.lessonModel.find();
+      }
+    
+      async getOne(id: Id): Promise<ILesson> {
+        Logger.log('getOne', this.TAG);
+    
+        const lesson = await this.lessonModel.findById(id)
+            .populate('room')
+            .populate('room.location')
+            .populate('teacher')
+            .populate('class')
+            .exec();
+    
+        if (!lesson) throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
+    
+        return lesson;
+      }
+    
+      async create(body: ILesson): Promise<ILesson> {
+        Logger.log('create', this.TAG);
+        return await this.lessonModel.create(body);
+      }
+    
+      async update(id: Id, changes: IUpdateLesson): Promise<ILesson> {
+        Logger.log('update', this.TAG);
+    
+        const updatedRoom = await this.lessonModel.findByIdAndUpdate(
+          { _id: id },
+          changes,
+          { new: true }
+        );
+    
+        if (!updatedRoom)
+          throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
+    
+        return updatedRoom;
+      }
+    
+      async delete(id: Id) {
+        Logger.log('delete', this.TAG);
+    
+        const deletedRoom = await this.lessonModel.findByIdAndDelete(id);
+    
+        if (!deletedRoom)
+          throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
+    
+        return deletedRoom;
+      }
+}

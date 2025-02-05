@@ -6,6 +6,8 @@ import { ClassController } from './class/class.controller';
 import {
   Class,
   ClassSchema,
+  Lesson,
+  LessonSchema,
   Location,
   LocationSchema,
   Room,
@@ -28,6 +30,7 @@ import { ClassService } from './class/class.service';
       { name: Class.name, schema: ClassSchema },
       { name: User.name, schema: UserSchema },
       { name: Room.name, schema: RoomSchema },
+      { name: Lesson.name, schema: LessonSchema }
     ]),
   ],
   controllers: [

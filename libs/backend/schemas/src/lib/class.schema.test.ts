@@ -37,7 +37,7 @@ describe('ClassSchema Tests', () => {
 
   beforeEach(() => {
     baseBody = {
-      _id: new Types.ObjectId(),
+      id: new Types.ObjectId(),
       title: 'Title',
       description: 'Description',
       status: ClassStatus.Active,

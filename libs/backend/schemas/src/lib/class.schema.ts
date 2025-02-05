@@ -11,11 +11,6 @@ export class Class implements IClass {
   @Prop()
   @IsNotEmpty()
   @IsObjectId()
-  _id!: Types.ObjectId;
-
-  @Prop()
-  @IsNotEmpty()
-  @IsObjectId()
   id!: Types.ObjectId;
 
   @Prop()

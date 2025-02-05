@@ -16,7 +16,7 @@ export enum Province {
 }
 
 export interface ILocation {
-    _id: Id;
+    id: Id;
 
     createdBy: Id; // Id from admin
 

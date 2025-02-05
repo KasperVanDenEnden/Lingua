@@ -1,17 +1,17 @@
-import { IClassroom, IsObjectId } from '@lingua/api';
+import { IRoom, IsObjectId } from '@lingua/api';
 import { Types } from 'mongoose';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { IsString, IsNotEmpty, IsInt, IsBoolean } from 'class-validator';
 import { User } from './user.schema';
 
-export type ClassroomDocument = Classroom & Document;
+export type RoomDocument = Room & Document;
 
 @Schema()
-export class Classroom implements IClassroom {
+export class Room implements IRoom {
   @Prop()
   @IsNotEmpty()
   @IsObjectId()
-  _id!: Types.ObjectId;
+  id!: Types.ObjectId;
 
   @Prop()
   @IsNotEmpty()
@@ -39,4 +39,4 @@ export class Classroom implements IClassroom {
   hasMonitor!: boolean;
 }
 
-export const ClassroomSchema = SchemaFactory.createForClass(User);
+export const RoomSchema = SchemaFactory.createForClass(User);

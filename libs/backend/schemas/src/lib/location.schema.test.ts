@@ -37,7 +37,7 @@ describe('LocationSchema Tests', () => {
 
   beforeEach(() => {
     baseBody = {
-      _id: new Types.ObjectId(),
+      id: new Types.ObjectId(),
       createdBy: new Types.ObjectId(),
       slug: 'Test slug',
       street: 'Test street',

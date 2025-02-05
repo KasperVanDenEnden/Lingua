@@ -36,7 +36,7 @@ describe('CommentSchema Tests', () => {
 
   beforeEach(() => {
     baseBody = {
-      _id: new Types.ObjectId(),
+      id: new Types.ObjectId(),
       student: new Types.ObjectId(),
       class: new Types.ObjectId(),
       comment: 'Test comment',

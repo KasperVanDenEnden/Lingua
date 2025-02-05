@@ -36,9 +36,9 @@ describe('LessonSchema Tests', () => {
 
   beforeEach(() => {
     baseBody = {
-      _id: new Types.ObjectId(),
+      id: new Types.ObjectId(),
       class: new Types.ObjectId(),
-      classroom: new Types.ObjectId(),
+      room: new Types.ObjectId(),
       teacher: new Types.ObjectId(),
       title: 'Test title',
       description: 'Test description',
@@ -73,16 +73,16 @@ describe('LessonSchema Tests', () => {
       'class should not be empty'
     );
   });
-  it('should fail validation if classroom is missing', async () => {
-    const body = { ...baseBody, classroom: undefined };
+  it('should fail validation if room is missing', async () => {
+    const body = { ...baseBody, room: undefined };
 
     const plain = plainToInstance(Lesson, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
-    expect(errors[0].property).toBe('classroom');
+    expect(errors[0].property).toBe('room');
     expect(errors[0].constraints?.['isNotEmpty']).toBe(
-      'classroom should not be empty'
+      'room should not be empty'
     );
   });
   it('should fail validation if teacher is missing', async () => {
@@ -159,17 +159,17 @@ describe('LessonSchema Tests', () => {
       'class must be a valid ObjectId'
     );
   });
-  it('should fail validation if classroom is invalid type', async () => {
-    const body = { ...baseBody, classroom: 'invalid' };
+  it('should fail validation if room is invalid type', async () => {
+    const body = { ...baseBody, room: 'invalid' };
 
     const plain = plainToInstance(Lesson, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
-    expect(errors[0].property).toBe('classroom');
+    expect(errors[0].property).toBe('room');
 
     expect(errors[0].constraints?.['isObjectId']).toBe(
-      'classroom must be a valid ObjectId'
+      'room must be a valid ObjectId'
     );
   });
   it('should fail validation if teacher is invalid type', async () => {

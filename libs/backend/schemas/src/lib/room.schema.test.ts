@@ -1,15 +1,15 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { Classroom, ClassroomSchema } from './classroom.schema';
+import { Room, RoomSchema } from './room.schema';
 import { disconnect, Model, Types } from 'mongoose';
 import { Test } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { validate } from 'class-validator';
 
-describe('ClassroomSchema Tests', () => {
+describe('RoomSchema Tests', () => {
   let mongod: MongoMemoryServer;
-  let classroomModel: Model<Classroom>;
-  let baseBody: Partial<Classroom>;
+  let roomModel: Model<Room>;
+  let baseBody: Partial<Room>;
 
   beforeAll(async () => {
     const app = await Test.createTestingModule({
@@ -23,20 +23,20 @@ describe('ClassroomSchema Tests', () => {
         }),
         MongooseModule.forFeature([
           {
-            name: Classroom.name,
-            schema: ClassroomSchema,
+            name: Room.name,
+            schema: RoomSchema,
           },
         ]),
       ],
     }).compile();
 
-    classroomModel = app.get<Model<Classroom>>(getModelToken(Classroom.name));
-    await classroomModel.ensureIndexes();
+    roomModel = app.get<Model<Room>>(getModelToken(Room.name));
+    await roomModel.ensureIndexes();
   });
 
   beforeEach(() => {
     baseBody = {
-      _id: new Types.ObjectId(),
+      id: new Types.ObjectId(),
       location: new Types.ObjectId(),
       slug: 'Slug',
       capacity: 0,
@@ -53,7 +53,7 @@ describe('ClassroomSchema Tests', () => {
   it('should pass validation with valid data', async () => {
     const body = { ...baseBody };
 
-    const plain = plainToInstance(Classroom, body);
+    const plain = plainToInstance(Room, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBe(0);
@@ -62,7 +62,7 @@ describe('ClassroomSchema Tests', () => {
   it('should fail validation if location is missing', async () => {
     const body = { ...baseBody, location: undefined };
 
-    const plain = plainToInstance(Classroom, body);
+    const plain = plainToInstance(Room, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -75,7 +75,7 @@ describe('ClassroomSchema Tests', () => {
   it('should fail validation if slug is missing', async () => {
     const body = { ...baseBody, slug: undefined };
 
-    const plain = plainToInstance(Classroom, body);
+    const plain = plainToInstance(Room, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -88,7 +88,7 @@ describe('ClassroomSchema Tests', () => {
   it('should fail validation if capacity is missing', async () => {
     const body = { ...baseBody, capacity: undefined };
 
-    const plain = plainToInstance(Classroom, body);
+    const plain = plainToInstance(Room, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -100,7 +100,7 @@ describe('ClassroomSchema Tests', () => {
   it('should fail validation if floor is missing', async () => {
     const body = { ...baseBody, floor: undefined };
 
-    const plain = plainToInstance(Classroom, body);
+    const plain = plainToInstance(Room, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -112,7 +112,7 @@ describe('ClassroomSchema Tests', () => {
   it('should fail validation if hasMonitor is missing', async () => {
     const body = { ...baseBody, hasMonitor: undefined };
 
-    const plain = plainToInstance(Classroom, body);
+    const plain = plainToInstance(Room, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -125,7 +125,7 @@ describe('ClassroomSchema Tests', () => {
   it('should fail validation if location is invalid type', async () => {
     const body = { ...baseBody, location: 'invalid' };
 
-    const plain = plainToInstance(Classroom, body);
+    const plain = plainToInstance(Room, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -139,7 +139,7 @@ describe('ClassroomSchema Tests', () => {
   it('should fail validation if slug is invalid type', async () => {
     const body = { ...baseBody, slug: 0 };
 
-    const plain = plainToInstance(Classroom, body);
+    const plain = plainToInstance(Room, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -151,7 +151,7 @@ describe('ClassroomSchema Tests', () => {
   it('should fail validation if capacity is invalid type', async () => {
     const body = { ...baseBody, capacity: 'invalid' };
 
-    const plain = plainToInstance(Classroom, body);
+    const plain = plainToInstance(Room, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -165,7 +165,7 @@ describe('ClassroomSchema Tests', () => {
   it('should fail validation if floor is invalid type', async () => {
     const body = { ...baseBody, floor: 'invalid' };
 
-    const plain = plainToInstance(Classroom, body);
+    const plain = plainToInstance(Room, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -179,7 +179,7 @@ describe('ClassroomSchema Tests', () => {
   it('should fail validation if hasMonitor is invalid type', async () => {
     const body = { ...baseBody, hasMonitor: 0 };
 
-    const plain = plainToInstance(Classroom, body);
+    const plain = plainToInstance(Room, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);

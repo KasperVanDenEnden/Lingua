@@ -1,8 +1,8 @@
-import { ICreateClassroom, IsObjectId } from "@lingua/api";
+import { ICreateRoom, IsObjectId } from "@lingua/api";
 import { IsBoolean, IsInt, IsNotEmpty, Min } from "class-validator";
 import { Types } from "mongoose";
 
-export class CreateClassroomDto implements ICreateClassroom {
+export class CreateRoomDto implements ICreateRoom {
     @IsNotEmpty()
     @IsObjectId()
     location!: Types.ObjectId;

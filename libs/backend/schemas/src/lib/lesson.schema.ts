@@ -10,7 +10,7 @@ export class Lesson implements ILesson {
   @Prop()
   @IsObjectId()
   @IsNotEmpty()
-  _id!: Types.ObjectId;
+  id!: Types.ObjectId;
 
   @Prop()
   @IsNotEmpty()
@@ -20,7 +20,7 @@ export class Lesson implements ILesson {
   @Prop()
   @IsNotEmpty()
   @IsObjectId()
-  classroom!: Types.ObjectId;
+  room!: Types.ObjectId;
 
   @Prop()
   @IsNotEmpty()

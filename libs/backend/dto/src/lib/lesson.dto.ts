@@ -1,5 +1,5 @@
 import { ICreateLesson, Id, IsObjectId } from "@lingua/api";
-import { IsDate, IsDateString, IsNotEmpty } from "class-validator";
+import { IsDate, IsNotEmpty } from "class-validator";
 
 export class CreateLessonDto implements ICreateLesson {
     @IsNotEmpty()
@@ -8,7 +8,7 @@ export class CreateLessonDto implements ICreateLesson {
 
     @IsNotEmpty()
     @IsObjectId()
-    classroom!: Id;
+    room!: Id;
 
     @IsNotEmpty()
     @IsObjectId()

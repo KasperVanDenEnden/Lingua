@@ -10,7 +10,7 @@ export class Location implements ILocation {
   @Prop()
   @IsNotEmpty()
   @IsObjectId()
-  _id!: Types.ObjectId;
+  id!: Types.ObjectId;
 
   @Prop()
   @IsNotEmpty()

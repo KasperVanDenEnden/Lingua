@@ -1,12 +1,12 @@
 import { Types } from "mongoose";
-import { CreateClassroomDto } from "./classroom.dto";
+import { CreateRoomDto } from "./room.dto";
 import { validate } from "class-validator";
 
-describe('ClassroomDto Tests', () => {
-    let DTO: CreateClassroomDto;
+describe('RoomDto Tests', () => {
+    let DTO: CreateRoomDto;
 
     beforeEach(() => {
-        DTO = new CreateClassroomDto();
+        DTO = new CreateRoomDto();
         DTO.location = new Types.ObjectId();
         DTO.capacity = 30; 
         DTO.floor = 2;

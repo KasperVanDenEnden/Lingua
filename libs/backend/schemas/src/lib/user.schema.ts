@@ -10,7 +10,7 @@ export class User implements IUser {
   @Prop()
   @IsNotEmpty()
   @IsObjectId()
-  _id!: Types.ObjectId;
+  id!: Types.ObjectId;
 
   @Prop({ type: String, enum: Object.values(Role) })
   @IsNotEmpty()

@@ -9,7 +9,7 @@ describe('LessonDto Tests', () => {
         DTO = new CreateLessonDto
         DTO.class = new Types.ObjectId()
         DTO.teacher = new Types.ObjectId();
-        DTO.classroom = new Types.ObjectId();
+        DTO.room = new Types.ObjectId();
         DTO.startTime = new Date();
         DTO.endTime = new Date();
     })
@@ -37,13 +37,13 @@ describe('LessonDto Tests', () => {
         expect(errors[0].constraints?.["isNotEmpty"]).toBe('teacher should not be empty');
     })
   
-    it('should fail validation when classroom is missing', async () => {
-        DTO.classroom = undefined as any;
+    it('should fail validation when room is missing', async () => {
+        DTO.room = undefined as any;
         const errors = await validate(DTO);
         
         expect(errors.length).toBeGreaterThan(0);
-        expect(errors[0].property).toBe('classroom');
-        expect(errors[0].constraints?.["isNotEmpty"]).toBe('classroom should not be empty');
+        expect(errors[0].property).toBe('room');
+        expect(errors[0].constraints?.["isNotEmpty"]).toBe('room should not be empty');
     })
   
     it('should fail validation when startTime is missing', async () => {
@@ -82,13 +82,13 @@ describe('LessonDto Tests', () => {
         expect(errors[0].constraints?.["isObjectId"]).toBe('teacher must be a valid ObjectId');
     })
   
-    it('should fail validation when classroom is not valid type', async () => {
-        DTO.classroom = 'invalid' as any;
+    it('should fail validation when room is not valid type', async () => {
+        DTO.room = 'invalid' as any;
         const errors = await validate(DTO);
         
         expect(errors.length).toBeGreaterThan(0);
-        expect(errors[0].property).toBe('classroom');
-        expect(errors[0].constraints?.["isObjectId"]).toBe('classroom must be a valid ObjectId');
+        expect(errors[0].property).toBe('room');
+        expect(errors[0].constraints?.["isObjectId"]).toBe('room must be a valid ObjectId');
     })
 
     it('should fail validation when startTime is not valid type', async () => {

@@ -17,7 +17,7 @@ async function bootstrap() {
     .setTitle('Lingua Data API')
     .setDescription('Lingua swagger data-api documentation')
     .setVersion('1.0')
-    .addTag('meal')
+    .addTag('Lingua')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(globalPrefix, app, documentFactory);

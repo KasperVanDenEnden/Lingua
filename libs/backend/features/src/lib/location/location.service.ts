@@ -20,7 +20,10 @@ export class LocationService {
   async getOne(id: Id): Promise<ILocation> {
     Logger.log('getOne', this.TAG);
 
-    const location = await this.locationModel.findById(id).populate('createdBy').exec();
+    const location = await this.locationModel
+      .findById(id)
+      .populate('createdBy')
+      .exec();
 
     if (!location)
       throw new HttpException('Location not found', HttpStatus.NOT_FOUND);

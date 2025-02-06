@@ -1,7 +1,7 @@
-import { IComment, IsObjectId } from "@lingua/api";
-import { Types } from "mongoose";
-import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { IsString, IsNotEmpty, IsDate, IsInt } from "class-validator";
+import { IComment, IsObjectId } from '@lingua/api';
+import { Types } from 'mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { IsString, IsNotEmpty, IsDate, IsInt } from 'class-validator';
 
 export type CommentDocument = Comment & Document;
 
@@ -32,7 +32,7 @@ export class Comment implements IComment {
   @IsInt()
   rating!: number;
 
-  @Prop({ default: Date.now()})
+  @Prop({ default: Date.now() })
   @IsNotEmpty()
   @IsDate()
   createdAt!: Date;

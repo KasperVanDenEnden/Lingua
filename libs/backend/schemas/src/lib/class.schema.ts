@@ -1,8 +1,15 @@
-import { ClassStatus, IClass, IsObjectId, Language } from "@lingua/api";
-import { Types } from "mongoose";
-import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { IsString, IsEnum, IsNotEmpty, IsDate, ArrayMinSize, IsArray } from "class-validator";
-import { CommentSchema } from "./comment.schema";
+import { ClassStatus, IClass, IsObjectId, Language } from '@lingua/api';
+import { Types } from 'mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import {
+  IsString,
+  IsEnum,
+  IsNotEmpty,
+  IsDate,
+  ArrayMinSize,
+  IsArray,
+} from 'class-validator';
+import { CommentSchema } from './comment.schema';
 
 export type ClassDocument = Class & Document;
 
@@ -28,7 +35,7 @@ export class Class implements IClass {
   @IsEnum(ClassStatus, { message: 'Status must be a valid enum value' })
   status!: ClassStatus;
 
-  @Prop({ default: Date.now()})
+  @Prop({ default: Date.now() })
   @IsNotEmpty()
   @IsDate()
   createdOn!: Date;

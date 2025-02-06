@@ -19,7 +19,10 @@ export class ClassService {
   async getOne(id: Id): Promise<IClass> {
     Logger.log('getOne', this.TAG);
 
-    const instance = await this.classModel.findById(id).populate(['teacher', 'assistants']).exec();
+    const instance = await this.classModel
+      .findById(id)
+      .populate(['teacher', 'assistants'])
+      .exec();
 
     if (!instance)
       throw new HttpException('Class not found', HttpStatus.NOT_FOUND);

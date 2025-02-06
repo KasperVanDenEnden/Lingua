@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, Logger, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { BodyObjectIdsPipe, IComment, Id, IUpdateComment, stringObjectIdPipe } from '@lingua/api';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('comment')
+@UseGuards(JwtAuthGuard)
 export class CommentController {  
     private TAG = 'CommentController';
     constructor(private commentService: CommentService) {}

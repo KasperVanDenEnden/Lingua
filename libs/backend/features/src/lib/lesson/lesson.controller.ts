@@ -1,8 +1,12 @@
-import { Body, Controller, Delete, Get, Logger, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { LessonService } from './lesson.service';
-import { BodyObjectIdsPipe, Id, ILesson, IUpdateLesson, stringObjectIdPipe } from '@lingua/api';
+import { BodyObjectIdsPipe, Id, ILesson, IUpdateLesson, Role, stringObjectIdPipe } from '@lingua/api';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { Roles } from '../auth/decorators/role.decorator';
+import { RolesGuard } from '../auth/guards/role-auth.guard';
 
 @Controller('lesson')
+@UseGuards(JwtAuthGuard)
 export class LessonController {
   private TAG = 'LessonController';
   constructor(private lessonService: LessonService) {}
@@ -19,12 +23,16 @@ export class LessonController {
     return await this.lessonService.getOne(id);
   }
 
+  @UseGuards(RolesGuard)
+  @Roles(Role.Teacher, Role.Admin)
   @Post()
   async create(@Body(BodyObjectIdsPipe) body: ILesson): Promise<ILesson> {
     Logger.log('create', this.TAG);
     return await this.lessonService.create(body);
   }
-
+  
+  @UseGuards(RolesGuard)
+  @Roles(Role.Teacher, Role.Admin)
   @Put(':id')
   async update(
     @Param('id', stringObjectIdPipe) id: Id,
@@ -34,6 +42,8 @@ export class LessonController {
     return await this.lessonService.update(id, body);
   }
 
+  @UseGuards(RolesGuard)
+  @Roles(Role.Teacher, Role.Admin)
   @Delete(':id')
   async delete(@Param('id', stringObjectIdPipe) id: Id) {
     Logger.log('delete', this.TAG);

@@ -5,6 +5,8 @@ import { UserController } from './user/user.controller';
 import { ClassController } from './class/class.controller';
 import {
   Class,
+  ClassRegistration,
+  ClassRegistrationSchema,
   ClassSchema,
   Lesson,
   LessonSchema,
@@ -26,6 +28,17 @@ import { AssistantController } from './class/assistant/assistant.controller';
 import { AssistantService } from './class/assistant/assistant.service';
 import { CommentController } from './comment/comment.controller';
 import { CommentService } from './comment/comment.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
+import { JwtModule } from '@nestjs/jwt';
+import { environment } from '@lingua/util-env';
+import { JwtStrategy } from './auth/strategies/jwt.strategy';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { RolesGuard } from './auth/guards/role-auth.guard';
+import { ClassRegistrationController } from './student/class-registration.controller';
+import { ClassRegistrationService } from './student/class-registration.service';
+import { LessonAttendanceController } from './student/lesson-attendance.controller';
+import { LessonAttendanceService } from './student/lesson-attendance.service';
 
 @Module({
   imports: [
@@ -34,12 +47,13 @@ import { CommentService } from './comment/comment.service';
       { name: Class.name, schema: ClassSchema },
       { name: User.name, schema: UserSchema },
       { name: Room.name, schema: RoomSchema },
-<<<<<<< HEAD
-      { name: Lesson.name, schema: LessonSchema }
-=======
       { name: Lesson.name, schema: LessonSchema },
->>>>>>> c5510c30f42e50955395669c19f088359d33857f
+      { name: ClassRegistration.name, schema: ClassRegistrationSchema}
     ]),
+    JwtModule.register({
+      secret: environment.SECRET_KEY,
+      signOptions: { expiresIn: '5h' },
+    }),
   ],
   controllers: [
     LocationController,
@@ -49,6 +63,9 @@ import { CommentService } from './comment/comment.service';
     LessonController,
     AssistantController,
     CommentController,
+    AuthController,
+    ClassRegistrationController,
+    LessonAttendanceController,
   ],
   providers: [
     LocationService,
@@ -58,7 +75,13 @@ import { CommentService } from './comment/comment.service';
     ClassService,
     AssistantService,
     CommentService,
+    AuthService,
+    JwtStrategy,
+    JwtAuthGuard,
+    RolesGuard,
+    ClassRegistrationService,
+    LessonAttendanceService,
   ],
-  exports: [],
+  exports: [AuthService],
 })
 export class FeaturesModule {}

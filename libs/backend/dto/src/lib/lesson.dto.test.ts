@@ -10,6 +10,7 @@ describe('LessonDto Tests', () => {
         DTO.class = new Types.ObjectId()
         DTO.teacher = new Types.ObjectId();
         DTO.room = new Types.ObjectId();
+        DTO.students = [];
         DTO.startTime = new Date();
         DTO.endTime = new Date();
     })

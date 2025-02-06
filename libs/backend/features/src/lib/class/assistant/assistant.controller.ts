@@ -1,8 +1,13 @@
-import { IClass, Id, stringObjectIdPipe } from '@lingua/api';
-import { Controller, Delete, Get, Logger, Param, Put } from '@nestjs/common';
+import { IClass, Id, Role, stringObjectIdPipe } from '@lingua/api';
+import { Controller, Delete, Get, Logger, Param, Put, UseGuards } from '@nestjs/common';
 import { AssistantService } from './assistant.service';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { AuthGuard } from '@nestjs/passport';
+import { Roles } from '../../auth/decorators/role.decorator';
 
 @Controller('assistant')
+@UseGuards(JwtAuthGuard, AuthGuard)
+@Roles(Role.Admin, Role.Teacher)
 export class AssistantController {
     private Tag = 'AssistantController';
     constructor(private assistantService:AssistantService) {}

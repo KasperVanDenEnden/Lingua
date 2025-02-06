@@ -1,5 +1,5 @@
-import { ICreateClass, IsObjectId, IUpdateClass, Language } from '@lingua/api';
-import { ArrayMinSize, IsArray, IsEnum, IsNotEmpty, isObject, IsString } from 'class-validator'
+import { ICreateClass, IsObjectId, Language } from '@lingua/api';
+import { ArrayMinSize, IsArray, IsEnum, IsNotEmpty, IsString } from 'class-validator'
 import { Id } from '@lingua/api'
 
 export class CreateClassDto implements ICreateClass {

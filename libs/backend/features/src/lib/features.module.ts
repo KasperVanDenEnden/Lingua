@@ -5,6 +5,8 @@ import { UserController } from './user/user.controller';
 import { ClassController } from './class/class.controller';
 import {
   Class,
+  ClassRegistration,
+  ClassRegistrationSchema,
   ClassSchema,
   Lesson,
   LessonSchema,
@@ -33,6 +35,10 @@ import { environment } from '@lingua/util-env';
 import { JwtStrategy } from './auth/strategies/jwt.strategy';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/role-auth.guard';
+import { ClassRegistrationController } from './student/class-registration.controller';
+import { ClassRegistrationService } from './student/class-registration.service';
+import { LessonAttendanceController } from './student/lesson-attendance.controller';
+import { LessonAttendanceService } from './student/lesson-attendance.service';
 
 @Module({
   imports: [
@@ -42,10 +48,11 @@ import { RolesGuard } from './auth/guards/role-auth.guard';
       { name: User.name, schema: UserSchema },
       { name: Room.name, schema: RoomSchema },
       { name: Lesson.name, schema: LessonSchema },
+      { name: ClassRegistration.name, schema: ClassRegistrationSchema}
     ]),
     JwtModule.register({
       secret: environment.SECRET_KEY,
-      signOptions: { expiresIn: '5h'}
+      signOptions: { expiresIn: '5h' },
     }),
   ],
   controllers: [
@@ -57,6 +64,8 @@ import { RolesGuard } from './auth/guards/role-auth.guard';
     AssistantController,
     CommentController,
     AuthController,
+    ClassRegistrationController,
+    LessonAttendanceController,
   ],
   providers: [
     LocationService,
@@ -70,6 +79,8 @@ import { RolesGuard } from './auth/guards/role-auth.guard';
     JwtStrategy,
     JwtAuthGuard,
     RolesGuard,
+    ClassRegistrationService,
+    LessonAttendanceService,
   ],
   exports: [AuthService],
 })

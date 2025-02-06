@@ -3,8 +3,10 @@ import { IsEmail, IsEnum, IsNotEmpty, IsString, MinLength } from 'class-validato
 
 export class RegisterDto {
   @IsEmail()
+  @IsNotEmpty()
   email!: string;
-
+  
+  @IsNotEmpty()
   @IsString()
   @MinLength(6)
   password!: string;

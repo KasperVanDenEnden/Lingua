@@ -11,6 +11,7 @@ export * from './lib/models/comment.interface'
 
 export * from './lib/models/id'
 
+export * from './lib/models/class-registration.interface';
 // Filters
 
 // Pipes

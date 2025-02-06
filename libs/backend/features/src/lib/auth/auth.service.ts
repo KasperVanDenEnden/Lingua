@@ -18,20 +18,16 @@ export class AuthService {
     ) {}
 
     async login(loginDto:LoginDto) {
-        console.log('Find user by email.')
-        console.log(loginDto)
         const user = await this.userModel.findOne({
             email: loginDto.email,
         }).exec();
-        console.log('Is user found?:')
-        console.log(user);
+        
         if (!user) throw new UnauthorizedException('Invalid credentials');
-        console.log('User found!')
+        
         const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
 
-        console.log('Password check.')
         if (!isPasswordValid) throw new UnauthorizedException('Invalid credentials');
-        console.log('Password correct!')
+        
         const payload = {sub: user.id, email: user.email, role: user.role };
 
         return { access_token: this.jwtService.sign(payload) };

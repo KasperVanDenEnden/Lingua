@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
-import { CreateClassDto } from "./class.dto";
 import { validate } from "class-validator";
+import { CreateClassDto } from "./class.dto";
 import { Language } from "@lingua/api";
 describe('ClassDto Tests', () => {
     let DTO: CreateClassDto;

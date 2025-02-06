@@ -40,6 +40,7 @@ describe('LessonSchema Tests', () => {
       class: new Types.ObjectId(),
       room: new Types.ObjectId(),
       teacher: new Types.ObjectId(),
+      students: [],
       title: 'Test title',
       description: 'Test description',
       startTime: new Date(),

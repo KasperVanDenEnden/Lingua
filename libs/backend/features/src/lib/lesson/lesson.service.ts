@@ -22,6 +22,7 @@ export class LessonService {
             .populate('room.location')
             .populate('teacher')
             .populate('class')
+            .populate('students')
             .exec();
     
         if (!lesson) throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);

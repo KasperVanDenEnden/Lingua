@@ -1,7 +1,9 @@
 import { ICreateLesson, Id, IsObjectId } from "@lingua/api";
-import { IsDate, IsNotEmpty } from "class-validator";
+import { ArrayMinSize, IsArray, IsDate, IsNotEmpty } from "class-validator";
+import { Types } from "mongoose";
 
 export class CreateLessonDto implements ICreateLesson {
+    
     @IsNotEmpty()
     @IsObjectId()
     class!: Id;
@@ -13,7 +15,11 @@ export class CreateLessonDto implements ICreateLesson {
     @IsNotEmpty()
     @IsObjectId()
     teacher!: Id;
-    
+
+    @IsArray()
+    @ArrayMinSize(0,{message: 'Students must be an array (can be empty)'})
+    @IsObjectId({each:true, message: 'Each student must be a valid ObjectId'})
+    students!: Id[];
     
     @IsNotEmpty()
     @IsDate()

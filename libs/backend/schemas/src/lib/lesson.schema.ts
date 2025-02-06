@@ -1,13 +1,18 @@
-import { ILesson, IsObjectId } from "@lingua/api";
-import { Types } from "mongoose";
-import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { IsString, IsNotEmpty, IsDate, IsArray, ArrayMinSize } from "class-validator";
+import { ILesson, IsObjectId } from '@lingua/api';
+import { Types } from 'mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import {
+  IsString,
+  IsNotEmpty,
+  IsDate,
+  IsArray,
+  ArrayMinSize,
+} from 'class-validator';
 
 export type LessonDocument = Lesson & Document;
 
 @Schema()
 export class Lesson implements ILesson {
-  
   @Prop()
   @IsObjectId()
   @IsNotEmpty()

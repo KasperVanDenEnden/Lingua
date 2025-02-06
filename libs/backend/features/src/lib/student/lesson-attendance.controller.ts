@@ -9,22 +9,27 @@ import { LessonAttendanceService } from './lesson-attendance.service';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(Role.Student, Role.Admin)
 export class LessonAttendanceController {
-    private TAG = 'LessonAttendanceController';
+  private TAG = 'LessonAttendanceController';
 
-    constructor(private lessonAttendanceService: LessonAttendanceService) {}
+  constructor(private lessonAttendanceService: LessonAttendanceService) {}
 
-    @Put(':id/subscribe/:studentId')
-    async subscribe(@Param('id', stringObjectIdPipe) id:Id, @Param('studentId', stringObjectIdPipe) studentId:Id,): Promise<ILesson> {
-        Logger.log('subscribe', this.TAG);
+  @Put(':id/subscribe/:studentId')
+  async subscribe(
+    @Param('id', stringObjectIdPipe) id: Id,
+    @Param('studentId', stringObjectIdPipe) studentId: Id
+  ): Promise<ILesson> {
+    Logger.log('subscribe', this.TAG);
 
-        return this.lessonAttendanceService.subscribe(id,studentId);
-    }
+    return this.lessonAttendanceService.subscribe(id, studentId);
+  }
 
-    
-    @Put(':id/unsubscribe/:studentId')
-    async unsubscribe(@Param('id', stringObjectIdPipe) id:Id, @Param('studentId', stringObjectIdPipe) studentId:Id,): Promise<ILesson> {
-        Logger.log('unsubscribe', this.TAG);
+  @Put(':id/unsubscribe/:studentId')
+  async unsubscribe(
+    @Param('id', stringObjectIdPipe) id: Id,
+    @Param('studentId', stringObjectIdPipe) studentId: Id
+  ): Promise<ILesson> {
+    Logger.log('unsubscribe', this.TAG);
 
-        return this.lessonAttendanceService.unsubscribe(id,studentId);
-    }
+    return this.lessonAttendanceService.unsubscribe(id, studentId);
+  }
 }

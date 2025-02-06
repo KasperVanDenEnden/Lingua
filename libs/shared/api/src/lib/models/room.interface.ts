@@ -1,17 +1,20 @@
-import { Id } from "./id";
+import { Id } from './id';
 
 export interface IRoom {
-    id: Id;
+  id: Id;
 
-    location: Id; // location Id
+  location: Id; // location Id
 
-    slug: string;
-    capacity: number;
-    floor:number;
+  slug: string;
+  capacity: number;
+  floor: number;
 
-    hasMonitor: boolean;
+  hasMonitor: boolean;
 }
 
-export type ICreateRoom = Pick<IRoom, 'location' |'capacity' | 'floor' | 'hasMonitor'>;
+export type ICreateRoom = Pick<
+  IRoom,
+  'location' | 'capacity' | 'floor' | 'hasMonitor'
+>;
 export type IUpdateRoom = Partial<Omit<IRoom, 'id'>>;
 export type IUpsertRoom = IRoom;

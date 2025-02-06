@@ -28,7 +28,6 @@ export class ClassRegistration implements IClassRegistration {
   registeredAt!: Date;
 
   @Prop()
-  @IsEmpty()
   @IsDate()
   unregisteredAt!: Date;
 }

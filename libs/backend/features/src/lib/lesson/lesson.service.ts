@@ -6,57 +6,62 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class LessonService {
-      private TAG = 'LessonService';
-      constructor(@InjectModel(Lesson.name) private lessonModel: Model<LessonDocument>) {}
-    
-      async getAll(): Promise<ILesson[]> {
-        Logger.log('getAll', this.TAG);
-        return await this.lessonModel.find();
-      }
-    
-      async getOne(id: Id): Promise<ILesson> {
-        Logger.log('getOne', this.TAG);
-    
-        const lesson = await this.lessonModel.findById(id)
-            .populate('room')
-            .populate('room.location')
-            .populate('teacher')
-            .populate('class')
-            .exec();
-    
-        if (!lesson) throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
-    
-        return lesson;
-      }
-    
-      async create(body: ILesson): Promise<ILesson> {
-        Logger.log('create', this.TAG);
-        return await this.lessonModel.create(body);
-      }
-    
-      async update(id: Id, changes: IUpdateLesson): Promise<ILesson> {
-        Logger.log('update', this.TAG);
-    
-        const updatedLesson = await this.lessonModel.findByIdAndUpdate(
-          { _id: id },
-          changes,
-          { new: true }
-        );
-    
-        if (!updatedLesson)
-          throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
-    
-        return updatedLesson;
-      }
-    
-      async delete(id: Id) {
-        Logger.log('delete', this.TAG);
-    
-        const deletedLesson = await this.lessonModel.findByIdAndDelete(id);
-    
-        if (!deletedLesson)
-          throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
-    
-        return deletedLesson;
-      }
+  private TAG = 'LessonService';
+  constructor(
+    @InjectModel(Lesson.name) private lessonModel: Model<LessonDocument>
+  ) {}
+
+  async getAll(): Promise<ILesson[]> {
+    Logger.log('getAll', this.TAG);
+    return await this.lessonModel.find();
+  }
+
+  async getOne(id: Id): Promise<ILesson> {
+    Logger.log('getOne', this.TAG);
+
+    const lesson = await this.lessonModel
+      .findById(id)
+      .populate('room')
+      .populate('room.location')
+      .populate('teacher')
+      .populate('class')
+      .populate('students')
+      .exec();
+
+    if (!lesson)
+      throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
+
+    return lesson;
+  }
+
+  async create(body: ILesson): Promise<ILesson> {
+    Logger.log('create', this.TAG);
+    return await this.lessonModel.create(body);
+  }
+
+  async update(id: Id, changes: IUpdateLesson): Promise<ILesson> {
+    Logger.log('update', this.TAG);
+
+    const updatedLesson = await this.lessonModel.findByIdAndUpdate(
+      { _id: id },
+      changes,
+      { new: true }
+    );
+
+    if (!updatedLesson)
+      throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
+
+    return updatedLesson;
+  }
+
+  async delete(id: Id) {
+    Logger.log('delete', this.TAG);
+
+    const deletedLesson = await this.lessonModel.findByIdAndDelete(id);
+
+    if (!deletedLesson)
+      throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
+
+    return deletedLesson;
+  }
 }

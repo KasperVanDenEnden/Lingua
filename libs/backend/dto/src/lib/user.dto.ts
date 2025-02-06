@@ -1,25 +1,25 @@
-import { ICreateUser, Role } from "@lingua/api";
-import { IsNotEmpty, IsEnum, IsString, IsEmail } from "class-validator";
+import { ICreateUser, Role } from '@lingua/api';
+import { IsNotEmpty, IsEnum, IsString, IsEmail } from 'class-validator';
 
 export class CreateUserDto implements ICreateUser {
-    @IsEnum(Role, { message: 'Role must be a valid enum value'})
-    @IsNotEmpty()
-    role!: Role;
+  @IsEnum(Role, { message: 'Role must be a valid enum value' })
+  @IsNotEmpty()
+  role!: Role;
 
-    @IsNotEmpty()
-    @IsString()
-    firstname!: string;
-    
-    @IsNotEmpty()
-    @IsString()
-    lastname!: string;
+  @IsNotEmpty()
+  @IsString()
+  firstname!: string;
 
-    @IsNotEmpty()
-    @IsString()
-    @IsEmail()
-    email!: string;
+  @IsNotEmpty()
+  @IsString()
+  lastname!: string;
 
-    @IsNotEmpty()
-    @IsString()
-    password!: string;
+  @IsNotEmpty()
+  @IsString()
+  @IsEmail()
+  email!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  password!: string;
 }

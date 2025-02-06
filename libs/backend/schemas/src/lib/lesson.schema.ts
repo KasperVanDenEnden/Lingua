@@ -1,7 +1,13 @@
-import { ILesson, IsObjectId } from "@lingua/api";
-import { Types } from "mongoose";
-import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { IsString, IsNotEmpty, IsDate } from "class-validator";
+import { ILesson, IsObjectId } from '@lingua/api';
+import { Types } from 'mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import {
+  IsString,
+  IsNotEmpty,
+  IsDate,
+  IsArray,
+  ArrayMinSize,
+} from 'class-validator';
 
 export type LessonDocument = Lesson & Document;
 
@@ -26,6 +32,16 @@ export class Lesson implements ILesson {
   @IsNotEmpty()
   @IsObjectId()
   teacher!: Types.ObjectId;
+
+  @Prop({ type: [Types.ObjectId], ref: 'User' })
+  @IsNotEmpty()
+  @IsObjectId({
+    each: true,
+    message: 'Each user must be a valid ObjectId',
+  })
+  @IsArray()
+  @ArrayMinSize(0, { message: 'Assistants must be an array (can be empty)' })
+  students!: Types.ObjectId[];
 
   @Prop()
   @IsNotEmpty()

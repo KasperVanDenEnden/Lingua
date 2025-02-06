@@ -6,92 +6,110 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class ClassRegistrationService {
-    private TAG = 'ClassRegistrationService';
-    
-    constructor(@InjectModel(ClassRegistration.name) private classRegistrationModel: Model<ClassRegistrationDocument>) {}
+  private TAG = 'ClassRegistrationService';
 
-    async getRegistrations(): Promise<IClassRegistration[]> {
-        Logger.log('getRegistrations', this.TAG);
+  constructor(
+    @InjectModel(ClassRegistration.name)
+    private classRegistrationModel: Model<ClassRegistrationDocument>
+  ) {}
 
-        const registrations = await this.classRegistrationModel.aggregate([
-            {
-                $lookup: {
-                    from: 'users',
-                    localField: 'student',
-                    foreignField: '_id',
-                    as: 'studentDetails'    
-                }
-            },
-            {
-                $lookup: {
-                    from: 'classes',
-                    localField: 'class',
-                    foreignField: '_id',
-                    as: 'classDetails'    
-                }
-            },
-            {
-                $unwind: { path: '$studentDetails', preserveNullAndEmptyArrays: true }  // Dit haalt het student detail uit het array
-            },
-            {
-                $unwind: { path: '$classDetails', preserveNullAndEmptyArrays: true }    // Dit haalt het class detail uit het array
-            }
-        ])
+  async getRegistrations(): Promise<IClassRegistration[]> {
+    Logger.log('getRegistrations', this.TAG);
 
-        return registrations;
-    }
+    const registrations = await this.classRegistrationModel.aggregate([
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'student',
+          foreignField: '_id',
+          as: 'studentDetails',
+        },
+      },
+      {
+        $lookup: {
+          from: 'classes',
+          localField: 'class',
+          foreignField: '_id',
+          as: 'classDetails',
+        },
+      },
+      {
+        $unwind: { path: '$studentDetails', preserveNullAndEmptyArrays: true }, // Dit haalt het student detail uit het array
+      },
+      {
+        $unwind: { path: '$classDetails', preserveNullAndEmptyArrays: true }, // Dit haalt het class detail uit het array
+      },
+    ]);
 
-    async getRegisteredStudents(classId: Id): Promise<IUser[]> {
-        Logger.log(`Fetching registered students for class ${classId}`, this.TAG);
+    return registrations;
+  }
 
-        const registrations = await this.classRegistrationModel.find({
-            class: classId,
-            unregisteredAt: { $exists: false },  
-        })
-        .populate('student') 
-        .lean(); 
-    
-        return registrations.map((reg: any) => reg.student); 
-    }
+  async getRegisteredStudents(classId: Id): Promise<IUser[]> {
+    Logger.log(`Fetching registered students for class ${classId}`, this.TAG);
 
-    async register(body:IClassRegistration): Promise<IClassRegistration>{
-        Logger.log('register', this.TAG);
+    const registrations = await this.classRegistrationModel
+      .find({
+        class: classId,
+        unregisteredAt: { $exists: false },
+      })
+      .populate('student')
+      .lean();
 
-        const existingRecord = await this.classRegistrationModel.findOne({
-            class: body.class,
-            student: body.student,
-            unregisteredAt: { $exists: false }
-        })
+    return registrations.map((reg: any) => reg.student);
+  }
 
-        if (existingRecord) throw new HttpException('Student already registered', HttpStatus.BAD_REQUEST);
-        
-        return await this.classRegistrationModel.create(body);
-    }
+  async register(body: IClassRegistration): Promise<IClassRegistration> {
+    Logger.log('register', this.TAG);
 
-    async unregister(id:Id): Promise<IClassRegistration> {
-        Logger.log('unregister', this.TAG);
+    const existingRecord = await this.classRegistrationModel.findOne({
+      class: body.class,
+      student: body.student,
+      unregisteredAt: { $exists: false },
+    });
 
-        const updatedClassRegistration = await this.classRegistrationModel.findByIdAndUpdate(
-            { _id: id},
-            { unregisteredAt: Date.now()},
-            { 
-                new: true,
-                runValidators: true
-            }
-        );
+    if (existingRecord)
+      throw new HttpException(
+        'Student already registered',
+        HttpStatus.BAD_REQUEST
+      );
 
-        if (!updatedClassRegistration) throw new HttpException('Class registration not found', HttpStatus.NOT_FOUND);
+    return await this.classRegistrationModel.create(body);
+  }
 
-        return updatedClassRegistration;
-    }
+  async unregister(id: Id): Promise<IClassRegistration> {
+    Logger.log('unregister', this.TAG);
 
-    async delete(id:Id): Promise<IClassRegistration> {
-        Logger.log('delete', this.TAG);
+    const updatedClassRegistration =
+      await this.classRegistrationModel.findByIdAndUpdate(
+        { _id: id },
+        { unregisteredAt: Date.now() },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
 
-        const deletedRegistration = await this.classRegistrationModel.findByIdAndDelete({id});
+    if (!updatedClassRegistration)
+      throw new HttpException(
+        'Class registration not found',
+        HttpStatus.NOT_FOUND
+      );
 
-        if(!deletedRegistration) throw new HttpException('Class registration not found', HttpStatus.NOT_FOUND);
+    return updatedClassRegistration;
+  }
 
-        return deletedRegistration;
-    }
+  async delete(id: Id): Promise<IClassRegistration> {
+    Logger.log('delete', this.TAG);
+
+    const deletedRegistration =
+      await this.classRegistrationModel.findByIdAndDelete({ id });
+
+    if (!deletedRegistration)
+      throw new HttpException(
+        'Class registration not found',
+        HttpStatus.NOT_FOUND
+      );
+
+    return deletedRegistration;
+  }
 }

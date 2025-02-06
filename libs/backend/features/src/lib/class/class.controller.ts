@@ -1,6 +1,23 @@
-import { Body, Controller, Delete, Get, Logger, Param, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Logger,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { ClassService } from './class.service';
-import { IClass, stringObjectIdPipe, Id, BodyObjectIdsPipe, IUpdateClass, Role } from '@lingua/api';
+import {
+  IClass,
+  stringObjectIdPipe,
+  Id,
+  BodyObjectIdsPipe,
+  IUpdateClass,
+  Role,
+} from '@lingua/api';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/role-auth.guard';
 import { Roles } from '../auth/decorators/role.decorator';

@@ -6,48 +6,55 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
-
 @Injectable()
 export class AuthService {
-    private TAG = 'AuthService';
+  private TAG = 'AuthService';
 
-    constructor(
-        @InjectModel(User.name) 
-        private userModel: Model<UserDocument>, 
-        private jwtService:JwtService
-    ) {}
+  constructor(
+    @InjectModel(User.name)
+    private userModel: Model<UserDocument>,
+    private jwtService: JwtService
+  ) {}
 
-    async login(loginDto:LoginDto) {
-        const user = await this.userModel.findOne({
-            email: loginDto.email,
-        }).exec();
-        
-        if (!user) throw new UnauthorizedException('Invalid credentials');
-        
-        const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
+  async login(loginDto: LoginDto) {
+    const user = await this.userModel
+      .findOne({
+        email: loginDto.email,
+      })
+      .exec();
 
-        if (!isPasswordValid) throw new UnauthorizedException('Invalid credentials');
-        
-        const payload = {sub: user.id, email: user.email, role: user.role };
+    if (!user) throw new UnauthorizedException('Invalid credentials');
 
-        return { access_token: this.jwtService.sign(payload) };
-    }
+    const isPasswordValid = await bcrypt.compare(
+      loginDto.password,
+      user.password
+    );
 
-    async register(registerDto: RegisterDto) {
-        const existingUser = await this.userModel.findOne({
-            email: registerDto.email,
-        }).exec();
+    if (!isPasswordValid)
+      throw new UnauthorizedException('Invalid credentials');
 
-          if (existingUser) throw new UnauthorizedException('Email already exists');
+    const payload = { sub: user.id, email: user.email, role: user.role };
 
-          const hashedPassword = await bcrypt.hashSync(registerDto.password, 10);
-          const user = await this.userModel.create({
-            email: registerDto.email,
-            role: registerDto.role,
-            password: hashedPassword
-          });
+    return { access_token: this.jwtService.sign(payload) };
+  }
 
-          const payload = { sub: user._id, email: user.email, role: user.role };
-          return { access_token: this.jwtService.sign(payload) };
-    }
+  async register(registerDto: RegisterDto) {
+    const existingUser = await this.userModel
+      .findOne({
+        email: registerDto.email,
+      })
+      .exec();
+
+    if (existingUser) throw new UnauthorizedException('Email already exists');
+
+    const hashedPassword = await bcrypt.hashSync(registerDto.password, 10);
+    const user = await this.userModel.create({
+      email: registerDto.email,
+      role: registerDto.role,
+      password: hashedPassword,
+    });
+
+    const payload = { sub: user._id, email: user.email, role: user.role };
+    return { access_token: this.jwtService.sign(payload) };
+  }
 }

@@ -26,6 +26,13 @@ import { AssistantController } from './class/assistant/assistant.controller';
 import { AssistantService } from './class/assistant/assistant.service';
 import { CommentController } from './comment/comment.controller';
 import { CommentService } from './comment/comment.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
+import { JwtModule } from '@nestjs/jwt';
+import { environment } from '@lingua/util-env';
+import { JwtStrategy } from './auth/strategies/jwt.strategy';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { RolesGuard } from './auth/guards/role-auth.guard';
 
 @Module({
   imports: [
@@ -36,6 +43,10 @@ import { CommentService } from './comment/comment.service';
       { name: Room.name, schema: RoomSchema },
       { name: Lesson.name, schema: LessonSchema },
     ]),
+    JwtModule.register({
+      secret: environment.SECRET_KEY,
+      signOptions: { expiresIn: '5h'}
+    }),
   ],
   controllers: [
     LocationController,
@@ -45,6 +56,7 @@ import { CommentService } from './comment/comment.service';
     LessonController,
     AssistantController,
     CommentController,
+    AuthController,
   ],
   providers: [
     LocationService,
@@ -54,7 +66,11 @@ import { CommentService } from './comment/comment.service';
     ClassService,
     AssistantService,
     CommentService,
+    AuthService,
+    JwtStrategy,
+    JwtAuthGuard,
+    RolesGuard,
   ],
-  exports: [],
+  exports: [AuthService],
 })
 export class FeaturesModule {}

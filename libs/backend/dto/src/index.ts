@@ -6,3 +6,6 @@ export * from './lib/lesson.dto'
 export * from './lib/location.dto'
 export * from './lib/room.dto'
 export * from './lib/comment.dto'
+
+export * from './lib/auth/login.dto'
+export * from './lib/auth/register.dto'

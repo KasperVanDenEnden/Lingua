@@ -1,8 +1,8 @@
-import { ICreateComment, IsObjectId } from '@lingua/api';
+import { ICreateReview, IsObjectId } from '@lingua/api';
 import { IsNotEmpty, IsString, Min, Max, IsInt } from 'class-validator';
 import { Types } from 'mongoose';
 
-export class CreateCommentDto implements ICreateComment {
+export class CreateReviewDto implements ICreateReview {
   @IsNotEmpty()
   @IsObjectId()
   student!: Types.ObjectId;

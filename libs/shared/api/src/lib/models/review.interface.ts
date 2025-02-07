@@ -1,6 +1,6 @@
 import { Id } from './id';
 
-export interface IComment {
+export interface IReview {
   id: Id;
 
   student: Id; // user Id
@@ -11,9 +11,9 @@ export interface IComment {
   createdAt: Date;
 }
 
-export type ICreateComment = Pick<
-  IComment,
+export type ICreateReview = Pick<
+IReview,
   'student' | 'class' | 'comment' | 'rating'
 >;
-export type IUpdateComment = Partial<Omit<IComment, 'id'>>;
-export type IUpsertComment = IComment;
+export type IUpdateReview = Partial<Omit<IReview, 'id'>>;
+export type IUpsertReview = IReview;

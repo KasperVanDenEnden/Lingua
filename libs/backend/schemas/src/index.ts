@@ -5,4 +5,4 @@ export * from './lib/class.schema';
 export * from './lib/class-registration.schema';
 export * from './lib/lesson.schema';
 export * from './lib/user.schema';
-export * from './lib/comment.schema';
+export * from './lib/review.schema';

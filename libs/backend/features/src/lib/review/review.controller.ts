@@ -9,47 +9,47 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { CommentService } from './comment.service';
+import { ReviewService } from './review.service';
 import {
   BodyObjectIdsPipe,
-  IComment,
+  IReview,
   Id,
-  IUpdateComment,
+  IUpdateReview,
   stringObjectIdPipe,
 } from '@lingua/api';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
-@Controller('comment')
+@Controller('review')
 @UseGuards(JwtAuthGuard)
-export class CommentController {
-  private TAG = 'CommentController';
-  constructor(private commentService: CommentService) {}
+export class ReviewController {
+  private TAG = 'ReviewController';
+  constructor(private reviewService: ReviewService) {}
 
   // @Get()
-  // async getAll(): Promise<IComment[]> {
+  // async getAll(): Promise<IReview[]> {
   //     Logger.log('getAll', this.TAG);
-  //   return await this.commentService.getAll();
+  //   return await this.reviewService.getAll();
   // }
 
   // @Get(':id')
-  // async getOne(@Param('id', stringObjectIdPipe) id: Id): Promise<IComment> {
+  // async getOne(@Param('id', stringObjectIdPipe) id: Id): Promise<IReview> {
   //   Logger.log('getAll', this.TAG);
-  //   return await this.commentService.getOne(id);
+  //   return await this.reviewService.getOne(id);
   // }
 
   @Post()
-  async create(@Body(BodyObjectIdsPipe) body: IComment): Promise<IComment> {
+  async create(@Body(BodyObjectIdsPipe) body: IReview): Promise<IReview> {
     Logger.log('create', this.TAG);
-    return await this.commentService.create(body);
+    return await this.reviewService.create(body);
   }
 
   // @Put(':id')
   // async update(
   //   @Param('id', stringObjectIdPipe) id: Id,
   //   @Body(BodyObjectIdsPipe) body: IUpdateComment
-  // ): Promise<IComment> {
+  // ): Promise<IReview> {
   //   Logger.log('update', this.TAG);
-  //   return await this.commentService.update(id, body);
+  //   return await this.reviewService.update(id, body);
   // }
 
   @Delete(':id/:classId')
@@ -58,6 +58,6 @@ export class CommentController {
     @Param('classId', stringObjectIdPipe) classId: Id
   ) {
     Logger.log('delete', this.TAG);
-    return this.commentService.delete(id, classId);
+    return this.reviewService.delete(id, classId);
   }
 }

@@ -26,8 +26,6 @@ import { LessonService } from './lesson/lesson.service';
 import { ClassService } from './class/class.service';
 import { AssistantController } from './class/assistant/assistant.controller';
 import { AssistantService } from './class/assistant/assistant.service';
-import { CommentController } from './comment/comment.controller';
-import { CommentService } from './comment/comment.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
@@ -39,6 +37,8 @@ import { ClassRegistrationController } from './student/class-registration.contro
 import { ClassRegistrationService } from './student/class-registration.service';
 import { LessonAttendanceController } from './student/lesson-attendance.controller';
 import { LessonAttendanceService } from './student/lesson-attendance.service';
+import { ReviewController } from './review/review.controller';
+import { ReviewService } from './review/review.service';
 
 @Module({
   imports: [
@@ -62,7 +62,7 @@ import { LessonAttendanceService } from './student/lesson-attendance.service';
     RoomController,
     LessonController,
     AssistantController,
-    CommentController,
+    ReviewController,
     AuthController,
     ClassRegistrationController,
     LessonAttendanceController,
@@ -74,7 +74,7 @@ import { LessonAttendanceService } from './student/lesson-attendance.service';
     LessonService,
     ClassService,
     AssistantService,
-    CommentService,
+    ReviewService,
     AuthService,
     JwtStrategy,
     JwtAuthGuard,

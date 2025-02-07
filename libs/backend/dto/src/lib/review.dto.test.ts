@@ -1,15 +1,15 @@
 import { Types } from "mongoose"
-import { CreateCommentDto } from "./comment.dto"
+import { CreateReviewDto } from "./review.dto"
 import { validate } from "class-validator"
 
-describe('CommentDto Tests', () => {
-    let DTO: CreateCommentDto
+describe('ReviewDto Tests', () => {
+    let DTO: CreateReviewDto
 
     beforeEach(() => {
-        DTO = new CreateCommentDto
+        DTO = new CreateReviewDto
         DTO.student = new Types.ObjectId
         DTO.class = new Types.ObjectId
-        DTO.comment = 'Comment'
+        DTO.comment = 'Review'
         DTO.rating = 1
     })
 
@@ -36,7 +36,7 @@ describe('CommentDto Tests', () => {
         expect(errors[0].constraints?.["isNotEmpty"]).toBe('class should not be empty');
     })
 
-    it('should fail validation when comment is missing', async () => {
+    it('should fail validation when Review is missing', async () => {
         DTO.comment = undefined as any;
         const errors = await validate(DTO);
         
@@ -72,7 +72,7 @@ describe('CommentDto Tests', () => {
         expect(errors[0].constraints?.["isObjectId"]).toBe('class must be a valid ObjectId');
     })
 
-    it('should fail validation when comment is not valid type', async () => {
+    it('should fail validation when Review is not valid type', async () => {
         DTO.comment = 0 as any;
         const errors = await validate(DTO);
         

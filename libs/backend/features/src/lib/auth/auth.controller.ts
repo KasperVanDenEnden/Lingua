@@ -8,8 +8,9 @@ import {
   Request,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto, RegisterDto } from '@lingua/dto';
+import { LoginDto } from '@lingua/dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { ICreateUser } from '@lingua/api';
 
 @Controller('auth')
 export class AuthController {
@@ -23,7 +24,7 @@ export class AuthController {
   }
 
   @Post('register')
-  async register(@Body() registerDto: RegisterDto) {
+  async register(@Body() registerDto: ICreateUser) {
     Logger.log('register', this.TAG);
     return this.authService.register(registerDto);
   }

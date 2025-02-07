@@ -1,4 +1,5 @@
 import { Id } from './id';
+import { IUpsertReview } from './review.interface';
 
 export enum ClassStatus {
   Active = 'Active',
@@ -23,7 +24,7 @@ export interface IClass {
 
   teacher: Id; // Id from main teacher
   assistants: Id[]; // Id from teacher assistants
-  comments: Comment[];
+  reviews: IUpsertReview[]; // Nested reviews
 }
 
 export type ICreateClass = Pick<

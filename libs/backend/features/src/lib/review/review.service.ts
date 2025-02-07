@@ -1,22 +1,22 @@
-import { IComment, Id } from '@lingua/api';
+import { IReview, Id } from '@lingua/api';
 import { Class, ClassDocument } from '@lingua/schemas';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 
 @Injectable()
-export class CommentService {
-  private TAG = 'CommentService';
+export class ReviewService {
+  private TAG = 'ReviewService';
   constructor(
     @InjectModel(Class.name) private classModel: Model<ClassDocument>
   ) {}
 
-  //   async getAll(): Promise<IComment[]> {
+  //   async getAll(): Promise<IReview[]> {
   //     Logger.log('getAll', this.TAG);
   //     return await this.classModel.find();
   //   }
 
-  //   async getOne(id: Id): Promise<IComment> {
+  //   async getOne(id: Id): Promise<IReview> {
   //     Logger.log('getOne', this.TAG);
 
   //     const classInstance = await this.classModel.findById(id).exec();
@@ -26,7 +26,7 @@ export class CommentService {
   //     return ;
   //   }
 
-  async create(body: IComment): Promise<IComment> {
+  async create(body: IReview): Promise<IReview> {
     Logger.log('create', this.TAG);
 
     const updatedClass = await this.classModel.findByIdAndUpdate(
@@ -48,7 +48,7 @@ export class CommentService {
     return body;
   }
 
-  //   async update(id: Id, changes: IUpdateComment): Promise<IComment> {
+  //   async update(id: Id, changes: IUpdateComment): Promise<IReview> {
   //     Logger.log('update', this.TAG);
 
   //     const updatedComment = await this.classModel.findByIdAndUpdate(

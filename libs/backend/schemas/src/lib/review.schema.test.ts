@@ -1,15 +1,15 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { Comment, CommentSchema } from './comment.schema';
 import { disconnect, Model, Types } from 'mongoose';
 import { Test } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { validate } from 'class-validator';
+import { Review, ReviewSchema } from './review.schema';
 
-describe('CommentSchema Tests', () => {
+describe('ReviewSchema Tests', () => {
   let mongod: MongoMemoryServer;
-  let commentModel: Model<Comment>;
-  let baseBody: Partial<Comment>;
+  let reviewModel: Model<Review>;
+  let baseBody: Partial<Review>;
 
   beforeAll(async () => {
     const app = await Test.createTestingModule({
@@ -23,15 +23,15 @@ describe('CommentSchema Tests', () => {
         }),
         MongooseModule.forFeature([
           {
-            name: Comment.name,
-            schema: CommentSchema,
+            name: Review.name,
+            schema: ReviewSchema,
           },
         ]),
       ],
     }).compile();
 
-    commentModel = app.get<Model<Comment>>(getModelToken(Comment.name));
-    await commentModel.ensureIndexes();
+    reviewModel = app.get<Model<Review>>(getModelToken(Review.name));
+    await reviewModel.ensureIndexes();
   });
 
   beforeEach(() => {
@@ -53,7 +53,7 @@ describe('CommentSchema Tests', () => {
   it('should pass validation with valid data', async () => {
     const body = { ...baseBody };
 
-    const plain = plainToInstance(Comment, body);
+    const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBe(0);
@@ -62,7 +62,7 @@ describe('CommentSchema Tests', () => {
   it('should fail validation if student is missing', async () => {
     const body = { ...baseBody, student: undefined };
 
-    const plain = plainToInstance(Comment, body);
+    const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -74,7 +74,7 @@ describe('CommentSchema Tests', () => {
   it('should fail validation if class is missing', async () => {
     const body = { ...baseBody, class: undefined };
 
-    const plain = plainToInstance(Comment, body);
+    const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -86,7 +86,7 @@ describe('CommentSchema Tests', () => {
   it('should fail validation if comment is missing', async () => {
     const body = { ...baseBody, comment: undefined };
 
-    const plain = plainToInstance(Comment, body);
+    const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -98,7 +98,7 @@ describe('CommentSchema Tests', () => {
   it('should fail validation if rating is missing', async () => {
     const body = { ...baseBody, rating: undefined };
 
-    const plain = plainToInstance(Comment, body);
+    const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -110,7 +110,7 @@ describe('CommentSchema Tests', () => {
   it('should fail validation if createdAt is missing', async () => {
     const body = { ...baseBody, createdAt: undefined };
 
-    const plain = plainToInstance(Comment, body);
+    const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -123,7 +123,7 @@ describe('CommentSchema Tests', () => {
   it('should fail validation if student is invalid type', async () => {
     const body = { ...baseBody, student: 'invalid' };
 
-    const plain = plainToInstance(Comment, body);
+    const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -136,7 +136,7 @@ describe('CommentSchema Tests', () => {
   it('should fail validation if class is invalid type', async () => {
     const body = { ...baseBody, class: 'invalid' };
 
-    const plain = plainToInstance(Comment, body);
+    const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -149,7 +149,7 @@ describe('CommentSchema Tests', () => {
   it('should fail validation if comment is invalid type', async () => {
     const body = { ...baseBody, comment: 0 };
 
-    const plain = plainToInstance(Comment, body);
+    const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -162,7 +162,7 @@ describe('CommentSchema Tests', () => {
   it('should fail validation if rating is invalid type', async () => {
     const body = { ...baseBody, rating: 'invalid' };
 
-    const plain = plainToInstance(Comment, body);
+    const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -175,7 +175,7 @@ describe('CommentSchema Tests', () => {
   it('should fail validation if createdAt is invalid type', async () => {
     const body = { ...baseBody, createdAt: 'invalid' };
 
-    const plain = plainToInstance(Comment, body);
+    const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);

@@ -9,7 +9,7 @@ import {
   ArrayMinSize,
   IsArray,
 } from 'class-validator';
-import { CommentSchema } from './comment.schema';
+import { Review, ReviewSchema } from './review.schema';
 
 export type ClassDocument = Class & Document;
 
@@ -60,8 +60,8 @@ export class Class implements IClass {
   @ArrayMinSize(0, { message: 'Assistants must be an array (can be empty)' })
   assistants!: Types.ObjectId[];
 
-  @Prop({ type: [CommentSchema] })
-  comments!: Comment[];
+  @Prop({ type: [ReviewSchema] })
+  reviews!: Review[];
 }
 
 export const ClassSchema = SchemaFactory.createForClass(Class);

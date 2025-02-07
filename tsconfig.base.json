@@ -19,6 +19,7 @@
       "@lingua/common": ["libs/lingua/common/src/index.ts"],
       "@lingua/dto": ["libs/backend/dto/src/index.ts"],
       "@lingua/features": ["libs/backend/features/src/index.ts"],
+      "@lingua/pages": ["libs/lingua/pages/src/index.ts"],
       "@lingua/schemas": ["libs/backend/schemas/src/index.ts"],
       "@lingua/ui": ["libs/lingua/ui/src/index.ts"],
       "@lingua/util-env": ["libs/shared/util-env/src/index.ts"]

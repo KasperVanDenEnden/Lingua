@@ -20,6 +20,18 @@ module.exports = [
               sourceTag: '*',
               onlyDependOnLibsWithTags: ['*'],
             },
+            {
+              "sourceTag": "type:pages",
+              "onlyDependOnLibsWithTags": ["type:common", "type:ui"]
+            },
+            {
+              "sourceTag": "type:common",
+              "onlyDependOnLibsWithTags": ["type:ui"]
+            },
+            {
+              "sourceTag": "type:ui",
+              "onlyDependOnLibsWithTags": []
+            }
           ],
         },
       ],

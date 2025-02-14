@@ -2,9 +2,10 @@
   "name": "pages",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/lingua/pages/src",
-  "prefix": "lib",
+  "prefix": "lingua",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:pages"],
+  "implicitDependencies": ["ui", "common"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

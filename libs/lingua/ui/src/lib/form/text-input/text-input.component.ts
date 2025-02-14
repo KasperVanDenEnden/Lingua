@@ -2,7 +2,7 @@ import { Component, Input, Output } from '@angular/core';
 import { EventEmitter } from 'stream';
 
 @Component({
-  selector: 'lib-text-input',
+  selector: 'lingua-text-input',
   templateUrl: './text-input.component.html',
   styleUrl: './text-input.component.css',
 })

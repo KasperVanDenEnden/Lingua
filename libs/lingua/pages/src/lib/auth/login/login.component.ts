@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'lib-login',
+  selector: 'lingua-login',
   imports: [CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',

@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-nav',
+  selector: 'lingua-nav',
   // imports: [CommonModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',

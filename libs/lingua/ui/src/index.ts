@@ -1,1 +1,5 @@
 export * from './lib/ui/ui.component';
+export * from './lib/form/wrapper/form-wrapper.component'
+export * from './lib/form/number-input/number-input.component'
+export * from './lib/form/text-input/text-input.component'
+export * from './lib/form/password-input/password-input.component'

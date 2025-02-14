@@ -5,7 +5,7 @@ import { PagesComponent } from './pages.component';
 @NgModule({
   imports: [
     CommonModule,
-    PagesComponent
+    PagesComponent,
   ],
   exports: [PagesComponent]
 })

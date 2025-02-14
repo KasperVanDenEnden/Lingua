@@ -1,0 +1,12 @@
+<div class="form-group">
+    <label for="{{id}}">{{label}}</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      [id]="id" 
+      [(ngModel)]="value" 
+      [placeholder]="placeholder" 
+      [required]="required"
+    />
+    <div *ngIf="error" class="error-message">{{error}}</div>
+  </div>

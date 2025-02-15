@@ -13,6 +13,7 @@ export interface IUser {
   lastname: string;
   email: string;
   password: string;
+  token:string;
 }
 
 export type ICreateUser = Pick<

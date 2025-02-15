@@ -1,26 +1,27 @@
 // import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 @Component({
   selector: 'lingua-nav',
-  // imports: [CommonModule],
+  imports: [DropdownComponent],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
 })
 export class NavComponent  {
   isMobileMenuOpen = false;
-  isProductMenuOpen = false;
-  isProductFlyoutOpen = false;
+  isLocationMenuOpen = false;
+  isLocationFlyoutOpen = false;
 
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
-  toggleProductMenu() {
-    this.isProductMenuOpen = !this.isProductMenuOpen;
+  toggleLocationMenu() {
+    this.isLocationMenuOpen = !this.isLocationMenuOpen;
   }
 
-  toggleProductFlyout() {
-    this.isProductFlyoutOpen = !this.isProductFlyoutOpen;
+  toggleLocationFlyout() {
+    this.isLocationFlyoutOpen = !this.isLocationFlyoutOpen;
   }
 }

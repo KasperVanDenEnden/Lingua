@@ -36,6 +36,8 @@ export class User implements IUser {
   @IsNotEmpty()
   @IsString()
   password!: string;
+
+  token!:string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -5,7 +5,6 @@
   "prefix": "lingua",
   "projectType": "library",
   "tags": ["type:common"],
-  "implicitDependencies": ["ui"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

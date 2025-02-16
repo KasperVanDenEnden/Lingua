@@ -3,7 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'lingua-login',
@@ -11,39 +16,42 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent implements OnInit, OnDestroy{
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup;
   subs: Subscription = new Subscription();
 
-constructor( private authService:AuthService, private router:Router, private route:ActivatedRoute) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl(null, [Validators.required,  Validators.email]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required]),
     });
   }
+
   ngOnDestroy(): void {
-    if (this.subs ) this.subs.unsubscribe();
+    this.subs?.unsubscribe();
   }
 
-
-  onSubmit():void {
+  onSubmit(): void {
     if (this.loginForm.valid) {
-      this.subs = this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-        next: (user) => {
-          if (user) {
-            this.router.navigate(['/dashboard'])
-
-                  const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
-                        console.log(returnUrl)
-                        this.router.navigate([returnUrl]);
-          }
-        }
-      })
+      this.subs = this.authService
+        .login(this.loginForm.value.email, this.loginForm.value.password)
+        .subscribe({
+          next: (user) => {
+            if (user) {
+              const returnUrl =
+                this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+              this.router.navigate([returnUrl]);
+            }
+          },
+        });
     } else {
       this.loginForm.markAllAsTouched();
     }
   }
-
 }

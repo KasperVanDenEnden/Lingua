@@ -3,7 +3,7 @@
     <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <!-- Logo section -->
         <div class="flex lg:flex-1">
-            <a href="/dashboard" class="-m-2 p-2">
+            <a routerLink="/dashboard" class="-m-2 p-2">
                 <span class="sr-only">Lingua</span>
                 <i class="fa-solid fa-house fa-xl text-primary-dark"></i>
             </a>
@@ -24,14 +24,16 @@
 
         <!-- Desktop menu -->
         <div class="hidden lg:flex lg:gap-x-12">
-            <a href="/dashboard" class="flex items-center gap-x-1 text-sm font-semibold text-gray-900">Dashboard</a>
+            @if (currentUser) {
 
+                <a routerLink="/dashboard" class="flex items-center gap-x-1 text-sm font-semibold text-gray-900">Dashboard</a>
+                
             <lingua-dropdown>
                 <span dropdown-button>Locations</span>
 
                 <div dropdown-items>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All locations</a>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All rooms</a>
+                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All locations</a>
+                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All rooms</a>
                 </div>
             </lingua-dropdown>
 
@@ -39,27 +41,48 @@
                 <span dropdown-button>Classes</span>
 
                 <div dropdown-items>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All classes</a>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">My classes</a>
+                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All classes</a>
+                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">My classes</a>
                 </div>
             </lingua-dropdown>
-
+            
             <lingua-dropdown>
                 <span dropdown-button>Lessons</span>
-
+                
                 <div dropdown-items>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All lessons</a>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">My lessons</a>
+                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All lessons</a>
+                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">My lessons</a>
                 </div>
             </lingua-dropdown>
-
-            <a href="/pages" class="flex items-center gap-x-1 text-sm font-semibold text-gray-900">About</a>
+            
+            <a routerLink="/pages" class="flex items-center gap-x-1 text-sm font-semibold text-gray-900">About</a>
+        }
         </div>
 
+        @if (currentUser) {
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="/login" class="text-sm/6 font-semibold text-gray-900">Log in <span
-                    aria-hidden="true">&rarr;</span></a>
+            <a (click)="logout()" (keydown.enter)="logout()" tabindex="0"
+                class="text-sm font-semibold text-gray-900 cursor-pointer">
+                Log out <span aria-hidden="true"><i class="fa-solid fa-right-from-bracket"></i></span>
+            </a>
         </div>
+        } @else {
+            <div class="grid grid-cols-2 gap-md">
+
+                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                    <a routerLink="/login" class="text-sm font-semibold text-gray-900">
+                        Log in <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                    <a routerLink="/register" class="text-sm font-semibold text-gray-900">
+                        Register <span aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        }
+
+
     </nav>
 
     <!-- Mobile menu -->
@@ -69,7 +92,7 @@
         <div
             class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div class="flex items-center justify-between">
-                <a href="#" class="-m-1.5 p-1.5">
+                <a routerLink="#" class="-m-1.5 p-1.5">
                     <span class="sr-only">Your Company</span>
                     <img class="h-8 w-auto" src="assets/logo.svg" alt="">
                 </a>
@@ -99,14 +122,15 @@
 
                             @if (isLocationMenuOpen) {
                             <div class="mt-2 space-y-2" id="disclosure-1">
-                                <a href="#"
+                                <a routerLink="#"
                                     class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">Analytics</a>
 
                             </div>
                             }
                         </div>
                         <!-- Overige mobile menu items behouden -->
-                        <a href="/pages" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">About</a>
+                        <a routerLink="/pages"
+                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">About</a>
                     </div>
                 </div>
             </div>

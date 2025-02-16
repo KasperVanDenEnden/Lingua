@@ -6,11 +6,11 @@ import { AuthGuard } from '@lingua/pages';
 
 export const appRoutes: Route[] = [
     { path: '', pathMatch: 'full', component: NxWelcomeComponent },
-    { path: 'pages', pathMatch: 'full', component: PagesComponent, canActivate: [AuthGuard] },
-    { path: 'login', pathMatch: 'full', component: LoginComponent },
-    { path: 'register', pathMatch: 'full', component: RegisterComponent },
-    { path: 'dashboard', pathMatch: 'full', component: DashboardComponent },
-    { path: 'classes', pathMatch: 'full', component: NxWelcomeComponent },
+    { path: 'pages', component: PagesComponent, canActivate: [AuthGuard] },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'classes', component: NxWelcomeComponent, canActivate: [AuthGuard] },
     
 ];
 

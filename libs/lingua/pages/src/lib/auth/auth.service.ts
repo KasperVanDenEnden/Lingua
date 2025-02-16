@@ -66,7 +66,7 @@ import { ActivatedRoute, Router } from "@angular/router";
   
     register(userData: ICreateUser): Observable<IUser | undefined> {
       return this.http
-        .post<IUser>(`${environment.dataApiUrl}/user`, userData, {
+        .post<IUser>(`${environment.dataApiUrl}/auth/register`, userData, {
           headers: this.headers,
         })
         .pipe(
@@ -123,6 +123,7 @@ import { ActivatedRoute, Router } from "@angular/router";
     logout(): void {
       localStorage.clear();
       this.currentUser$.next(undefined);
+      this.router.navigate(['/login'])
     }
   
     // Get user from local storage

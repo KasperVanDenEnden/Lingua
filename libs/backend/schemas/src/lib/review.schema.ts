@@ -10,7 +10,7 @@ export class Review implements IReview {
   @Prop()
   @IsNotEmpty()
   @IsObjectId()
-  id!: Types.ObjectId;
+  _id!: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'User' })
   @IsNotEmpty()

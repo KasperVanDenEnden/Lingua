@@ -1,4 +1,4 @@
-import { ClassStatus, IClass, IsObjectId, Language } from '@lingua/api';
+import { ClassStatus, IClass, IsObjectId, IUpsertReview, Language } from '@lingua/api';
 import { Types } from 'mongoose';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import {
@@ -18,7 +18,7 @@ export class Class implements IClass {
   @Prop()
   @IsNotEmpty()
   @IsObjectId()
-  id!: Types.ObjectId;
+  _id!: Types.ObjectId;
 
   @Prop()
   @IsNotEmpty()
@@ -61,7 +61,7 @@ export class Class implements IClass {
   assistants!: Types.ObjectId[];
 
   @Prop({ type: [ReviewSchema] })
-  reviews!: Review[];
+  reviews!: IUpsertReview[];
 }
 
 export const ClassSchema = SchemaFactory.createForClass(Class);

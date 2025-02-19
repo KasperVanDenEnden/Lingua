@@ -1,4 +1,5 @@
 import { Id } from './id';
+import { IUser } from './user.interface';
 
 export enum Province {
   Drenthe = 'Drenthe',
@@ -16,9 +17,10 @@ export enum Province {
 }
 
 export interface ILocation {
-  id: Id;
+  id?: Id;
+  _id: Id;
 
-  createdBy: Id; // Id from admin
+  createdBy: Id | IUser; // Id from admin
 
   slug: string;
 
@@ -31,7 +33,7 @@ export interface ILocation {
 
 export type ICreateLocation = Pick<
   ILocation,
-  'createdBy' | 'street' | 'number' | 'city' | 'postal' | 'province'
+  'slug' | 'createdBy' | 'street' | 'number' | 'city' | 'postal' | 'province'
 >;
 export type IUpdateLocation = Partial<Omit<ILocation, 'id'>>;
 export type IUpsertLocation = ILocation;

@@ -36,7 +36,7 @@ describe('ClassSchema Tests', () => {
 
   beforeEach(() => {
     baseBody = {
-      id: new Types.ObjectId(),
+      _id: new Types.ObjectId(),
       class: new Types.ObjectId(),
       student: new Types.ObjectId(),
       registeredAt: new Date(),

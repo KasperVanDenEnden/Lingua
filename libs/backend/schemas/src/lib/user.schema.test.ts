@@ -37,7 +37,7 @@ describe('UserSchema Tests', () => {
 
   beforeEach(() => {
     baseBody = {
-      id: new Types.ObjectId(),
+      _id: new Types.ObjectId(),
       role: Role.Student,
       firstname: 'John',
       lastname: 'Doe',

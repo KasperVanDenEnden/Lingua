@@ -10,7 +10,7 @@ export class ClassRegistration implements IClassRegistration {
   @Prop()
   @IsNotEmpty()
   @IsObjectId()
-  id!: Types.ObjectId;
+  _id!: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'Class' })
   @IsNotEmpty()

@@ -3,7 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/util-env/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:util-env"],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",

@@ -9,10 +9,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { LinguaCommonModule } from '@lingua/common';
 
 @Component({
   selector: 'lingua-login',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, LinguaCommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

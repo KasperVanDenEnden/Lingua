@@ -4,11 +4,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Subscription, switchMap } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { ICreateUser, Role } from '@lingua/api';
+import { ICreateUser } from '@lingua/api';
+import { LinguaCommonModule } from '@lingua/common';
 
 @Component({
   selector: 'lingua-register',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, LinguaCommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

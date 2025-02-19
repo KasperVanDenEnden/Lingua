@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent } from '@lingua/ui';
+import { LinguaCommonModule } from '@lingua/common';
 
 @Component({
   selector: 'lingua-dashboard',
-  imports: [CommonModule, CardComponent],
+  imports: [CommonModule, LinguaCommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

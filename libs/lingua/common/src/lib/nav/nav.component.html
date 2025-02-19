@@ -24,6 +24,7 @@
 
         <!-- Desktop menu -->
         <div class="hidden lg:flex lg:gap-x-12">
+            
             @if (currentUser) {
 
                 <a routerLink="/dashboard" class="flex items-center gap-x-1 text-sm font-semibold text-gray-900">Dashboard</a>
@@ -32,8 +33,8 @@
                 <span dropdown-button>Locations</span>
 
                 <div dropdown-items>
-                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All locations</a>
-                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All rooms</a>
+                    <a routerLink="/locations" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All locations</a>
+                    <a routerLink="/rooms" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All rooms</a>
                 </div>
             </lingua-dropdown>
 
@@ -41,7 +42,7 @@
                 <span dropdown-button>Classes</span>
 
                 <div dropdown-items>
-                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All classes</a>
+                    <a routerLink="/classes" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All classes</a>
                     <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">My classes</a>
                 </div>
             </lingua-dropdown>
@@ -50,13 +51,21 @@
                 <span dropdown-button>Lessons</span>
                 
                 <div dropdown-items>
-                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All lessons</a>
+                    <a routerLink="/lessons" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All lessons</a>
                     <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">My lessons</a>
                 </div>
             </lingua-dropdown>
             
             <a routerLink="/pages" class="flex items-center gap-x-1 text-sm font-semibold text-gray-900">About</a>
-        }
+            
+            } @else {
+                <a routerLink="/login" class="bg-primary-dark hover:bg-primary-light text-white rounded-md p-2 text-sm font-semibold">
+                    Log in
+                </a>
+                <a routerLink="/register" class="bg-primary-dark hover:bg-primary-light text-white rounded-md p-2 text-sm font-semibold">
+                    Register 
+                </a>
+            }
         </div>
 
         @if (currentUser) {
@@ -66,21 +75,7 @@
                 Log out <span aria-hidden="true"><i class="fa-solid fa-right-from-bracket"></i></span>
             </a>
         </div>
-        } @else {
-            <div class="grid grid-cols-2 gap-md">
-
-                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <a routerLink="/login" class="text-sm font-semibold text-gray-900">
-                        Log in <span aria-hidden="true"></span>
-                    </a>
-                </div>
-                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <a routerLink="/register" class="text-sm font-semibold text-gray-900">
-                        Register <span aria-hidden="true"></span>
-                    </a>
-                </div>
-            </div>
-        }
+        } 
 
 
     </nav>

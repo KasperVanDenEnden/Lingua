@@ -36,7 +36,7 @@ describe('RoomSchema Tests', () => {
 
   beforeEach(() => {
     baseBody = {
-      id: new Types.ObjectId(),
+      _id: new Types.ObjectId(),
       location: new Types.ObjectId(),
       slug: 'Slug',
       capacity: 0,

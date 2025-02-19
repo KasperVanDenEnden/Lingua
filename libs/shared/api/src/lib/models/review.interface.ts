@@ -1,7 +1,8 @@
 import { Id } from './id';
 
 export interface IReview {
-  id: Id;
+  id?: Id;
+  _id: Id;
 
   student: Id; // user Id
   class: Id; // class Id

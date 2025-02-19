@@ -10,7 +10,7 @@ export class Room implements IRoom {
   @Prop()
   @IsNotEmpty()
   @IsObjectId()
-  id!: Types.ObjectId;
+  _id!: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'Location' })
   @IsNotEmpty()

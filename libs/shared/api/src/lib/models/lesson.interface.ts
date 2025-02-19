@@ -1,6 +1,9 @@
 import { Id } from './id';
 
 export interface ILesson {
+  id?: Id;
+  _id: Id;
+
   class: Id;
 
   room: Id; // Room Id

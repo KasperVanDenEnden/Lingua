@@ -1,7 +1,9 @@
 import { Id } from './id';
 
 export interface IClassRegistration {
-  id: Id;
+  id?: Id;
+  _id: Id;
+  
   class: Id;
   student: Id;
   registeredAt: Date;

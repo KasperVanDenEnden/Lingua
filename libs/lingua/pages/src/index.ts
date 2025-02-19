@@ -5,3 +5,6 @@ export * from './lib/auth/register/register.component';
 export * from './lib/auth/auth.service';
 export * from './lib/auth/auth.guard';
 export * from './lib/dashboard/dashboard.component'
+export * from './lib/location/location-list/location-list.component';
+export * from './lib/location/location-detail/location-detail.component';
+export * from './lib/location/location-form/location-form.component';

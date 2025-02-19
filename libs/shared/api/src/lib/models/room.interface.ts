@@ -1,7 +1,8 @@
 import { Id } from './id';
 
 export interface IRoom {
-  id: Id;
+  id?: Id;
+  _id: Id;
 
   location: Id; // location Id
 

@@ -26,7 +26,6 @@
         <div class="hidden lg:flex lg:gap-x-12">
             
             @if (currentUser) {
-
                 <a routerLink="/dashboard" class="flex items-center gap-x-1 text-sm font-semibold text-gray-900">Dashboard</a>
                 
             <lingua-dropdown>
@@ -69,11 +68,19 @@
         </div>
 
         @if (currentUser) {
-        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a (click)="logout()" (keydown.enter)="logout()" tabindex="0"
-                class="text-sm font-semibold text-gray-900 cursor-pointer">
-                Log out <span aria-hidden="true"><i class="fa-solid fa-right-from-bracket"></i></span>
-            </a>
+            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+
+            <lingua-dropdown>
+                <span dropdown-button><i class="fa-solid fa-user"></i></span>
+                
+                <div dropdown-items>
+                    <a routerLink="/lessons" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">Profile</a>
+                    <a (click)="logout()" (keydown.enter)="logout()" tabindex="0"
+                    class="text-sm font-semibold text-gray-900 cursor-pointer">
+                    Log out <span aria-hidden="true"><i class="fa-solid fa-right-from-bracket"></i></span>
+                </a>                </div>
+            </lingua-dropdown>
+           
         </div>
         } 
 

@@ -7,7 +7,7 @@
             
             <div class="grid grid-cols-2 gap-md">
                 <div class="form-group">
-                    <label for="email" class="mb-1.5 ml-2.5 block text-sm font-semibold">Firstname</label>
+                    <label for="firstname" class="mb-1.5 ml-2.5 block text-sm font-semibold">Firstname</label>
                     <input id="firstname" type="firstname" formControlName="firstname"
                         class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
                     <div *ngIf="registerForm.get('firstname')?.touched && registerForm.get('firstname')?.invalid"

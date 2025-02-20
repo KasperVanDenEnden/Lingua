@@ -47,7 +47,6 @@ export class LocationFormComponent implements OnInit, OnDestroy {
       const id = params.get('id');
       if (id) {
         // Edit bestaande locatie
-        console.log('edit', id)
         this.loadLocationData(id);
         this.isEditMode = true;
         this.existId = new Types.ObjectId(id);
@@ -113,14 +112,15 @@ export class LocationFormComponent implements OnInit, OnDestroy {
 
     if (this.isEditMode) {
       // update
-      console.log('reached')
       this.locationService.update(data, this.existId).subscribe((updatedLocation) => {
+        this.locationService.triggerRefresh(); 
           this.router.navigate(['/locations', updatedLocation._id])
         }
       )
     } else {
       // create
       this.locationService.create(data).subscribe((location) => {
+        this.locationService.triggerRefresh(); 
         this.router.navigate(['/locations']);
       })
     }

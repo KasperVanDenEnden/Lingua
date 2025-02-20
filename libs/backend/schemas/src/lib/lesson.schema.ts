@@ -13,7 +13,7 @@ export type LessonDocument = Lesson & Document;
 
 @Schema()
 export class Lesson implements ILesson {
-  @Prop()
+  @Prop({ default: () => new Types.ObjectId() })
   @IsObjectId()
   @IsNotEmpty()
   _id!: Types.ObjectId;

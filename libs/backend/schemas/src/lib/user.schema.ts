@@ -7,7 +7,7 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User implements IUser {
-  @Prop()
+  @Prop({ default: () => new Types.ObjectId() })
   @IsNotEmpty()
   @IsObjectId()
   _id!: Types.ObjectId;

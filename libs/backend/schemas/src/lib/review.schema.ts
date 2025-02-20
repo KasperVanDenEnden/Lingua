@@ -7,7 +7,7 @@ export type ReviewDocument = Review & Document;
 
 @Schema()
 export class Review implements IReview {
-  @Prop()
+  @Prop({ default: () => new Types.ObjectId() })
   @IsNotEmpty()
   @IsObjectId()
   _id!: Types.ObjectId;

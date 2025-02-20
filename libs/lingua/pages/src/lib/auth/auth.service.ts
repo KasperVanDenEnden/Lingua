@@ -80,16 +80,11 @@ import { ActivatedRoute, Router } from "@angular/router";
     }
   
     getUser(email: string): Observable<IUser> {
-      return this.http.get(environment.dataApiUrl + `/auth/profile`, {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + this.getToken(),
-        }),
-      }) as Observable<IUser>;
+      return this.http.get(environment.dataApiUrl + `/auth/profile`, this.getHttpOptions()) as Observable<IUser>;
     }
   
     getToken(): string {
-      return localStorage.getItem(this.TOKEN_KEY)!;
+      return localStorage.getItem(this.TOKEN_KEY) || '';
     }
   
     // Modify this method based on your authentication logic
@@ -146,21 +141,13 @@ import { ActivatedRoute, Router } from "@angular/router";
     }
   
     // Get the HTTP options for a request
-    getHttpOptions(): object {
-      let token;
-      this.getUserFromLocalStorage()
-        .subscribe((user) => {
-          if (user) {
-            token = user.token;
-          }
-        })
-        .unsubscribe();
-  
+    getHttpOptions(): { headers: HttpHeaders } {
+      const token = this.getToken();
+    
       return {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token,
-        }),
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`)
       };
     }
   

@@ -1,10 +1,11 @@
 import { Id } from './id';
+import { ILocation } from './location.interface';
 
 export interface IRoom {
   id?: Id;
   _id: Id;
 
-  location: Id; // location Id
+  location: Id | ILocation; // location Id
 
   slug: string;
   capacity: number;
@@ -15,7 +16,7 @@ export interface IRoom {
 
 export type ICreateRoom = Pick<
   IRoom,
-  'location' | 'capacity' | 'floor' | 'hasMonitor'
+  'slug' | 'location' | 'capacity' | 'floor' | 'hasMonitor'
 >;
 export type IUpdateRoom = Partial<Omit<IRoom, 'id'>>;
 export type IUpsertRoom = IRoom;

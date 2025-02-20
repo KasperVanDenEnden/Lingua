@@ -32,8 +32,8 @@
                 <span dropdown-button>Locations</span>
 
                 <div dropdown-items>
-                    <a routerLink="/locations" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All locations</a>
-                    <a routerLink="/rooms" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All rooms</a>
+                    <a routerLink="/locations" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">All locations</a>
+                    <a routerLink="/rooms" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">All rooms</a>
                 </div>
             </lingua-dropdown>
 
@@ -41,8 +41,8 @@
                 <span dropdown-button>Classes</span>
 
                 <div dropdown-items>
-                    <a routerLink="/classes" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All classes</a>
-                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">My classes</a>
+                    <a routerLink="/classes" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">All classes</a>
+                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">My classes</a>
                 </div>
             </lingua-dropdown>
             
@@ -50,18 +50,18 @@
                 <span dropdown-button>Lessons</span>
                 
                 <div dropdown-items>
-                    <a routerLink="/lessons" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">All lessons</a>
-                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">My lessons</a>
+                    <a routerLink="/lessons" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">All lessons</a>
+                    <a routerLink="#" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">My lessons</a>
                 </div>
             </lingua-dropdown>
             
-            <a routerLink="/pages" class="flex items-center gap-x-1 text-sm font-semibold text-gray-900">About</a>
+            <a routerLink="/pages" class="flex items-center gap-x-1 text-sm font-semibold text-gray-900 whitespace-nowrap">About</a>
             
             } @else {
-                <a routerLink="/login" class="bg-primary-dark hover:bg-primary-light text-white rounded-md p-2 text-sm font-semibold">
+                <a routerLink="/login" class="bg-primary-dark hover:bg-primary-light text-white rounded-md p-2 text-sm font-semibold whitespace-nowrap">
                     Log in
                 </a>
-                <a routerLink="/register" class="bg-primary-dark hover:bg-primary-light text-white rounded-md p-2 text-sm font-semibold">
+                <a routerLink="/register" class="bg-primary-dark hover:bg-primary-light text-white rounded-md p-2 text-sm font-semibold whitespace-nowrap">
                     Register 
                 </a>
             }
@@ -74,10 +74,14 @@
                 <span dropdown-button><i class="fa-solid fa-user"></i></span>
                 
                 <div dropdown-items>
-                    <a routerLink="/lessons" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100">Profile</a>
+                    <a routerLink="/lessons" class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">
+                        <span aria-hidden="true"><i class="fa-solid fa-user mr-2"></i></span>
+                        Profile
+                    </a>
                     <a (click)="logout()" (keydown.enter)="logout()" tabindex="0"
-                    class="text-sm font-semibold text-gray-900 cursor-pointer">
-                    Log out <span aria-hidden="true"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">
+                    <span aria-hidden="true"><i class="fa-solid fa-right-from-bracket mr-2"></i>
+                    Log out </span>
                 </a>                </div>
             </lingua-dropdown>
            

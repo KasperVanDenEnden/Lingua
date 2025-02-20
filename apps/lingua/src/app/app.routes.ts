@@ -7,6 +7,7 @@ import {
   LoginComponent,
   PagesComponent,
   RegisterComponent,
+  RoomListComponent,
 } from '@lingua/pages';
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { NgModule } from '@angular/core';
@@ -22,11 +23,8 @@ export const appRoutes: Route[] = [
     component: DashboardComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'classes', component: NxWelcomeComponent, canActivate: [AuthGuard] },
-  { path: 'lessons', component: NxWelcomeComponent, canActivate: [AuthGuard] },
-  { path: 'rooms', component: NxWelcomeComponent, canActivate: [AuthGuard] },
   { path: 'locations', component: LocationListComponent, canActivate: [AuthGuard], children: [
-      { path: 'new',pathMatch:'full', component: LocationFormComponent },
+    { path: 'new',pathMatch:'full', component: LocationFormComponent },
   ] },
   {
     path: 'locations/:id',
@@ -36,6 +34,9 @@ export const appRoutes: Route[] = [
       { path: 'edit', pathMatch:'full', component: LocationFormComponent },
     ],
   },
+  { path: 'rooms', component: RoomListComponent, canActivate: [AuthGuard] },
+  { path: 'classes', component: NxWelcomeComponent, canActivate: [AuthGuard] },
+  { path: 'lessons', component: NxWelcomeComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

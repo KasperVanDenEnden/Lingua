@@ -8,3 +8,7 @@ export * from './lib/dashboard/dashboard.component'
 export * from './lib/location/location-list/location-list.component';
 export * from './lib/location/location-detail/location-detail.component';
 export * from './lib/location/location-form/location-form.component';
+export * from './lib/room/room-list/room-list.component'
+export * from './lib/room/room-detail/room-detail.component'
+export * from './lib/room/room-form/room-form.component'
+export * from './lib/room/room.service'

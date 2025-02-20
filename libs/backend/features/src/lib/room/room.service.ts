@@ -11,7 +11,7 @@ export class RoomService {
 
   async getAll(): Promise<IRoom[]> {
     Logger.log('getAll', this.TAG);
-    return await this.roomModel.find();
+    return await this.roomModel.find().populate('location').exec();
   }
 
   async getOne(id: Id): Promise<IRoom> {

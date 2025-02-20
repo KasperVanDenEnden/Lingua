@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ICreateLocation, Id, ILocation, IUpdateLocation } from "@lingua/api";
+import { ICreateRoom, Id, IRoom, IUpdateRoom } from "@lingua/api";
 import { Observable } from "rxjs";
 import { environment } from "@lingua/util-env";
 
 @Injectable({
     providedIn: 'root'
 })
-export class LocationService {
+export class RoomService {
     private readonly headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'authorization': `Bearer ${localStorage.getItem('JWT')}`
@@ -15,30 +15,30 @@ export class LocationService {
 
     constructor(private http: HttpClient) {}
 
-    getLocations(): Observable<ILocation[]> {
+    getRooms(): Observable<IRoom[]> {
         return this.http
-        .get<ILocation[]>(`${environment.dataApiUrl}/location`, {
+        .get<IRoom[]>(`${environment.dataApiUrl}/room`, {
             headers: this.headers
         });
     }
 
-    getLocationById(id: string): Observable<ILocation> {
+    getRoomById(id: string): Observable<IRoom> {
         return this.http
-        .get<ILocation>(`${environment.dataApiUrl}/location/${id}`, {
+        .get<IRoom>(`${environment.dataApiUrl}/room/${id}`, {
             headers: this.headers
         });
     }
 
-    update(data: IUpdateLocation, id: Id) {
+    update(data: IUpdateRoom, id: Id) {
         return this.http
-        .put<ILocation>(`${environment.dataApiUrl}/location/${id}`, data, {
+        .put<IRoom>(`${environment.dataApiUrl}/room/${id}`, data, {
             headers: this.headers
         });      
     }
 
-    create(data: ICreateLocation) {
+    create(data: ICreateRoom) {
     return this.http
-    .post<ILocation>(`${environment.dataApiUrl}/location`, data, {
+    .post<IRoom>(`${environment.dataApiUrl}/room`, data, {
         headers: this.headers
     });
     }

@@ -1,10 +1,11 @@
 import { Id } from './id';
+import { ILocation } from './location.interface';
 
 export interface IRoom {
   id?: Id;
   _id: Id;
 
-  location: Id; // location Id
+  location: Id | ILocation; // location Id
 
   slug: string;
   capacity: number;

@@ -82,6 +82,11 @@ import { ActivatedRoute, Router } from "@angular/router";
     getUser(email: string): Observable<IUser> {
       return this.http.get(environment.dataApiUrl + `/auth/profile`, this.getHttpOptions()) as Observable<IUser>;
     }
+
+    getUserRole(): string | undefined {
+      const currentUser = this.currentUser$.getValue();
+      return currentUser?.role;
+    }
   
     getToken(): string {
       return localStorage.getItem(this.TOKEN_KEY) || '';
@@ -94,15 +99,10 @@ import { ActivatedRoute, Router } from "@angular/router";
     }
   
     // Validate JWT token
-    validateToken(userData: IUser): Observable<IUser | undefined> {
+    validateToken(): Observable<IUser | undefined> {
       const url = `${environment.dataApiUrl}/auth/profile`;
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + userData?.token,
-        }),
-      };
-      return this.http.get<any>(url, httpOptions).pipe(
+      
+      return this.http.get<any>(url, this.getHttpOptions()).pipe(
         map((response) => {
           return response;
         }),

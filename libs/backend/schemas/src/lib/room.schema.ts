@@ -7,7 +7,7 @@ export type RoomDocument = Room & Document;
 
 @Schema()
 export class Room implements IRoom {
-  @Prop()
+  @Prop({ default: () => new Types.ObjectId() })
   @IsNotEmpty()
   @IsObjectId()
   _id!: Types.ObjectId;

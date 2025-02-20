@@ -23,6 +23,10 @@ export class RoomListComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     this.loadRooms();
+    
+    this.roomService.refresh$.subscribe(() => {
+      this.loadRooms();
+    });
   }
   
   ngOnDestroy(): void {
@@ -33,7 +37,6 @@ export class RoomListComponent implements OnInit, OnDestroy {
     this.roomList$ = this.roomService.getRooms()
     this.sub = this.roomService.getRooms().subscribe((results) => {
       this.rooms = results;
-      console.log(this.rooms[0].location)
     })
   }
 

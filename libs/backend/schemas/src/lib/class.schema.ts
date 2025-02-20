@@ -9,13 +9,13 @@ import {
   ArrayMinSize,
   IsArray,
 } from 'class-validator';
-import { Review, ReviewSchema } from './review.schema';
+import { ReviewSchema } from './review.schema';
 
 export type ClassDocument = Class & Document;
 
 @Schema()
 export class Class implements IClass {
-  @Prop()
+  @Prop({ default: () => new Types.ObjectId() })
   @IsNotEmpty()
   @IsObjectId()
   _id!: Types.ObjectId;

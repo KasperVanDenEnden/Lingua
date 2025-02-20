@@ -25,6 +25,10 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadLocation();
+
+    this.locationService.refresh$.subscribe(() => {
+      this.loadLocation();
+    });
   }
 
   ngOnDestroy(): void {

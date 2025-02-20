@@ -33,7 +33,7 @@ export class RoomService {
     Logger.log('update', this.TAG);
 
     const updatedRoom = await this.roomModel.findByIdAndUpdate(
-      { _id: id },
+      id,
       changes,
       { new: true }
     );

@@ -13,7 +13,7 @@ import { LinguaCommonModule } from '@lingua/common';
   styleUrl: './location-list.component.css',
 })
 export class LocationListComponent implements OnInit, OnDestroy {
-  locations: ILocation[] | null = null;
+  locations?: ILocation[] | null;
   sub!: Subscription;
 
   locationList$?: Observable<ILocation[]>;
@@ -22,6 +22,10 @@ export class LocationListComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     this.loadLocations();
+
+    this.locationService.refresh$.subscribe(() => {
+      this.loadLocations();
+    });
   }
   
   ngOnDestroy(): void {

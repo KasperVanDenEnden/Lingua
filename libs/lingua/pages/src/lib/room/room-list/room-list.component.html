@@ -12,10 +12,11 @@
 
   <div class="grid" [ngClass]="{'lg:grid-cols-2 grid-cols-1': isChildRouteActive()}">
     <!-- rooms table (neemt volledige breedte als er geen child is) -->
-    <div class="flex-1 overflow-x-auto bg-white rounded-lg shadow" >
-      <div *ngIf="rooms && rooms.length > 0" class="overflow-x-auto bg-white rounded-lg shadow">
+     <div>
+       <div class="flex-1 overflow-x-auto bg-white rounded-lg shadow" >
+         <div class="overflow-x-auto bg-white rounded-lg shadow">
         <table class="min-w-full divide-y divide-primary-dark shadow-lg">
-          <thead class="bg-gray-50">
+          <thead class="bg-secondary-light">
             <tr>
               <th class="px-6 py-3 text-left text-xs font-medium text-primary-base uppercase tracking-wider">Slug</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-primary-base uppercase tracking-wider">Capacity</th>
@@ -39,7 +40,9 @@
         </table>
       </div>
     </div>
-  
+    <div *ngIf="rooms">Showing: {{ rooms.length }} entries</div>
+  </div>
+    
     <!-- Child component (formulier verschijnt hier als hij actief is) -->
     <div>
       <router-outlet></router-outlet>

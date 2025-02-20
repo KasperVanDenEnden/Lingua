@@ -16,7 +16,7 @@ export interface IRoom {
 
 export type ICreateRoom = Pick<
   IRoom,
-  'location' | 'capacity' | 'floor' | 'hasMonitor'
+  'slug' | 'location' | 'capacity' | 'floor' | 'hasMonitor'
 >;
 export type IUpdateRoom = Partial<Omit<IRoom, 'id'>>;
 export type IUpsertRoom = IRoom;

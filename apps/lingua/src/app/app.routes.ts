@@ -27,7 +27,6 @@ export const appRoutes: Route[] = [
   },
   { path: 'locations', component: LocationListComponent, canActivate: [AuthGuard, RolesGuard], children: [
     { path: 'new',pathMatch:'full', component: LocationFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} },
-    canActivate: [AuthGuard],
   ] },
   {
     path: 'locations/:id',

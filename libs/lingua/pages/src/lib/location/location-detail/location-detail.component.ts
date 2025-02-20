@@ -43,7 +43,6 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
         this.location$ = this.locationService.getLocationById(this.locationId);
         this.location$.subscribe(location => {
           this.createdByUser = location.createdBy as IUser;
-          console.log('Location data:');  // Log de locatie data
         });
       }
     });

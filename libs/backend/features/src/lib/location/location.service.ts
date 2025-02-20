@@ -2,7 +2,7 @@ import { Id, ILocation, IUpdateLocation } from '@lingua/api';
 import { Location, LocationDocument } from '@lingua/schemas';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 @Injectable()
 export class LocationService {
@@ -37,11 +37,12 @@ export class LocationService {
     return await this.locationModel.create(body);
   }
 
+
   async update(id: Id, changes: IUpdateLocation): Promise<ILocation> {
     Logger.log('update', this.TAG);
-
+    
     const updatedLocation = await this.locationModel.findByIdAndUpdate(
-      { _id: id },
+      id,
       changes,
       { new: true }
     );

@@ -2,9 +2,9 @@
   "name": "common",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/lingua/common/src",
-  "prefix": "lib",
+  "prefix": "lingua",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:common"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

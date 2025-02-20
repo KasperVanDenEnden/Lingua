@@ -2,9 +2,9 @@
   "name": "ui",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/lingua/ui/src",
-  "prefix": "lib",
+  "prefix": "lingua",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:ui"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

@@ -1,3 +1,58 @@
-import { Route } from '@angular/router';
+import { Route, RouterModule } from '@angular/router';
+import {
+  DashboardComponent,
+  LocationDetailComponent,
+  LocationFormComponent,
+  LocationListComponent,
+  LoginComponent,
+  PagesComponent,
+  RegisterComponent,
+  RoomDetailComponent,
+  RoomFormComponent,
+  RoomListComponent,
+} from '@lingua/pages';
+import { NxWelcomeComponent } from './nx-welcome.component';
+import { NgModule } from '@angular/core';
+import { AuthGuard } from '@lingua/pages';
 
-export const appRoutes: Route[] = [];
+export const appRoutes: Route[] = [
+  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: 'pages', component: PagesComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'locations', component: LocationListComponent, canActivate: [AuthGuard], children: [
+    { path: 'new',pathMatch:'full', component: LocationFormComponent },
+  ] },
+  {
+    path: 'locations/:id',
+    canActivate: [AuthGuard],
+    component: LocationDetailComponent,
+    children: [
+      { path: 'edit', pathMatch:'full', component: LocationFormComponent },
+    ],
+  },
+  { path: 'rooms', component: RoomListComponent, canActivate: [AuthGuard], children: [
+    { path: 'new', pathMatch: 'full', component: RoomFormComponent }
+  ] },
+  {
+    path: 'rooms/:id',
+    canActivate: [AuthGuard],
+    component: RoomDetailComponent,
+    children: [
+      { path: 'edit', pathMatch:'full', component: RoomFormComponent },
+    ]
+  },
+  { path: 'classes', component: NxWelcomeComponent, canActivate: [AuthGuard] },
+  { path: 'lessons', component: NxWelcomeComponent, canActivate: [AuthGuard] },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(appRoutes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}

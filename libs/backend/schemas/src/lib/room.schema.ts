@@ -7,10 +7,10 @@ export type RoomDocument = Room & Document;
 
 @Schema()
 export class Room implements IRoom {
-  @Prop()
+  @Prop({ default: () => new Types.ObjectId() })
   @IsNotEmpty()
   @IsObjectId()
-  id!: Types.ObjectId;
+  _id!: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'Location' })
   @IsNotEmpty()

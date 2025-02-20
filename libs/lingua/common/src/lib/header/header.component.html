@@ -1,0 +1,8 @@
+<header class="px-xl py-md bg-primary-light text-xl font-bold shadow-md flex justify-between items-center">
+    <div>{{ pageTitle }}</div>
+    <div class="flex items-center gap-3 text-base">
+        <span *ngIf="currentUser" class="font-normal text-secondary-light">
+            {{ currentUser.email }}
+        </span>
+    </div>
+</header>

@@ -7,10 +7,10 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User implements IUser {
-  @Prop()
+  @Prop({ default: () => new Types.ObjectId() })
   @IsNotEmpty()
   @IsObjectId()
-  id!: Types.ObjectId;
+  _id!: Types.ObjectId;
 
   @Prop({ type: String, enum: Object.values(Role) })
   @IsNotEmpty()
@@ -36,6 +36,8 @@ export class User implements IUser {
   @IsNotEmpty()
   @IsString()
   password!: string;
+
+  token!:string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

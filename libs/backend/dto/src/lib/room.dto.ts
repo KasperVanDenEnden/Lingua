@@ -1,8 +1,12 @@
 import { ICreateRoom, IsObjectId } from '@lingua/api';
-import { IsBoolean, IsInt, IsNotEmpty, Min } from 'class-validator';
+import { IsBoolean, IsInt, IsNotEmpty, IsString, Min } from 'class-validator';
 import { Types } from 'mongoose';
 
 export class CreateRoomDto implements ICreateRoom {
+  @IsNotEmpty()
+  @IsString()
+  slug!: string;
+
   @IsNotEmpty()
   @IsObjectId()
   location!: Types.ObjectId;

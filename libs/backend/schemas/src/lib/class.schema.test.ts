@@ -37,7 +37,7 @@ describe('ClassSchema Tests', () => {
 
   beforeEach(() => {
     baseBody = {
-      id: new Types.ObjectId(),
+      _id: new Types.ObjectId(),
       title: 'Title',
       description: 'Description',
       status: ClassStatus.Active,
@@ -45,7 +45,7 @@ describe('ClassSchema Tests', () => {
       language: Language.Dutch,
       teacher: new Types.ObjectId(),
       assistants: [new Types.ObjectId(), new Types.ObjectId()],
-      comments: [],
+      reviews: [],
     };
   });
 

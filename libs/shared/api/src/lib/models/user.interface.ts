@@ -7,12 +7,15 @@ export enum Role {
 }
 
 export interface IUser {
-  id: Id;
-  role: Role;
+  id?: Id;
+  _id: Id;
+  
+  role: string;
   firstname: string;
   lastname: string;
   email: string;
   password: string;
+  token:string;
 }
 
 export type ICreateUser = Pick<

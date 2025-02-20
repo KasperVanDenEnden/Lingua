@@ -5,6 +5,10 @@ import { Types } from 'mongoose';
 export class CreateLocationDto implements ICreateLocation {
   @IsNotEmpty()
   @IsString()
+  slug!: string;
+
+  @IsNotEmpty()
+  @IsString()
   number!: string;
 
   @IsNotEmpty()

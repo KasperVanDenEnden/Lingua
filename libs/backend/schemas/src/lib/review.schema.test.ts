@@ -36,7 +36,7 @@ describe('ReviewSchema Tests', () => {
 
   beforeEach(() => {
     baseBody = {
-      id: new Types.ObjectId(),
+      _id: new Types.ObjectId(),
       student: new Types.ObjectId(),
       class: new Types.ObjectId(),
       comment: 'Test comment',

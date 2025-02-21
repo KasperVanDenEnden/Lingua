@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 import { CreateRoomDto } from "./room.dto";
 import { validate } from "class-validator";
+import { RoomStatus } from "@lingua/api";
 
 describe('RoomDto Tests', () => {
     let DTO: CreateRoomDto;
@@ -9,6 +10,8 @@ describe('RoomDto Tests', () => {
         DTO = new CreateRoomDto();
         DTO.location = new Types.ObjectId();
         DTO.capacity = 30; 
+        DTO.status = RoomStatus.Available; //@todo Write tests
+        DTO.slug = 'Slug'; //@todo Write tests
         DTO.floor = 2;
         DTO.hasMonitor = true;
     });

@@ -32,7 +32,9 @@ export class LocationFormComponent implements OnInit, OnDestroy {
     city: new FormControl(null, Validators.required),
     postal: new FormControl(null, Validators.required),
     province: new FormControl(null, Validators.required),
-    createdBy: new FormControl(null, Validators.required)
+    createdBy: new FormControl(null, Validators.required),
+    rooms: new FormControl(null, Validators.required),
+    floors: new FormControl(null, Validators.required),
   });
 
   constructor(
@@ -70,7 +72,9 @@ export class LocationFormComponent implements OnInit, OnDestroy {
       (user: IUser | null) => {
         if (user) {
           const { id } = user;
-          this.locationForm.get('createdBy')?.setValue(id);
+          this.locationForm.patchValue({
+            createdBy: id
+          });
         }
       },
       (error) => {
@@ -90,7 +94,9 @@ export class LocationFormComponent implements OnInit, OnDestroy {
           city: location.city,
           postal: location.postal,
           province: location.province,
-          createdBy: location.createdBy
+          createdBy: location.createdBy,
+          rooms: location.rooms,
+          floors: location.floors,
         });
       },
       error: (err) => {
@@ -107,7 +113,9 @@ export class LocationFormComponent implements OnInit, OnDestroy {
       city: this.locationForm.value.city,
       postal: this.locationForm.value.postal,
       province: this.locationForm.value.province,
-      createdBy: this.locationForm.value.createdBy._id
+      createdBy: this.locationForm.value.createdBy,
+      rooms: this.locationForm.value.rooms,
+      floors: this.locationForm.value.floors,
     }
 
     if (this.isEditMode) {

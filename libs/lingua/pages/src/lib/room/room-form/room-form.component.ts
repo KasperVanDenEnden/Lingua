@@ -17,10 +17,12 @@ import { LocationService } from '../../location/location.service';
 })
 export class RoomFormComponent implements OnInit, OnDestroy {
   formSub?: Subscription;
+  locationSub?: Subscription;
   isEditMode?: boolean;
   existId!: Id;
 
   locations: ILocation[] = [];
+  availableFloors: number[] = [];
  
   roomForm: FormGroup = new FormGroup({
     slug: new FormControl(null, Validators.required),
@@ -28,6 +30,7 @@ export class RoomFormComponent implements OnInit, OnDestroy {
     capacity: new FormControl(null, Validators.required),
     hasMonitor: new FormControl(null, Validators.required),
     location: new FormControl(null, Validators.required),
+    status: new FormControl(null, Validators.required),
   })
 
   constructor(
@@ -39,6 +42,11 @@ export class RoomFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadLocations();
+
+    this.roomForm.get('location')?.valueChanges.subscribe(() => {
+      this.updateFloorOptions();
+    });
+
     this.route.parent?.paramMap.subscribe((params) => {
       const id = params.get('id');
       if(id) {
@@ -71,13 +79,34 @@ export class RoomFormComponent implements OnInit, OnDestroy {
           floor: room.floor,
           capacity: room.capacity,
           hasMonitor: room.hasMonitor,
-          location: room.location._id
+          location: room.location._id,
+          status: room.status
         });
       },
       error: (err) => {
         console.error('Fout bij ophalen kamergegevens:', err)
       }
     })
+  }
+
+  updateFloorOptions() {
+    const selectedLocationId = this.roomForm.get('location')?.value;
+    if (!selectedLocationId) {
+      this.availableFloors = [];
+      return;
+    }
+    
+    const selectedLocation = this.locations.find(loc => loc._id === selectedLocationId);
+    if (selectedLocation && selectedLocation.floors) {
+      this.availableFloors = Array.from({length: selectedLocation.floors}, (_, i) => i);
+    } else {
+      this.availableFloors = [];
+    }
+    
+    const currentFloor = this.roomForm.get('floor')?.value;
+    if (currentFloor !== null && !this.availableFloors.includes(Number(currentFloor))) {
+      this.roomForm.get('floor')?.setValue(null);
+    }
   }
 
   onSubmit(): void {
@@ -87,6 +116,7 @@ export class RoomFormComponent implements OnInit, OnDestroy {
       capacity: this.roomForm.value.capacity,
       hasMonitor: this.roomForm.value.hasMonitor,
       location: this.roomForm.value.location,
+      status: this.roomForm.value.status
     }
 
     if(this.isEditMode) {

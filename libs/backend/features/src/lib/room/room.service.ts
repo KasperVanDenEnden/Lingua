@@ -26,6 +26,13 @@ export class RoomService {
 
   async create(body: IRoom): Promise<IRoom> {
     Logger.log('create', this.TAG);
+
+    const existingSlug = await this.roomModel.findOne({ slug: body.slug });
+
+    if (existingSlug) {
+      throw new HttpException('Slug must be unique', HttpStatus.BAD_REQUEST);
+    }
+    
     return await this.roomModel.create(body);
   }
 

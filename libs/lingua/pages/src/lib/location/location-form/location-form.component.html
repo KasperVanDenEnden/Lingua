@@ -20,6 +20,28 @@
 
             <div class="grid grid-cols-2 gap-md">
                 <div class="form-group">
+                    <label for="floors" class="mb-1.5 ml-2.5 block text-sm font-semibold">Floors</label>
+                    <input id="floors" type="number" formControlName="floors" min="0" placeholder="0"
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
+                    <div *ngIf="locationForm.get('floors')?.touched && locationForm.get('floors')?.invalid"
+                        class="text-red-500 text-sm mt-1">
+                        <span *ngIf="locationForm.get('floors')?.errors?.['required']">floors is required</span>
+                        <span *ngIf="locationForm.get('floors')?.errors?.['floors']">Invalid floors format</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rooms" class="mb-1.5 ml-2.5 block text-sm font-semibold">Rooms</label>
+                    <input id="rooms" type="number" formControlName="rooms" min="0" placeholder="0"
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
+                    <div *ngIf="locationForm.get('rooms')?.touched && locationForm.get('rooms')?.invalid"
+                        class="text-red-500 text-sm mt-1">
+                        <span *ngIf="locationForm.get('rooms')?.errors?.['required']">rooms is required</span>
+                        <span *ngIf="locationForm.get('rooms')?.errors?.['rooms']">Invalid rooms format</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="street" class="mb-1.5 ml-2.5 block text-sm font-semibold">Street</label>
                     <input id="street" type="street" formControlName="street"
                         class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
@@ -62,11 +84,25 @@
 
                 <div class="form-group">
                     <label for="province" class="mb-1.5 ml-2.5 block text-sm font-semibold">Province</label>
-                    <input id="province" type="text" formControlName="province"
-                        class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
+                    <select id="province" formControlName="province"
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full" required>
+                        <option value="" disabled>Select a province</option>
+                        <option value="Drenthe">Drenthe</option>
+                        <option value="Flevoland">Flevoland</option>
+                        <option value="Friesland">Friesland</option>
+                        <option value="Gelderland">Gelderland</option>
+                        <option value="Groningen">Groningen</option>
+                        <option value="Limburg">Limburg</option>
+                        <option value="Noord-Brabant">Noord-Brabant</option>
+                        <option value="Noord-Holland">Noord-Holland</option>
+                        <option value="Overijssel">Overijssel</option>
+                        <option value="Utrecht">Utrecht</option>
+                        <option value="Zeeland">Zeeland</option>
+                        <option value="Zuid-Holland">Zuid-Holland</option>
+                    </select>
                     <div *ngIf="locationForm.get('province')?.touched && locationForm.get('province')?.invalid"
                         class="text-red-500 text-sm mt-1">
-                        <span *ngIf="locationForm.get('province')?.errors?.['required']">province is required</span>
+                        <span *ngIf="locationForm.get('province')?.errors?.['required']">Province is required</span>
                     </div>
                 </div>
 

@@ -25,6 +25,14 @@
           <span class="text-sm text-gray-800">{{ (location$ | async)?.slug || 'No slug available' }} </span>
         </div>
         <div class="flex gap-md">
+          <span class="text-sm font-medium text-gray-600">Floors: </span>
+          <span class="text-sm text-gray-800">{{ (location$ | async)?.floors || 'No floors available' }} </span>
+        </div>
+        <div class="flex gap-md">
+          <span class="text-sm font-medium text-gray-600">Rooms: </span>
+          <span class="text-sm text-gray-800">{{ (location$ | async)?.rooms || 'No rooms available' }} </span>
+        </div>
+        <div class="flex gap-md">
           <span class="text-sm font-medium text-gray-600">Adres: </span>
           <span class="text-sm text-gray-800">{{ (location$ | async)?.street || 'No street available' }} {{ (location$ |
             async)?.number || 'No number available' }}, {{ (location$ | async)?.postal || 'No postal available' }} {{

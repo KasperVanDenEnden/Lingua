@@ -5,6 +5,7 @@ import { Test } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { validate } from 'class-validator';
+import { RoomStatus } from '@lingua/api';
 
 describe('RoomSchema Tests', () => {
   let mongod: MongoMemoryServer;
@@ -39,6 +40,7 @@ describe('RoomSchema Tests', () => {
       _id: new Types.ObjectId(),
       location: new Types.ObjectId(),
       slug: 'Slug',
+      status: RoomStatus.Available, //@todo Write tests
       capacity: 0,
       floor: 0,
       hasMonitor: true,

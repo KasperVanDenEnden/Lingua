@@ -23,6 +23,8 @@ export interface ILocation {
   createdBy: Id | IUser; // Id from admin
 
   slug: string;
+  floors:number;
+  rooms:number;
 
   street: string;
   number: string;
@@ -33,7 +35,7 @@ export interface ILocation {
 
 export type ICreateLocation = Pick<
   ILocation,
-  'slug' | 'createdBy' | 'street' | 'number' | 'city' | 'postal' | 'province'
+  'slug' | 'createdBy' | 'street' | 'number' | 'city' | 'postal' | 'province' | 'floors' | 'rooms'
 >;
 export type IUpdateLocation = Partial<Omit<ILocation, 'id'>>;
 export type IUpsertLocation = ILocation;

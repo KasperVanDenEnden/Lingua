@@ -40,6 +40,8 @@ describe('LocationSchema Tests', () => {
       _id: new Types.ObjectId(),
       createdBy: new Types.ObjectId(),
       slug: 'Test slug',
+      floors: 4, //@todo Write tests
+      rooms: 4, //@todo Write tests
       street: 'Test street',
       number: 'Test number',
       city: 'Test description',

@@ -104,8 +104,6 @@
 
         </div>
         }
-
-
     </nav>
 
     <!-- Mobile menu -->
@@ -155,7 +153,7 @@
                             @if (isClassMenuOpen) {
                             <div class="mt-2 space-y-2" id="disclosure-1">
                                 <a routerLink="#"
-                                    class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-gray-900 hover:bg-secondary-base">Analytics</a>
+                                    class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-gray-900 hover:bg-secondary-base">Classes</a>
                             </div>
                             }
                         </div>
@@ -164,13 +162,13 @@
                             <button type="button" (click)="toggleLessonMenu()"
                                 class="flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-gray-900 hover:bg-secondary-base">
                                 Lessons
-                                <i [class.rotate-180]="isClassMenuOpen" class="fa-solid fa-chevron-down"></i>
+                                <i [class.rotate-180]="isLessonMenuOpen" class="fa-solid fa-chevron-down"></i>
                             </button>
 
                             @if (isLessonMenuOpen) {
                             <div class="mt-2 space-y-2" id="disclosure-1">
                                 <a routerLink="#"
-                                    class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-gray-900 hover:bg-secondary-base">Analytics</a>
+                                    class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-gray-900 hover:bg-secondary-base">Lessons</a>
                             </div>
                             }
                         </div>

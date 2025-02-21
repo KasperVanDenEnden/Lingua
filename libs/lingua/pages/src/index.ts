@@ -19,3 +19,7 @@ export * from './lib/class/class-form/class-form.component';
 export * from './lib/class/class.service';
 export * from './lib/class/class-assistant.service';
 export * from './lib/user/user.service';
+export * from './lib/lesson/lesson.service';
+export * from './lib/lesson/lesson-list/lesson-list.component';
+export * from './lib/lesson/lesson-detail/lesson-detail.component';
+export * from './lib/lesson/lesson-form/lesson-form.component';

@@ -4,6 +4,9 @@ import {
   ClassFormComponent,
   ClassListComponent,
   DashboardComponent,
+  LessonDetailComponent,
+  LessonFormComponent,
+  LessonListComponent,
   LocationDetailComponent,
   LocationFormComponent,
   LocationListComponent,
@@ -61,7 +64,17 @@ export const appRoutes: Route[] = [
       { path: 'edit', pathMatch:'full', component: ClassFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} },
     ]
   },
-  { path: 'lessons', component: NxWelcomeComponent, canActivate: [AuthGuard] },
+  { path: 'lessons', component: LessonListComponent, canActivate: [AuthGuard], children: [
+    { path: 'new', pathMatch: 'full', component: LessonFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} }
+  ] },
+  {
+    path: 'lessons/:id',
+    canActivate: [AuthGuard],
+    component: LessonDetailComponent,
+    children: [
+      { path: 'edit', pathMatch:'full', component: LessonFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} },
+    ]
+  },
   { path: 'pages', component: PagesComponent},
   { path: 'access-denied', component: CommonComponent},
 ];

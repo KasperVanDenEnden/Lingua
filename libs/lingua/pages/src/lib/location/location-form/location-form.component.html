@@ -1,5 +1,5 @@
 <main class="flex justify-center">
-    <div class="p-4 h-auto border border-primary-dark bg-secondary-light rounded-lg">
+    <div class="p-4 max-w-xl w-full h-auto border border-primary-dark bg-secondary-light rounded-lg">
         <div class="flex justify-between items-center">
             <h1 class="font-semibold text-xl mb-3">Location Form</h1>
             <button (click)="closeForm()" class="text-gray-500 hover:text-red-600">
@@ -8,13 +8,15 @@
         </div>
         
         <form [formGroup]="locationForm" (ngSubmit)="onSubmit()" class="space-y-4">
-            <div class="form-group">
-                <label for="slug" class="mb-1.5 ml-2.5 block text-sm font-semibold">Slug</label>
-                <input id="slug" type="slug" formControlName="slug"
-                    class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
-                <div *ngIf="locationForm.get('slug')?.touched && locationForm.get('slug')?.invalid"
-                    class="text-red-500 text-sm mt-1">
-                    <span *ngIf="locationForm.get('slug')?.errors?.['required']">slug is required</span>
+            <div class="grid grid-cols-2 gap-md">
+                <div class="form-group">
+                    <label for="slug" class="mb-1.5 ml-2.5 block text-sm font-semibold">Slug</label>
+                    <input id="slug" type="slug" formControlName="slug"
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full" required>
+                    <div *ngIf="locationForm.get('slug')?.touched && locationForm.get('slug')?.invalid"
+                        class="text-red-500 text-sm mt-1">
+                        <span *ngIf="locationForm.get('slug')?.errors?.['required']">slug is required</span>
+                    </div>
                 </div>
             </div>
 
@@ -22,7 +24,7 @@
                 <div class="form-group">
                     <label for="floors" class="mb-1.5 ml-2.5 block text-sm font-semibold">Floors</label>
                     <input id="floors" type="number" formControlName="floors" min="0" placeholder="0"
-                        class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full" required>
                     <div *ngIf="locationForm.get('floors')?.touched && locationForm.get('floors')?.invalid"
                         class="text-red-500 text-sm mt-1">
                         <span *ngIf="locationForm.get('floors')?.errors?.['required']">floors is required</span>
@@ -33,7 +35,7 @@
                 <div class="form-group">
                     <label for="rooms" class="mb-1.5 ml-2.5 block text-sm font-semibold">Rooms</label>
                     <input id="rooms" type="number" formControlName="rooms" min="0" placeholder="0"
-                        class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full" required>
                     <div *ngIf="locationForm.get('rooms')?.touched && locationForm.get('rooms')?.invalid"
                         class="text-red-500 text-sm mt-1">
                         <span *ngIf="locationForm.get('rooms')?.errors?.['required']">rooms is required</span>
@@ -44,7 +46,7 @@
                 <div class="form-group">
                     <label for="street" class="mb-1.5 ml-2.5 block text-sm font-semibold">Street</label>
                     <input id="street" type="street" formControlName="street"
-                        class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full" required>
                     <div *ngIf="locationForm.get('street')?.touched && locationForm.get('street')?.invalid"
                         class="text-red-500 text-sm mt-1">
                         <span *ngIf="locationForm.get('street')?.errors?.['required']">street is required</span>
@@ -54,7 +56,7 @@
                 <div class="form-group">
                     <label for="number" class="mb-1.5 ml-2.5 block text-sm font-semibold">Housenumber</label>
                     <input id="number" type="number" formControlName="number"
-                        class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full" required>
                     <div *ngIf="locationForm.get('number')?.touched && locationForm.get('number')?.invalid"
                         class="text-red-500 text-sm mt-1">
                         <span *ngIf="locationForm.get('number')?.errors?.['required']">number is required</span>
@@ -65,7 +67,7 @@
                 <div class="form-group">
                     <label for="postal" class="mb-1.5 ml-2.5 block text-sm font-semibold">Postal</label>
                     <input id="postal" type="text" formControlName="postal"
-                        class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full" required>
                     <div *ngIf="locationForm.get('postal')?.touched && locationForm.get('postal')?.invalid"
                         class="text-red-500 text-sm mt-1">
                         <span *ngIf="locationForm.get('postal')?.errors?.['required']">postal is required</span>
@@ -75,7 +77,7 @@
                 <div class="form-group">
                     <label for="city" class="mb-1.5 ml-2.5 block text-sm font-semibold">City</label>
                     <input id="city" type="text" formControlName="city"
-                        class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full" required>
                     <div *ngIf="locationForm.get('city')?.touched && locationForm.get('city')?.invalid"
                         class="text-red-500 text-sm mt-1">
                         <span *ngIf="locationForm.get('city')?.errors?.['required']">city is required</span>

@@ -28,7 +28,7 @@ export class LessonAttendanceService {
 
     const updatedLesson = await this.lessonModel
       .findByIdAndUpdate(
-        { _id: id },
+        id,
         {
           $push: {
             students: studentId,
@@ -62,7 +62,7 @@ export class LessonAttendanceService {
       );
 
     const updatedLesson = await this.lessonModel.findByIdAndUpdate(
-      { _id: id },
+      id,
       {
         $pull: {
           students: studentId,

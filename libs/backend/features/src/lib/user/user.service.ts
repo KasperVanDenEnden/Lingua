@@ -40,7 +40,7 @@ export class UserService {
     Logger.log('update', this.TAG);
 
     const updatedUser = await this.userModel.findByIdAndUpdate(
-      { _id: id },
+      id,
       changes,
       { new: true }
     );

@@ -39,7 +39,7 @@ export class ClassService {
     Logger.log('update', this.TAG);
 
     const updatedClass = await this.classModel.findByIdAndUpdate(
-      { _id: id },
+      id,
       body,
       { new: true }
     );

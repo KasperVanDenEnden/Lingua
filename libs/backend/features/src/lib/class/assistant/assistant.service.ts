@@ -1,8 +1,8 @@
-import { IClass } from '@lingua/api';
+import { IClass, IUpdateClassAssistant } from '@lingua/api';
 import { Class, ClassDocument } from '@lingua/schemas';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class AssistantService {
@@ -59,14 +59,17 @@ export class AssistantService {
   }
 
   async addAssistant(
-    id: Types.ObjectId,
-    classId: Types.ObjectId
+    body :IUpdateClassAssistant
   ): Promise<IClass> {
     Logger.log('addAssistant', this.TAG);
+    const classId = body.class;
+    const assistantId = body.assistant;
 
+    Logger.log(typeof classId, typeof assistantId, 'Types')
+    
     const existingClass = await this.classModel.findOne({
       _id: classId,
-      assistants: id,
+      assistants: assistantId,
     });
 
     if (existingClass)
@@ -76,10 +79,10 @@ export class AssistantService {
       );
 
     const updatedClass = await this.classModel.findByIdAndUpdate(
-      { _id: classId },
+      classId,
       {
         $push: {
-          assistants: id,
+          assistants: assistantId,
         },
       },
       {
@@ -95,14 +98,15 @@ export class AssistantService {
   }
 
   async removeAssistant(
-    id: Types.ObjectId,
-    classId: Types.ObjectId
+    body:IUpdateClassAssistant
   ): Promise<IClass> {
     Logger.log('removeAssistant', this.TAG);
+    const classId = body.class;
+    const assistantId = body.assistant;
 
     const existingClass = await this.classModel.findOne({
       _id: classId,
-      assistants: id,
+      assistants: assistantId,
     });
 
     if (!existingClass)
@@ -112,10 +116,10 @@ export class AssistantService {
       );
 
     const updatedClass = await this.classModel.findByIdAndUpdate(
-      { _id: classId },
+      classId,
       {
         $pull: {
-          assistants: id,
+          assistants: assistantId,
         },
       },
       {

@@ -17,4 +17,5 @@ export * from './lib/class/class-list/class-list.component';
 export * from './lib/class/class-detail/class-detail.component';
 export * from './lib/class/class-form/class-form.component';
 export * from './lib/class/class.service';
+export * from './lib/class/class-assistant.service';
 export * from './lib/user/user.service';

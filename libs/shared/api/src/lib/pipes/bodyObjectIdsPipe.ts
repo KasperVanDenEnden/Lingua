@@ -29,6 +29,7 @@ export class BodyObjectIdsPipe implements PipeTransform<any, any> {
       'student',
       'location',
       'class',
+      'assistant'
     ]; // Voeg hier relevante ID-velden toe
 
     objectIdFields.forEach((key) => {

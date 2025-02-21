@@ -143,7 +143,6 @@ import { ActivatedRoute, Router } from "@angular/router";
     // Get the HTTP options for a request
     getHttpOptions(): { headers: HttpHeaders } {
       const token = this.getToken();
-    
       return {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/json')

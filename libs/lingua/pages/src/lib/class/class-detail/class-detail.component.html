@@ -23,11 +23,11 @@
                     [ngClass]="(class$ | async)?.status === 'Active' ? 'text-green-500 border-green-500' : 'text-red-500 border-red-500'">{{
                     (class$ | async)?.status || 'No street available' }} </span>
                 <div class="flex gap-md">
-                    <span class="text-sm font-medium text-gray-600">Slug: </span>
+                    <span class="text-sm font-medium text-gray-600">Title: </span>
                     <span class="text-sm text-gray-800">{{ (class$ | async)?.title || 'No slug available' }} </span>
                 </div>
                 <div class="flex gap-md">
-                    <span class="text-sm font-medium text-gray-600">Adres: </span>
+                    <span class="text-sm font-medium text-gray-600">Description: </span>
                     <span class="text-sm text-gray-800">{{ (class$ | async)?.description || 'No street available' }}
                     </span>
                 </div>
@@ -82,16 +82,14 @@
                     </option>
                 </select>
             </div>
-            <div>
 
-                <!-- Button om de geselecteerde docent toe te wijzen -->
-                <button (click)="selectedTeacher && assignAssistant(selectedTeacher)" [disabled]="!selectedTeacher"
-                    class="mt-4 bg-primary-dark text-white px-4 py-2 rounded-md">
-                    Assign
-                </button>
-            </div>
+            <!-- Button om de geselecteerde docent toe te wijzen -->
+            <button (click)="selectedTeacher && assignAssistant(selectedTeacher)" [disabled]="!selectedTeacher"
+                class="mt-4 bg-primary-dark text-white px-4 py-2 rounded-md">
+                Assign
+            </button>
             } @else {
-            <span>No other possible teachers to assign</span>
+            <span>No more teachers to assign!</span>
             }
         </div>
     </div>

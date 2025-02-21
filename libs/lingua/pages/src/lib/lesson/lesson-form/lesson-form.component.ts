@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { LinguaCommonModule } from '@lingua/common';
 import {
   FormControl,
@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { IClass, ICreateLesson, Id, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
 import { LessonService } from '../lesson.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -51,66 +51,66 @@ export class LessonFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.loadTeachers();
-    this.loadRooms();
-    this.loadClasses();
-
-    this.lessonForm.get('class')?.valueChanges.subscribe(() => {
-      this.updateTeacherOptions();
-    })
-
-    this.route.parent?.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id) {
-        this.loadLessonData(id);
-        this.isEditMode = true;
-        this.existId = new Types.ObjectId(id);
-      } else {
-        this.lessonForm.reset();
-        this.isEditMode = false;
+    // Laad de docenten, kamers en klassen tegelijk
+    forkJoin({
+      teachers: this.userService.getUsers(),
+      rooms: this.roomService.getRooms(),
+      classes: this.classService.getClasses(),
+    }).subscribe({
+      next: (results) => {
+        this.teachers = results.teachers.filter((user) => user.role === 'teacher');
+        this.rooms = results.rooms;
+        this.classes = results.classes;
+  
+        // Nadat de gegevens geladen zijn, laad je de lesgegevens (indien bewerken)
+        this.route.parent?.paramMap.subscribe((params) => {
+          const id = params.get('id');
+          if (id) {
+            this.isEditMode = true;
+            this.existId = new Types.ObjectId(id);
+            this.loadLessonData(id); // Laad les na het ophalen van docenten
+          } else {
+            this.lessonForm.reset();
+            this.isEditMode = false;
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Fout bij het ophalen van gegevens:', err);
       }
     });
   }
+  
 
   ngOnDestroy(): void {
     this.formSub?.unsubscribe();
   }
 
-  loadTeachers() {
-    this.userService.getUsers().subscribe((results) => {
-      this.teachers = results.filter((user) => user.role === 'teacher');
-    });
-  }
-
-  loadRooms() {
-    this.roomService.getRooms().subscribe((results) => {
-      this.rooms = results;
-    });
-  }
-
-  loadClasses() {
-    this.classService.getClasses().subscribe((results) => {
-      this.classes = results;
-    });
-  }
-
   loadLessonData(id: string) {
     this.formSub = this.lessonService.getLessonById(id).subscribe({
       next: (lesson: ILesson) => {
+        // Update de form-waarden
         this.lessonForm.patchValue({
           teacher: lesson.teacher._id,
           class: lesson.class._id,
           room: lesson.room._id,
-          day: lesson.day,
-          startTime: lesson.startTime,
-          endTime: lesson.endTime,
+          day: formatDate(lesson.day, 'yyyy-MM-dd', 'en'),
+          startTime: formatDate(lesson.startTime, 'HH:mm', 'en'),
+          endTime: formatDate(lesson.endTime, 'HH:mm', 'en'),
         });
+  
+        // Update de leraar-opties nadat de formulierwaarden zijn gepatcht
+        this.updateTeacherOptions();
+  
+        // Selecteer de juiste leraar in de dropdown
+        this.lessonForm.get('teacher')?.setValue(lesson.teacher._id);
       },
       error: (err) => {
         console.error('Fout bij ophalen lesgegevens:', err);
       },
     });
   }
+  
 
   updateTeacherOptions() {
     console.log('updating teachers dropdown');
@@ -169,7 +169,9 @@ export class LessonFormComponent implements OnInit, OnDestroy {
   }
 
   getRoomSlug(room: IRoom): string {
+    console.log(room, 'getRoomSlug');
     const location = room.location as ILocation;
+
 
     return `${location.slug}-${room.floor}.${room.slug}`
   }

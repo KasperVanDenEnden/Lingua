@@ -1,1 +1,50 @@
-<p>lesson-detail works!</p>
+<lingua-header [pageTitle]="'Lessons'"></lingua-header>
+
+<main class="mx-auto p-4 mx-4">
+    <div class="grid" [ngClass]="{'lg:grid-cols-2 grid-cols-1': isChildRouteActive()}">
+        <div class="w-auto bg-secondary-light shadow-lg border-2 border-primary-dark rounded-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold text-primary-dark mb-4">Details</h2>
+                <div>
+                    <a [routerLink]="['/lessons', (lesson$ | async)?._id, 'edit']"
+                        class="bg-primary-dark text-white px-4 py-2 rounded-md hover:bg-primary-light transition">
+                        <i class="fa-solid fa-pencil"></i>
+                        Edit
+                    </a>
+                    <a [routerLink]="['/lessons']"
+                        class="bg-primary-dark text-white px-4 py-2 ml-3 rounded-md hover:bg-primary-light transition">
+                        <i class="fa-solid fa-xmark"></i>
+                        Previous
+                    </a>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div class="flex gap-md">
+                    <span class="text-sm font-medium text-black">Day: </span>
+                    <span class="text-sm text-gray-800">{{ (lesson$ | async)?.day | date:'longDate' }} </span>
+                </div>
+                <div class="flex gap-md">
+                    <span class="text-sm font-medium text-black">Time: </span>
+                    <span class="text-sm text-gray-800">{{ (lesson$ | async)?.startTime | date: 'HH:mm'}} - {{ (lesson$ | async)?.endTime | date: 'HH:mm' }}</span>
+                </div>
+                <div class="flex gap-md">
+                    <span class="text-sm font-medium text-black">Room: </span>
+                    <span class="text-sm text-gray-800">{{ getRoomSlug()}} <span class="font-medium text-primary-dark"></span></span>
+                </div>
+                <div class="flex gap-md">
+                    <span class="text-sm font-medium text-black">Teacher: </span>
+                    <span class="text-sm text-gray-800">{{ getTeacher()}} <span class="font-medium text-primary-dark"></span></span>
+                </div>
+                <div class="flex gap-md">
+                    <span class="text-sm font-medium text-black">Class: </span>
+                    <span class="text-sm text-gray-800">{{ getClass()}} <span class="font-medium text-primary-dark"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Child component (formulier verschijnt hier als hij actief is) -->
+        <div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</main>

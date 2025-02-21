@@ -1,5 +1,5 @@
 <!-- navbar.component.html -->
-<header class="border-b border-primary-dark">
+<header>
     <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <!-- Logo section -->
         <div class="flex lg:flex-1">
@@ -34,9 +34,9 @@
 
                 <div dropdown-items>
                     <a routerLink="/locations"
-                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">Locations</a>
+                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">Locations</a>
                     <a routerLink="/rooms"
-                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">Rooms</a>
+                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">Rooms</a>
                 </div>
             </lingua-dropdown>
 
@@ -45,10 +45,10 @@
 
                 <div dropdown-items>
                     <a routerLink="/classes"
-                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">All
+                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">All
                         classes</a>
                     <a routerLink="#"
-                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">My classes</a>
+                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">My classes</a>
                 </div>
             </lingua-dropdown>
 
@@ -57,10 +57,10 @@
 
                 <div dropdown-items>
                     <a routerLink="/lessons"
-                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">All
+                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">All
                         lessons</a>
                     <a routerLink="#"
-                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">My lessons</a>
+                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">My lessons</a>
                 </div>
             </lingua-dropdown>
 
@@ -89,16 +89,19 @@
 
                 <div dropdown-items>
                     <a routerLink="/lessons"
-                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">
+                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">
                         <span aria-hidden="true"><i class="fa-solid fa-user mr-2"></i></span>
                         Profile
                     </a>
                     <a (click)="logout()" (keydown.enter)="logout()" tabindex="0"
-                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 whitespace-nowrap">
+                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">
                         <span aria-hidden="true"><i class="fa-solid fa-right-from-bracket mr-2"></i>
                             Log out </span>
                     </a>
-                    
+                    <div class="text-center pb-1 border-t">
+
+                        <span class="text-xs text-gray-500">Lingua v1.0</span>
+                    </div>
                 </div>
             </lingua-dropdown>
 

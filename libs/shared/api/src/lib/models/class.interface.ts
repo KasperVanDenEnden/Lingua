@@ -1,5 +1,6 @@
 import { Id } from './id';
 import { IUpsertReview } from './review.interface';
+import { IUser } from './user.interface';
 
 export enum ClassStatus {
   Active = 'Active',
@@ -24,14 +25,14 @@ export interface IClass {
   createdOn: Date;
   language: Language;
 
-  teacher: Id; // Id from main teacher
-  assistants: Id[]; // Id from teacher assistants
+  teacher: Id | IUser; // Id from main teacher
+  assistants: Id[] | IUser[]; // Id from teacher assistants
   reviews: IUpsertReview[]; // Nested reviews
 }
 
 export type ICreateClass = Pick<
   IClass,
-  'title' | 'description' | 'language' | 'teacher' | 'assistants'
+  'status' | 'title' | 'description' | 'language' | 'teacher'
 >;
 export type IUpdateClass = Partial<Omit<IClass, 'id'>>;
 export type IUpsertClass = IClass;

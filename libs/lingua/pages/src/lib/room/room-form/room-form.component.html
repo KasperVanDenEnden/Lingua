@@ -12,7 +12,7 @@
             <div class="grid grid-cols-2 gap-md">
                 <div class="form-group">
                     <label for="slug" class="mb-1.5 ml-2.5 block text-sm font-semibold">Room</label>
-                    <input id="slug" type="slug" formControlName="slug"
+                    <input id="slug" type="text" formControlName="slug"
                         class="form-input border border-primary-dark rounded-md block px-2 h-8" required>
                     <div *ngIf="roomForm.get('slug')?.touched && roomForm.get('slug')?.invalid"
                         class="text-red-500 text-sm mt-1">
@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label for="hasMonitor" class="mb-1.5 ml-2.5 block text-sm font-semibold">Has Monitor</label>
                     <select id="hasMonitor" formControlName="hasMonitor"
-                        class="form-input border border-primary-dark rounded-md block px-2 h-8">
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full">
                         <option [value]="true">Ja</option>
                         <option [value]="false">Nee</option>
                     </select>
@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <label for="location" class="mb-1.5 ml-2.5 block text-sm font-semibold">Select Location</label>
                     <select id="location" formControlName="location"
-                        class="form-input border border-primary-dark rounded-md block px-2 h-8">
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full">
                         <option *ngFor="let location of locations" [value]="location._id">{{ location.slug }} - {{ location.street }}</option>
                     </select>
                     <div *ngIf="roomForm.get('location')?.touched && roomForm.get('location')?.invalid"
@@ -72,7 +72,7 @@
             <button type="submit"
                 [ngClass]="{ 'bg-primary-dark hover:bg-primary-light': !roomForm.invalid, 'bg-gray-300 text-gray-500': roomForm.invalid }"
                 class="py-sm px-md text-white flex self-end" [disabled]="roomForm.invalid">
-                Submit
+                {{ isEditMode ? 'Save' : 'Submit'}}
             </button>
 
         </form>

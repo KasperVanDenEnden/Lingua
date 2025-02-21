@@ -1,4 +1,4 @@
-import { ICreateClass, IsObjectId, Language } from '@lingua/api';
+import { ClassStatus, ICreateClass, IsObjectId, Language } from '@lingua/api';
 import {
   ArrayMinSize,
   IsArray,
@@ -9,6 +9,10 @@ import {
 import { Id } from '@lingua/api';
 
 export class CreateClassDto implements ICreateClass {
+  @IsNotEmpty()
+  @IsString()
+  status!: ClassStatus;
+
   @IsNotEmpty()
   @IsString()
   title!: string;

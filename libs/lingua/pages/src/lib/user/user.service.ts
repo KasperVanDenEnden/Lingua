@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ICreateRoom, Id, IRoom, IUpdateRoom } from "@lingua/api";
+import { ICreateUser, Id, IUser, IUpdateUser } from "@lingua/api";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "@lingua/util-env";
 import { AuthService } from "../auth/auth.service";
@@ -8,7 +8,7 @@ import { AuthService } from "../auth/auth.service";
 @Injectable({
     providedIn: 'root'
 })
-export class RoomService {
+export class UserService {
     private refreshSubject = new BehaviorSubject<boolean>(false);
     refresh$ = this.refreshSubject.asObservable();
 
@@ -18,23 +18,23 @@ export class RoomService {
         this.refreshSubject.next(true)
     }
 
-    getRooms(): Observable<IRoom[]> {
+    getUsers(): Observable<IUser[]> {
         return this.http
-            .get<IRoom[]>(`${environment.dataApiUrl}/room`, this.auth.getHttpOptions());
+            .get<IUser[]>(`${environment.dataApiUrl}/user`, this.auth.getHttpOptions());
     }
 
-    getRoomById(id: string): Observable<IRoom> {
+    getUserById(id: string): Observable<IUser> {
         return this.http
-            .get<IRoom>(`${environment.dataApiUrl}/room/${id}`, this.auth.getHttpOptions());
+            .get<IUser>(`${environment.dataApiUrl}/user/${id}`, this.auth.getHttpOptions());
     }
 
-    update(data: IUpdateRoom, id: Id) {
+    update(data: IUpdateUser, id: Id) {
         return this.http
-            .put<IRoom>(`${environment.dataApiUrl}/room/${id}`, data, this.auth.getHttpOptions());
+            .put<IUser>(`${environment.dataApiUrl}/user/${id}`, data, this.auth.getHttpOptions());
     }
 
-    create(data: ICreateRoom) {
+    create(data: ICreateUser) {
         return this.http
-            .post<IRoom>(`${environment.dataApiUrl}/room`, data, this.auth.getHttpOptions());
+            .post<IUser>(`${environment.dataApiUrl}/user`, data, this.auth.getHttpOptions());
     }
 }

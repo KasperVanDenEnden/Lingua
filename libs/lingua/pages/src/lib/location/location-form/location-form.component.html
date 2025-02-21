@@ -74,7 +74,7 @@
             <button type="submit"
                 [ngClass]="{ 'bg-primary-dark hover:bg-primary-light': !locationForm.invalid, 'bg-gray-300 text-gray-500': locationForm.invalid }"
                 class="py-sm px-md text-white flex self-end" [disabled]="locationForm.invalid">
-                Submit
+                {{ isEditMode ? 'Save' : 'Submit'}}
             </button>
 
         </form>

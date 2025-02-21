@@ -46,25 +46,21 @@ export class RoomFormComponent implements OnInit, OnDestroy {
         this.isEditMode = true;
         this.existId = new Types.ObjectId(id);
       } else {
-        this.initializeNewRoom();
+        this.roomForm.reset();
         this.isEditMode = false
       }
     });
 
   }
 
-  loadLocations() {
-    this.locationService.getLocations().subscribe((results) => {
-      this.locations = results;
-    }); 
-  }
-
   ngOnDestroy(): void {
     this.formSub?.unsubscribe();
   }
 
-  initializeNewRoom() {
-    this.roomForm.reset();
+  loadLocations() {
+    this.locationService.getLocations().subscribe((results) => {
+      this.locations = results;
+    }); 
   }
 
   loadRoomData(id: string) {

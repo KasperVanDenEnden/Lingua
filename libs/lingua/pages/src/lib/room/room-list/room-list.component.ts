@@ -40,9 +40,14 @@ export class RoomListComponent implements OnInit, OnDestroy {
     })
   }
 
-  getRoomLocationSlug(room: IRoom): string {
-    return (room.location as ILocation)?.slug || '';
+  getRoom(room: IRoom): string {
+    const locationSlug = (room.location as ILocation)?.slug ?? '';
+    const floor = room.floor ?? '';
+    const roomSlug = room.slug ?? '';
+  
+    return `${locationSlug}-${floor}.${roomSlug}`;
   }
+  
 
   getLocationAddress(room: IRoom): string {
     const location = room.location as ILocation;

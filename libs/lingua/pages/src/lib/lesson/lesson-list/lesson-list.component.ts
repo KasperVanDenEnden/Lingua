@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LinguaCommonModule } from '@lingua/common';
 import { Observable, Subscription } from 'rxjs';
-import { IClass, ILesson, IRoom, IUser } from '@lingua/api';
+import { IClass, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
 import { LessonService } from '../lesson.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
@@ -49,10 +49,15 @@ export class LessonListComponent implements OnInit, OnDestroy {
     return `${teacher.firstname || ''} ${teacher.lastname || ''}`.trim();
   }
 
-  getRoom(lesson:ILesson) {
-    console.log(lesson.room)
-    return (lesson.room as IRoom)?.slug || ''
+  getRoom(lesson: ILesson): string | undefined {
+    const room = lesson.room as IRoom;
+    const location = room?.location as ILocation;
+  
+    if (!room || !location) return;
+  
+    return `${location.slug}-${room.floor}.${room.slug}`;
   }
+  
 
   isChildRouteActive(): boolean {
     return this.route.children.length > 0; 

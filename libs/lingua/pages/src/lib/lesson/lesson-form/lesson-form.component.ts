@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { IClass, ICreateLesson, Id, ILesson, IRoom, IUser } from '@lingua/api';
+import { IClass, ICreateLesson, Id, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
 import { LessonService } from '../lesson.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Types } from 'mongoose';
@@ -166,6 +166,12 @@ export class LessonFormComponent implements OnInit, OnDestroy {
         this.router.navigate(['/lessons']);
       });
     }
+  }
+
+  getRoomSlug(room: IRoom): string {
+    const location = room.location as ILocation;
+
+    return `${location.slug}-${room.floor}.${room.slug}`
   }
 
   closeForm() {

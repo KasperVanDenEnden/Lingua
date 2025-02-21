@@ -82,6 +82,18 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="location" class="mb-1.5 ml-2.5 block text-sm font-semibold">Select Location</label>
+                    <select id="location" formControlName="location"
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full">
+                        <option *ngFor="let location of locations" [value]="location._id">{{ location.slug }} - {{ location.street }}</option>
+                    </select>
+                    <div *ngIf="roomForm.get('location')?.touched && roomForm.get('location')?.invalid"
+                        class="text-red-500 text-sm mt-1">
+                        <span *ngIf="roomForm.get('location')?.errors?.['required']">Select a location</span>
+                    </div>
+                </div>
+
             </div>
             <button type="submit"
                 [ngClass]="{ 'bg-primary-dark hover:bg-primary-light': !roomForm.invalid, 'bg-gray-300 text-gray-500': roomForm.invalid }"

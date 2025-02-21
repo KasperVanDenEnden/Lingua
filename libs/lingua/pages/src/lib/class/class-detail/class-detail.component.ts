@@ -63,7 +63,6 @@ export class ClassDetailComponent implements OnInit, OnDestroy {
               return isNotCurrentTeacher && isNotAssistant;
             });
           })
-
         })
       }
     });

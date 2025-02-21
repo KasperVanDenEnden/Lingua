@@ -1,0 +1,91 @@
+<main class="flex justify-center">
+    <div class="p-4 max-w-xl w-full h-auto border-2 border-primary-dark bg-secondary-light rounded-lg">
+        <div class="flex justify-between items-center">
+            <h1 class="font-semibold text-xl mb-3">Lesson Form</h1>
+            <button (click)="closeForm()" class="text-gray-500 hover:text-red-600">
+                <i class="fa-solid fa-xmark fa-lg"></i>
+            </button>
+        </div>
+
+        <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()" class="space-y-4">
+
+            <div class="grid grid-cols-2 gap-md">
+
+            <div class="form-group">
+                <label for="class" class="mb-1.5 ml-2.5 block text-sm font-semibold">Select Class</label>
+                <select id="class" formControlName="class"
+                    class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full">
+                    <option *ngFor="let class of classes" [value]="class._id">{{ class.title }}</option>
+                </select>
+                <div *ngIf="lessonForm.get('class')?.touched && lessonForm.get('class')?.invalid"
+                    class="text-red-500 text-sm mt-1">
+                    <span *ngIf="lessonForm.get('class')?.errors?.['required']">Select a class</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="teacher" class="mb-1.5 ml-2.5 block text-sm font-semibold">Select Teacher</label>
+                <select id="teacher" formControlName="teacher"
+                    class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full">
+                    <option *ngFor="let teacher of filteredTeachers" [value]="teacher._id">{{ teacher.firstname }} {{ teacher.lastname }}</option>
+                </select>
+                <div *ngIf="lessonForm.get('teacher')?.touched && lessonForm.get('teacher')?.invalid"
+                    class="text-red-500 text-sm mt-1">
+                    <span *ngIf="lessonForm.get('teacher')?.errors?.['required']">Select a teacher</span>
+                </div>
+            </div>
+        </div>
+          
+            <div class="form-group">
+                <label for="day" class="mb-1.5 ml-2.5 block text-sm font-semibold">Select Date</label>
+                <input id="day" type="date" formControlName="day"
+                    class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full">
+                <div *ngIf="lessonForm.get('day')?.touched && lessonForm.get('day')?.invalid"
+                    class="text-red-500 text-sm mt-1">
+                    <span *ngIf="lessonForm.get('day')?.errors?.['required']">Select a date</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-md">
+                <div class="form-group">
+                    <label for="startTime" class="mb-1.5 ml-2.5 block text-sm font-semibold">Start Time</label>
+                    <input id="startTime" type="time" formControlName="startTime"
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full">
+                    <div *ngIf="lessonForm.get('startTime')?.touched && lessonForm.get('startTime')?.invalid"
+                        class="text-red-500 text-sm mt-1">
+                        <span *ngIf="lessonForm.get('startTime')?.errors?.['required']">Select a start time</span>
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label for="endTime" class="mb-1.5 ml-2.5 block text-sm font-semibold">End Time</label>
+                    <input id="endTime" type="time" formControlName="endTime"
+                        class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full">
+                    <div *ngIf="lessonForm.get('endTime')?.touched && lessonForm.get('endTime')?.invalid"
+                        class="text-red-500 text-sm mt-1">
+                        <span *ngIf="lessonForm.get('endTime')?.errors?.['required']">Select an end time</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="room" class="mb-1.5 ml-2.5 block text-sm font-semibold">Select Room</label>
+                <select id="room" formControlName="room"
+                    class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full">
+                    <option *ngFor="let room of rooms" [value]="room._id">{{ getRoomSlug(room) }}</option>
+                </select>
+                <div *ngIf="lessonForm.get('room')?.touched && lessonForm.get('room')?.invalid"
+                    class="text-red-500 text-sm mt-1">
+                    <span *ngIf="lessonForm.get('room')?.errors?.['required']">Select a room</span>
+                </div>
+            </div>
+
+            <button type="submit"
+                [ngClass]="{ 'bg-primary-dark hover:bg-primary-light': !lessonForm.invalid, 'bg-gray-300 text-gray-500': lessonForm.invalid }"
+                class="py-sm px-md text-white flex self-end" [disabled]="lessonForm.invalid">
+                {{ isEditMode ? 'Save' : 'Submit'}}
+            </button>
+
+        </form>
+    </div>
+</main>

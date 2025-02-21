@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { Subscription } from 'rxjs';
-import { IUser, Role } from '@lingua/api';
+import { IUser } from '@lingua/api';
 import { AuthService } from '@lingua/pages';
 import { Router, RouterLink } from '@angular/router';
 
@@ -14,7 +14,9 @@ import { Router, RouterLink } from '@angular/router';
 export class NavComponent implements OnInit, OnDestroy  {
   isMobileMenuOpen = false;
   isLocationMenuOpen = false;
-  isLocationFlyoutOpen = false;
+
+  isClassMenuOpen = false; 
+  isLessonMenuOpen = false; 
 
   userSub!: Subscription;
   currentUser: IUser | undefined;
@@ -60,8 +62,12 @@ export class NavComponent implements OnInit, OnDestroy  {
     this.isLocationMenuOpen = !this.isLocationMenuOpen;
   }
 
-  toggleLocationFlyout() {
-    this.isLocationFlyoutOpen = !this.isLocationFlyoutOpen;
+  toggleClassMenu() {
+    this.isClassMenuOpen = !this.isClassMenuOpen;
+  }
+  
+  toggleLessonMenu() {
+    this.isLessonMenuOpen = !this.isLessonMenuOpen;
   }
 
   logout() {

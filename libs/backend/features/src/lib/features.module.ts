@@ -52,7 +52,7 @@ import { ReviewService } from './review/review.service';
     ]),
     JwtModule.register({
       secret: environment.SECRET_KEY,
-      signOptions: { expiresIn: '5h' },
+      signOptions: { expiresIn: '1d' },
     }),
   ],
   controllers: [

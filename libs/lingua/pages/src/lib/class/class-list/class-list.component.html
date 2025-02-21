@@ -21,7 +21,7 @@
                 <th class="px-6 py-3 text-left text-xs font-medium text-primary-base uppercase tracking-wider">Status</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-primary-base uppercase tracking-wider">Title</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-primary-base uppercase tracking-wider">Language</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-primary-base uppercase tracking-wider">CreatedOn</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-primary-base uppercase tracking-wider">Created On</th>
               <th class="px-6 py-3 text-center text-xs font-medium text-primary-base uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
@@ -30,7 +30,7 @@
               <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-medium text-center border rounded-lg" [ngClass]="class?.status === 'Active' ? 'border-green-500 text-green-500' : 'border-primary-base text-primary-base'">{{ class?.status }}</div></td>
               <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-500">{{ class?.title }}</div></td>
               <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-500">{{ class?.language }}</div></td>
-              <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-500">{{ class?.createdOn }}</div></td>
+              <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm text-gray-500">{{ class?.createdOn | date: 'longDate' }}</div></td>
               <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                 <a [routerLink]="['/classes', class._id]" class="text-primary-dark hover:text-primary-light mr-4" title="Show"><i class="fa-solid fa-eye fa-lg"></i></a>
                 <a [routerLink]="['/classes', class._id, 'edit']" class="text-primary-dark hover:text-primary-light mr-4" title="Edit"><i class="fa-solid fa-pencil fa-lg"></i></a>

@@ -36,3 +36,8 @@ export type ICreateClass = Pick<
 >;
 export type IUpdateClass = Partial<Omit<IClass, 'id'>>;
 export type IUpsertClass = IClass;
+
+export type IUpdateClassAssistant = {
+  class: string,
+  assistant: Id
+}

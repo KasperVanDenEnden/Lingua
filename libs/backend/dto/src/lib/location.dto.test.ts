@@ -8,6 +8,9 @@ describe('LocationDto Tests', () => {
 
     beforeEach(() => {
         DTO = new CreateLocationDto
+        DTO.slug = 'Slug'; //@todo Write tests
+        DTO.floors = 4; //@todo Write tests
+        DTO.rooms = 20; //@todo Write tests
         DTO.createdBy = new Types.ObjectId
         DTO.street = 'Churckstreet'
         DTO.number = '1'

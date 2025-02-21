@@ -13,16 +13,27 @@ export class LessonService {
 
   async getAll(): Promise<ILesson[]> {
     Logger.log('getAll', this.TAG);
-    return await this.lessonModel.find();
+    return await this.lessonModel.find()
+      .populate({path: 'room',
+        populate: { 
+          path: 'location'
+        }
+      })
+      .populate('teacher')
+      .populate('class')
+      .populate('students')
+      .exec();
   }
 
   async getOne(id: Id): Promise<ILesson> {
     Logger.log('getOne', this.TAG);
 
-    const lesson = await this.lessonModel
-      .findById(id)
-      .populate('room')
-      .populate('room.location')
+    const lesson = await this.lessonModel.findById(id)
+      .populate({path: 'room',
+        populate: { 
+          path: 'location'
+        }
+      })
       .populate('teacher')
       .populate('class')
       .populate('students')

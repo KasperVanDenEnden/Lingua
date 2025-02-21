@@ -34,6 +34,12 @@ export class LocationService {
   async create(body: ILocation): Promise<ILocation> {
     Logger.log('create', this.TAG);
 
+    const existingSlug = await this.locationModel.findOne({ slug: body.slug });
+
+    if (existingSlug) {
+      throw new HttpException('Slug must be unique', HttpStatus.BAD_REQUEST);
+    }
+
     return await this.locationModel.create(body);
   }
 

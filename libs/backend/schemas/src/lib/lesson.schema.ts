@@ -32,7 +32,7 @@ export class Lesson implements ILesson {
   @IsNotEmpty()
   @IsObjectId()
   teacher!: Types.ObjectId;
-
+  
   @Prop({ type: [Types.ObjectId], ref: 'User' })
   @IsNotEmpty()
   @IsObjectId({
@@ -42,16 +42,21 @@ export class Lesson implements ILesson {
   @IsArray()
   @ArrayMinSize(0, { message: 'Assistants must be an array (can be empty)' })
   students!: Types.ObjectId[];
-
+  
   @Prop()
   @IsNotEmpty()
   @IsString()
   title!: string;
-
+  
   @Prop()
   @IsNotEmpty()
   @IsString()
   description!: string;
+  
+  @Prop()
+  @IsNotEmpty()
+  @IsDate()
+  day!: Date;
 
   @Prop()
   @IsNotEmpty()

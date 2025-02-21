@@ -52,7 +52,7 @@ export class ReviewService {
   //     Logger.log('update', this.TAG);
 
   //     const updatedComment = await this.classModel.findByIdAndUpdate(
-  //       { _id: id },
+  //       id,
   //       changes,
   //       { new: true }
   //     );

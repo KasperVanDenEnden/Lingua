@@ -54,8 +54,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
     ].filter(Boolean).join(', ');
   }
   
-
   isChildRouteActive(): boolean {
-    return this.route.children.length > 0; // Checkt of er een child actief is
+    return this.route.children.length > 0;
   }
 }

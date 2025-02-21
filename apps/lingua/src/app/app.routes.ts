@@ -1,5 +1,8 @@
 import { Route, RouterModule } from '@angular/router';
 import {
+  ClassDetailComponent,
+  ClassFormComponent,
+  ClassListComponent,
   DashboardComponent,
   LocationDetailComponent,
   LocationFormComponent,
@@ -47,7 +50,17 @@ export const appRoutes: Route[] = [
       { path: 'edit', pathMatch:'full', component: RoomFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} },
     ]
   },
-  { path: 'classes', component: NxWelcomeComponent, canActivate: [AuthGuard] },
+  { path: 'classes', component: ClassListComponent, canActivate: [AuthGuard], children: [
+    { path: 'new', pathMatch: 'full', component: ClassFormComponent , canActivate: [RolesGuard], data: { role: 'teacher'}}
+  ] },
+  {
+    path: 'classes/:id',
+    canActivate: [AuthGuard],
+    component: ClassDetailComponent,
+    children: [
+      { path: 'edit', pathMatch:'full', component: ClassFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} },
+    ]
+  },
   { path: 'lessons', component: NxWelcomeComponent, canActivate: [AuthGuard] },
   { path: 'pages', component: PagesComponent},
   { path: 'access-denied', component: CommonComponent},

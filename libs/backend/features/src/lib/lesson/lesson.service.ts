@@ -43,7 +43,7 @@ export class LessonService {
     Logger.log('update', this.TAG);
 
     const updatedLesson = await this.lessonModel.findByIdAndUpdate(
-      { _id: id },
+      id,
       changes,
       { new: true }
     );

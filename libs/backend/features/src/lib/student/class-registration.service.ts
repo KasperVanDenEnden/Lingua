@@ -81,7 +81,7 @@ export class ClassRegistrationService {
 
     const updatedClassRegistration =
       await this.classRegistrationModel.findByIdAndUpdate(
-        { _id: id },
+        id,
         { unregisteredAt: Date.now() },
         {
           new: true,

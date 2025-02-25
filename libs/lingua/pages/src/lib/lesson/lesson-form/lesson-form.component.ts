@@ -60,8 +60,8 @@ export class LessonFormComponent implements OnInit, OnDestroy {
       next: (results) => {
         this.teachers = results.teachers.filter((user) => user.role === 'teacher');
         this.rooms = results.rooms;
-        this.classes = results.classes;
-  
+        this.classes = results.classes.filter(cls => cls.status !== 'Archived');  
+
         // Nadat de gegevens geladen zijn, laad je de lesgegevens (indien bewerken)
         this.route.parent?.paramMap.subscribe((params) => {
           const id = params.get('id');
@@ -73,6 +73,10 @@ export class LessonFormComponent implements OnInit, OnDestroy {
             this.lessonForm.reset();
             this.isEditMode = false;
           }
+        });
+
+        this.lessonForm.get('class')?.valueChanges.subscribe(selectedClassId => {
+          this.updateTeacherOptions();
         });
       },
       error: (err) => {
@@ -111,7 +115,6 @@ export class LessonFormComponent implements OnInit, OnDestroy {
     });
   }
   
-
   updateTeacherOptions() {
     console.log('updating teachers dropdown');
     const selectedClassId = this.lessonForm.get('class')?.value;
@@ -169,10 +172,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
   }
 
   getRoomSlug(room: IRoom): string {
-    console.log(room, 'getRoomSlug');
     const location = room.location as ILocation;
-
-
     return `${location.slug}-${room.floor}.${room.slug}`
   }
 

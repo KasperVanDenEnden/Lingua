@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
+import { Observable, of, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +11,27 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private authService: AuthService
   ) {}
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.authService.isAuthenticated() && this.authService.validateToken()) {
-      return true;
-    }
-
-    // Bewaar de oorspronkelijke URL om na inloggen terug te kunnen keren
-    this.router.navigate(['/login'], {
-      queryParams: { returnUrl: state.url }
-    });
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    console.log('reached');
     
-    return false;
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login'], {
+        queryParams: { returnUrl: state.url }
+      });
+      return of(false);
+    }
+    
+    return this.authService.validateToken().pipe(
+      map(user => {
+        if (user) {
+          return true;
+        } else {
+          this.router.navigate(['/login'], {
+            queryParams: { returnUrl: state.url }
+          });
+          return false;
+        }
+      })
+    );
   }
 }

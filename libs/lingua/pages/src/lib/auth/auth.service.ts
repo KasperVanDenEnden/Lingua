@@ -104,6 +104,7 @@ import { ActivatedRoute, Router } from "@angular/router";
       
       return this.http.get<any>(url, this.getHttpOptions()).pipe(
         map((response) => {
+          console.log(response);
           return response;
         }),
         catchError(() => {

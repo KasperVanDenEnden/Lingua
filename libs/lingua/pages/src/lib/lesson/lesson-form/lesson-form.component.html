@@ -15,7 +15,7 @@
                 <label for="class" class="mb-1.5 ml-2.5 block text-sm font-semibold">Select Class</label>
                 <select id="class" formControlName="class"
                     class="form-input border border-primary-dark rounded-md block px-2 h-8 w-full">
-                    <option *ngFor="let class of classes" [value]="class._id">{{ class.title }}</option>
+                    <option *ngFor="let cls of classes" [value]="cls._id">{{ cls.title }}</option>
                 </select>
                 <div *ngIf="lessonForm.get('class')?.touched && lessonForm.get('class')?.invalid"
                     class="text-red-500 text-sm mt-1">

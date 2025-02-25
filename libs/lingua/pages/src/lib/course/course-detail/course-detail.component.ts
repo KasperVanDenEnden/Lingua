@@ -1,17 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ICourse, IUser } from '@lingua/api';
 import { Subscription, Observable } from 'rxjs';
-import { UserService } from '../../../../../services/src/lib/user.service';
-import { CourseService } from '../../../../../services/src/lib/course.service';
-import { CourseAssistantService } from '../../../../../services/src/lib/course-assistant.service';
-import { LinguaCommonModule } from '@lingua/common';
-import { FormsModule } from '@angular/forms';
+import { PagesModule } from '../../pages.module';
+import { CourseService, CourseAssistantService, UserService } from '@lingua/services';
 
 @Component({
   selector: 'lingua-course-detail',
-  imports: [CommonModule, RouterModule, LinguaCommonModule, FormsModule],
+  imports: [PagesModule],
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.css',
 })

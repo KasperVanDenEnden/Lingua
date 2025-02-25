@@ -1,16 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LinguaCommonModule } from '@lingua/common';
 import { Observable, Subscription } from 'rxjs';
 import { ICourse, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
-import { LessonService } from '@lingua/services';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { UiModule } from '@lingua/ui';
-import { ToastrService } from 'ngx-toastr';
+import { LessonService, NotificationService } from '@lingua/services';
+import { ActivatedRoute } from '@angular/router';
+import { PagesModule } from '../../pages.module';
 
 @Component({
   selector: 'lingua-lesson-list',
-  imports: [CommonModule, LinguaCommonModule, UiModule, RouterModule],
+  imports: [PagesModule],
   templateUrl: './lesson-list.component.html',
   styleUrl: './lesson-list.component.css',
 })
@@ -23,10 +20,10 @@ export class LessonListComponent implements OnInit, OnDestroy {
   isModalOpen = false;
   recordToDelete?: ILesson | null;
 
-  constructor(private lessonService: LessonService, private route: ActivatedRoute, private toastr: ToastrService) {}
+  constructor(private lessonService: LessonService, private route: ActivatedRoute, private notify: NotificationService) {}
 
   ngOnInit(): void {
-    this.toastr.success('Toastr is working!', 'Test');
+    this.notify.success('Toastr is working!');
 
     this.loadLessons();
 
@@ -80,7 +77,7 @@ export class LessonListComponent implements OnInit, OnDestroy {
           // Reload the list after successful deletion
           this.loadLessons();
           // Show success message (optional)
-          this.toastr.success('Gelukt!', 'Success!')
+          this.notify.success('Gelukt!');
         },
         error: (error) => {
           console.error('Error deleting lesson:', error);

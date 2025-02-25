@@ -1,14 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ICourse } from '@lingua/api';
-import { CourseService } from '../../../../../services/src/lib/course.service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { CourseService } from '@lingua/services';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
-import { LinguaCommonModule } from '@lingua/common';
+import { PagesModule } from '../../pages.module';
 
 @Component({
   selector: 'lingua-course-list',
-  imports: [CommonModule, LinguaCommonModule, RouterModule],
+  imports: [PagesModule],
   templateUrl: './course-list.component.html',
   styleUrl: './course-list.component.css',
 })

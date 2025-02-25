@@ -8,3 +8,5 @@ export * from './lib/room.service';
 export * from './lib/auth/auth.guard';
 export * from './lib/auth/auth.service';
 export * from './lib/auth/roles.guard';
+
+export * from './lib/toastr/toastr.service';

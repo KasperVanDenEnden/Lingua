@@ -1,15 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LinguaCommonModule } from '@lingua/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ILocation, IRoom } from '@lingua/api';
 import { Observable, Subscription } from 'rxjs';
 import { RoomService } from '@lingua/services';
+import { PagesModule } from '../../pages.module';
 
 
 @Component({
   selector: 'lingua-room-list',
-  imports: [CommonModule, LinguaCommonModule, RouterModule],
+  imports: [PagesModule],
   templateUrl: './room-list.component.html',
   styleUrl: './room-list.component.css',
 })

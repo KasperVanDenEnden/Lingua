@@ -1,22 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocationService } from '@lingua/services';
 import { Subscription } from 'rxjs';
 import {
   FormControl,
   FormGroup,
-  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { ICreateLocation, Id, ILocation, IUser } from '@lingua/api';
-import { LinguaCommonModule } from '@lingua/common';
 import { Types } from 'mongoose';
 import { AuthService } from '@lingua/services';
+import { PagesModule } from '../../pages.module';
 
 @Component({
   selector: 'lingua-location-form',
-  imports: [CommonModule, ReactiveFormsModule, LinguaCommonModule],
+  imports: [PagesModule],
   templateUrl: './location-form.component.html',
   styleUrl: './location-form.component.css',
 })

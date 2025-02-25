@@ -1,29 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PagesComponent } from './pages/pages.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { LocationListComponent } from './location/location-list/location-list.component';
-import { LocationDetailComponent } from './location/location-detail/location-detail.component';
-import { LocationFormComponent } from './location/location-form/location-form.component';
+import { RouterModule } from '@angular/router';
+import { LinguaCommonModule } from '@lingua/common';
+import { UiModule } from '@lingua/ui';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    PagesComponent,
-    LoginComponent,
-    RegisterComponent,
-    LocationListComponent,
-    LocationDetailComponent,
-    LocationFormComponent,
+    RouterModule,
+    LinguaCommonModule,
+    UiModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
-    PagesComponent,
-    LoginComponent,
-    RegisterComponent,
-    LocationListComponent,
-    LocationDetailComponent,
-    LocationFormComponent,
+    CommonModule,
+    RouterModule,
+    UiModule,
+    LinguaCommonModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class PagesModule { }

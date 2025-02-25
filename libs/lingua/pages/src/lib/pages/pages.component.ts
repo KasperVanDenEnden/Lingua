@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { LinguaCommonModule } from '@lingua/common';
+import { PagesModule } from '../pages.module';
 
 @Component({
   selector: 'lingua-pages',
-  imports: [LinguaCommonModule],
+  imports: [PagesModule],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.css',
 })

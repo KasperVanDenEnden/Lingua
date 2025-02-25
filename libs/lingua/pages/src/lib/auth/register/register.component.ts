@@ -1,15 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription, switchMap } from 'rxjs';
-import { AuthService } from '../../../../../services/src/lib/auth/auth.service';
+import { AuthService } from '@lingua/services';
 import { Router } from '@angular/router';
 import { ICreateUser } from '@lingua/api';
-import { LinguaCommonModule } from '@lingua/common';
+import { PagesModule } from '../../pages.module';
 
 @Component({
   selector: 'lingua-register',
-  imports: [CommonModule, ReactiveFormsModule, LinguaCommonModule],
+  imports: [PagesModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

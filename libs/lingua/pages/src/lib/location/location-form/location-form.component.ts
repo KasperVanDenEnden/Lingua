@@ -127,7 +127,7 @@ export class LocationFormComponent implements OnInit, OnDestroy {
       )
     } else {
       // create
-      this.locationService.create(data).subscribe((location) => {
+      this.locationService.create(data).subscribe(() => {
         this.locationService.triggerRefresh(); 
         this.router.navigate(['/locations']);
       })

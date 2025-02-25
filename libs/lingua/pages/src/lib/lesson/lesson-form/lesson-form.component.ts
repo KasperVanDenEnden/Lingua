@@ -72,7 +72,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
           }
         });
 
-        this.lessonForm.get('course')?.valueChanges.subscribe(selectedCourseId => {
+        this.lessonForm.get('course')?.valueChanges.subscribe(() => {
           this.updateTeacherOptions();
         });
       },
@@ -161,7 +161,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
           this.router.navigate(['lessons', updatedLesson._id]);
         });
     } else {
-      this.lessonService.create(data).subscribe((lesson) => {
+      this.lessonService.create(data).subscribe(() => {
         this.lessonService.triggerRefresh();
         this.router.navigate(['/lessons']);
       });

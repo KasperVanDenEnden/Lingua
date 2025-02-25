@@ -124,7 +124,7 @@ export class RoomFormComponent implements OnInit, OnDestroy {
         this.router.navigate(['rooms', updatedRoom._id]);
       })
     } else {
-      this.roomService.create(data).subscribe((room) => {
+      this.roomService.create(data).subscribe(() => {
         this.roomService.triggerRefresh();
         this.router.navigate(['/rooms'])
       })

@@ -1,7 +1,7 @@
 import { Id, ICourse, IUpdateCourse, ICreateCourse } from "@lingua/api";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "@lingua/util-env";
-import { AuthService } from "../auth/auth.service";
+import { AuthService } from "./auth/auth.service";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
@@ -36,5 +36,10 @@ export class CourseService {
     create(data: ICreateCourse) {
         return this.http
             .post<ICourse>(`${environment.dataApiUrl}/course`, data, this.auth.getHttpOptions());
+    }
+
+    delete(id: Id) {
+        return this.http
+            .delete<ICourse>(`${environment.dataApiUrl}/course/${id}`, this.auth.getHttpOptions());
     }
 }

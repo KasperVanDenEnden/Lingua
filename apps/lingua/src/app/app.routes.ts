@@ -18,7 +18,7 @@ import {
   RoomListComponent,
 } from '@lingua/pages';
 import { NgModule } from '@angular/core';
-import { AuthGuard, RolesGuard } from '@lingua/pages';
+import { AuthGuard, RolesGuard } from '@lingua/services';
 import { CommonComponent } from '@lingua/common';
 
 export const appRoutes: Route[] = [

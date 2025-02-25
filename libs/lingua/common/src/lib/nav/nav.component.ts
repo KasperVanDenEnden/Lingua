@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { Subscription } from 'rxjs';
 import { IUser } from '@lingua/api';
-import { AuthService } from '@lingua/pages';
+import { AuthService } from '@lingua/services';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({

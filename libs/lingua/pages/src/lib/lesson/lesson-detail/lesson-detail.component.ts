@@ -1,14 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LinguaCommonModule } from '@lingua/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ICourse, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
 import { Subscription, Observable } from 'rxjs';
-import { LessonService } from '../lesson.service';
+import { LessonService, NotificationService } from '@lingua/services';
+import { PagesModule } from '../../pages.module';
 
 @Component({
   selector: 'lingua-lesson-detail',
-  imports: [CommonModule, LinguaCommonModule, RouterModule],
+  imports: [PagesModule],
   templateUrl: './lesson-detail.component.html',
   styleUrl: './lesson-detail.component.css',
 })
@@ -21,9 +20,14 @@ export class LessonDetailComponent implements OnInit, OnDestroy {
   course?: ICourse | null;
   teacher?: IUser | null;
 
+  isModalOpen = false;
+  recordToDelete?: ILesson | null;
+
   constructor(
     private lessonService: LessonService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private router:Router,
+    private notify:NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +53,7 @@ export class LessonDetailComponent implements OnInit, OnDestroy {
           this.location = this.room.location as ILocation;
           this.course = lesson.course as ICourse;
           this.teacher = lesson.teacher as IUser;
+          this.recordToDelete = lesson;
         })
       }
     });
@@ -64,6 +69,32 @@ export class LessonDetailComponent implements OnInit, OnDestroy {
 
   getClass(): string {
     return `${this.course?.title}: ${this.course?.description}`
+  }
+
+  handleDelete(): void {
+    this.isModalOpen = true;
+  }
+
+  confirmDelete(): void {
+    console.log('confirmed deletion');
+    if (this.recordToDelete) {
+      console.log('recordToDeleteIsSet', this.recordToDelete._id)
+      this.lessonService.delete(this.recordToDelete._id).subscribe({
+        next: () => {
+          this.notify.success('Gelukt!')
+          this.router.navigate(['/lessons']);
+        },
+        error: (error) => {
+          console.error('Error deleting lesson:', error);
+          // Show error message (optional)
+        },
+      });
+    }
+  }
+  
+  closeModal(): void {
+    console.log('close modal');
+    this.isModalOpen = false;
   }
 
   isChildRouteActive(): boolean {

@@ -1,14 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LinguaCommonModule } from '@lingua/common';
 import { Observable, Subscription } from 'rxjs';
 import { ICourse, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
-import { LessonService } from '../lesson.service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { LessonService, NotificationService } from '@lingua/services';
+import { ActivatedRoute } from '@angular/router';
+import { PagesModule } from '../../pages.module';
 
 @Component({
   selector: 'lingua-lesson-list',
-  imports: [CommonModule, LinguaCommonModule, RouterModule],
+  imports: [PagesModule],
   templateUrl: './lesson-list.component.html',
   styleUrl: './lesson-list.component.css',
 })
@@ -18,7 +17,10 @@ export class LessonListComponent implements OnInit, OnDestroy {
 
   lessonList$?: Observable<ILesson[]>;
 
-  constructor(private lessonService: LessonService, private route: ActivatedRoute) {}
+  isModalOpen = false;
+  recordToDelete?: ILesson | null;
+
+  constructor(private lessonService: LessonService, private route: ActivatedRoute, private notify: NotificationService) {}
 
   ngOnInit(): void {
     this.loadLessons();
@@ -58,6 +60,40 @@ export class LessonListComponent implements OnInit, OnDestroy {
     return `${location.slug}-${room.floor}.${room.slug}`;
   }
   
+  handleDelete(record: ILesson): void {
+    console.log(record, 'record');
+    this.recordToDelete = record;
+    this.isModalOpen = true;
+  }
+
+  confirmDelete(): void {
+    console.log('confirmed deletion');
+    if (this.recordToDelete) {
+      console.log('recordToDeleteIsSet', this.recordToDelete._id)
+      this.lessonService.delete(this.recordToDelete._id).subscribe({
+        next: () => {
+          // Reload the list after successful deletion
+          this.loadLessons();
+          // Show success message (optional)
+          this.notify.success('Gelukt!');
+        },
+        error: (error) => {
+          console.error('Error deleting lesson:', error);
+          // Show error message (optional)
+        },
+        complete: () => {
+          // Reset the recordToDelete and close modal
+          this.recordToDelete = null;
+          this.isModalOpen = false;
+        }
+      });
+    }
+  }
+  
+  closeModal(): void {
+    console.log('close modal');
+    this.isModalOpen = false;
+  }
 
   isChildRouteActive(): boolean {
     return this.route.children.length > 0; 

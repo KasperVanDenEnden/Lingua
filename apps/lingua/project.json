@@ -21,7 +21,11 @@
             "input": "apps/lingua/public"
           }
         ],
-        "styles": ["apps/lingua/src/styles.css", "node_modules/@fortawesome/fontawesome-free/css/all.min.css"],
+        "styles": [
+          "apps/lingua/src/styles.css",
+          "node_modules/@fortawesome/fontawesome-free/css/all.min.css", 
+          "node_modules/ngx-toastr/toastr.css"
+        ],
         "scripts": []
       },
       "configurations": {

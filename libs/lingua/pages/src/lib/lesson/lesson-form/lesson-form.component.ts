@@ -1,24 +1,29 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule, formatDate } from '@angular/common';
-import { LinguaCommonModule } from '@lingua/common';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { formatDate } from '@angular/common';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { forkJoin, Subscription } from 'rxjs';
-import { ICourse, ICreateLesson, Id, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
-import { LessonService } from '../lesson.service';
+import {
+  ICourse,
+  ICreateLesson,
+  Id,
+  ILesson,
+  ILocation,
+  IRoom,
+  IUser,
+} from '@lingua/api';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Types } from 'mongoose';
-import { UserService } from '../../user/user.service';
-import { RoomService } from '../../room/room.service';
-import { CourseService } from '../../course/course.service';
+import {
+  LessonService,
+  UserService,
+  RoomService,
+  CourseService,
+} from '@lingua/services';
+import { PagesModule } from '../../pages.module';
 
 @Component({
   selector: 'lingua-lesson-form',
-  imports: [CommonModule, LinguaCommonModule, ReactiveFormsModule],
+  imports: [PagesModule],
   templateUrl: './lesson-form.component.html',
   styleUrl: './lesson-form.component.css',
 })
@@ -58,9 +63,13 @@ export class LessonFormComponent implements OnInit, OnDestroy {
       courses: this.courseService.getCourses(),
     }).subscribe({
       next: (results) => {
-        this.teachers = results.teachers.filter((user) => user.role === 'teacher');
+        this.teachers = results.teachers.filter(
+          (user) => user.role === 'teacher'
+        );
         this.rooms = results.rooms;
-        this.courses = results.courses.filter(course => course.status !== 'Archived');  
+        this.courses = results.courses.filter(
+          (course) => course.status !== 'Archived'
+        );
 
         // Nadat de gegevens geladen zijn, laad je de lesgegevens (indien bewerken)
         this.route.parent?.paramMap.subscribe((params) => {
@@ -75,16 +84,15 @@ export class LessonFormComponent implements OnInit, OnDestroy {
           }
         });
 
-        this.lessonForm.get('course')?.valueChanges.subscribe(selectedCourseId => {
+        this.lessonForm.get('course')?.valueChanges.subscribe(() => {
           this.updateTeacherOptions();
         });
       },
       error: (err) => {
         console.error('Fout bij het ophalen van gegevens:', err);
-      }
+      },
     });
   }
-  
 
   ngOnDestroy(): void {
     this.formSub?.unsubscribe();
@@ -102,10 +110,10 @@ export class LessonFormComponent implements OnInit, OnDestroy {
           startTime: formatDate(lesson.startTime, 'HH:mm', 'en'),
           endTime: formatDate(lesson.endTime, 'HH:mm', 'en'),
         });
-  
+
         // Update de leraar-opties nadat de formulierwaarden zijn gepatcht
         this.updateTeacherOptions();
-  
+
         // Selecteer de juiste leraar in de dropdown
         this.lessonForm.get('teacher')?.setValue(lesson.teacher._id);
       },
@@ -114,34 +122,43 @@ export class LessonFormComponent implements OnInit, OnDestroy {
       },
     });
   }
-  
+
   updateTeacherOptions() {
     console.log('updating teachers dropdown');
     const selectedCourseId = this.lessonForm.get('course')?.value;
-    if(!selectedCourseId || !this.courses || !this.teachers) {
+    if (!selectedCourseId || !this.courses || !this.teachers) {
       this.filteredTeachers = [];
       return;
     }
-    
-    const selectedCourse = this.courses.find(courses => courses._id === selectedCourseId);
+
+    const selectedCourse = this.courses.find(
+      (courses) => courses._id === selectedCourseId
+    );
     if (selectedCourse) {
       console.log('Filtering gestart');
 
       const assignedTeacherIds = [
-        selectedCourse.teacher,  // Hoofdleraar ID (direct toegevoegd)
-        ...(Array.isArray(selectedCourse.assistants) ? selectedCourse.assistants : [])  // Assistants IDs (al als IDs)
-      ].filter(id => id);
-      
+        selectedCourse.teacher, // Hoofdleraar ID (direct toegevoegd)
+        ...(Array.isArray(selectedCourse.assistants)
+          ? selectedCourse.assistants
+          : []), // Assistants IDs (al als IDs)
+      ].filter((id) => id);
+
       console.log('Toegewezen leraren:', assignedTeacherIds);
-      
+
       // 3. Filter leraren zodat ALLEEN de reeds toegewezen leraren in de dropdown blijven
-      this.filteredTeachers = this.teachers.filter(teacher => assignedTeacherIds.includes(teacher._id));
+      this.filteredTeachers = this.teachers.filter((teacher) =>
+        assignedTeacherIds.includes(teacher._id)
+      );
     } else {
-        this.filteredTeachers = [];
-      }
-    
+      this.filteredTeachers = [];
+    }
+
     const currentTeacher = this.lessonForm.get('teacher')?.value;
-    if (currentTeacher !== null && !this.filteredTeachers.includes(currentTeacher)) {
+    if (
+      currentTeacher !== null &&
+      !this.filteredTeachers.includes(currentTeacher)
+    ) {
       this.lessonForm.get('teacher')?.setValue(null);
     }
   }
@@ -164,7 +181,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
           this.router.navigate(['lessons', updatedLesson._id]);
         });
     } else {
-      this.lessonService.create(data).subscribe((lesson) => {
+      this.lessonService.create(data).subscribe(() => {
         this.lessonService.triggerRefresh();
         this.router.navigate(['/lessons']);
       });
@@ -173,7 +190,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
 
   getRoomSlug(room: IRoom): string {
     const location = room.location as ILocation;
-    return `${location.slug}-${room.floor}.${room.slug}`
+    return `${location.slug}-${room.floor}.${room.slug}`;
   }
 
   closeForm() {

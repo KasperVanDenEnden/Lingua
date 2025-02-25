@@ -1,17 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ICourse, ICreateCourse, Id, IUser } from '@lingua/api';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Types } from 'mongoose';
 import { Subscription } from 'rxjs';
-import { UserService } from '../../user/user.service';
-import { CourseService } from '../course.service';
-import { LinguaCommonModule } from '@lingua/common';
+import { UserService, CourseService } from '@lingua/services';
+import { PagesModule } from '../../pages.module';
 
 @Component({
   selector: 'lingua-course-form',
-  imports: [CommonModule, LinguaCommonModule, ReactiveFormsModule],
+  imports: [PagesModule],
   templateUrl: './course-form.component.html',
   styleUrl: './course-form.component.css',
 })

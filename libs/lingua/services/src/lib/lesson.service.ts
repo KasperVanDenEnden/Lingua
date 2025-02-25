@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { ICreateLesson, Id, ILesson, IUpdateLesson } from "@lingua/api";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "@lingua/util-env";
-import { AuthService } from "../auth/auth.service";
+import { AuthService } from "./auth/auth.service";
 
 @Injectable({
     providedIn: 'root'
@@ -36,5 +36,10 @@ export class LessonService {
     create(data: ICreateLesson) {
         return this.http
             .post<ILesson>(`${environment.dataApiUrl}/lesson`, data, this.auth.getHttpOptions());
+    }
+
+    delete(id: Id) {
+        return this.http
+            .delete<ILesson>(`${environment.dataApiUrl}/lesson/${id}`, this.auth.getHttpOptions());
     }
 }

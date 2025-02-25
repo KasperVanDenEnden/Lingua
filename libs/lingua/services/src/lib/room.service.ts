@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { ICreateRoom, Id, IRoom, IUpdateRoom } from "@lingua/api";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "@lingua/util-env";
-import { AuthService } from "../auth/auth.service";
+import { AuthService } from "./auth/auth.service";
 
 @Injectable({
     providedIn: 'root'
@@ -36,5 +36,10 @@ export class RoomService {
     create(data: ICreateRoom) {
         return this.http
             .post<IRoom>(`${environment.dataApiUrl}/room`, data, this.auth.getHttpOptions());
+    }
+
+    delete(id: Id) {
+        return this.http
+            .delete<IRoom>(`${environment.dataApiUrl}/room/${id}`, this.auth.getHttpOptions());
     }
 }

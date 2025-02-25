@@ -18,10 +18,10 @@ export class Lesson implements ILesson {
   @IsNotEmpty()
   _id!: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: 'Class' })
+  @Prop({ type: Types.ObjectId, ref: 'Course' })
   @IsNotEmpty()
   @IsObjectId()
-  class!: Types.ObjectId;
+  course!: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'Room' })
   @IsNotEmpty()

@@ -28,7 +28,7 @@ export class BodyObjectIdsPipe implements PipeTransform<any, any> {
       'room',
       'student',
       'location',
-      'class',
+      'course',
       'assistant'
     ]; // Voeg hier relevante ID-velden toe
 

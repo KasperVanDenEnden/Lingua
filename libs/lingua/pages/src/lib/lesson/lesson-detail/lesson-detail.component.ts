@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LinguaCommonModule } from '@lingua/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { IClass, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
+import { ICourse, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
 import { Subscription, Observable } from 'rxjs';
 import { LessonService } from '../lesson.service';
 
@@ -18,7 +18,7 @@ export class LessonDetailComponent implements OnInit, OnDestroy {
   lessonId?: string | null;
   room?: IRoom | null;
   location?: ILocation | null;
-  class?: IClass | null;
+  course?: ICourse | null;
   teacher?: IUser | null;
 
   constructor(
@@ -47,7 +47,7 @@ export class LessonDetailComponent implements OnInit, OnDestroy {
         this.lesson$.subscribe(lesson => {
           this.room = lesson.room as IRoom;
           this.location = this.room.location as ILocation;
-          this.class = lesson.class as IClass;
+          this.course = lesson.course as ICourse;
           this.teacher = lesson.teacher as IUser;
         })
       }
@@ -63,7 +63,7 @@ export class LessonDetailComponent implements OnInit, OnDestroy {
   }
 
   getClass(): string {
-    return `${this.class?.title}: ${this.class?.description}`
+    return `${this.course?.title}: ${this.course?.description}`
   }
 
   isChildRouteActive(): boolean {

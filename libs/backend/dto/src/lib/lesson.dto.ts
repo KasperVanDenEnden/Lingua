@@ -6,7 +6,7 @@ export class CreateLessonDto implements ICreateLesson {
  
   @IsNotEmpty()
   @IsObjectId()
-  class!: Id;
+  course!: Id;
 
   @IsNotEmpty()
   @IsObjectId()

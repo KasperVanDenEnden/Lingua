@@ -7,7 +7,7 @@ describe('LessonDto Tests', () => {
 
     beforeEach(() => {
         DTO = new CreateLessonDto
-        DTO.class = new Types.ObjectId()
+        DTO.course = new Types.ObjectId()
         DTO.teacher = new Types.ObjectId();
         DTO.room = new Types.ObjectId();
         DTO.students = [];
@@ -21,13 +21,13 @@ describe('LessonDto Tests', () => {
         expect(errors.length).toBe(0);
     })
 
-    it('should fail validation when location is missing', async () => {
-        DTO.class = undefined as any;
+    it('should fail validation when course is missing', async () => {
+        DTO.course = undefined as any;
         const errors = await validate(DTO);
         
         expect(errors.length).toBeGreaterThan(0);
-        expect(errors[0].property).toBe('class');
-        expect(errors[0].constraints?.["isNotEmpty"]).toBe('class should not be empty');
+        expect(errors[0].property).toBe('course');
+        expect(errors[0].constraints?.["isNotEmpty"]).toBe('course should not be empty');
     })
   
     it('should fail validation when teacher is missing', async () => {
@@ -66,13 +66,13 @@ describe('LessonDto Tests', () => {
         expect(errors[0].constraints?.["isNotEmpty"]).toBe('endTime should not be empty');
     })
   
-    it('should fail validation when class is not valid type', async () => {
-        DTO.class = 'invalid' as any;
+    it('should fail validation when course is not valid type', async () => {
+        DTO.course = 'invalid' as any;
         const errors = await validate(DTO);
         
         expect(errors.length).toBeGreaterThan(0);
-        expect(errors[0].property).toBe('class');
-        expect(errors[0].constraints?.["isObjectId"]).toBe('class must be a valid ObjectId');
+        expect(errors[0].property).toBe('course');
+        expect(errors[0].constraints?.["isObjectId"]).toBe('course must be a valid ObjectId');
     })
    
     it('should fail validation when teacher is not valid type', async () => {

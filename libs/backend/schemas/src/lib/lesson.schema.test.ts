@@ -37,12 +37,13 @@ describe('LessonSchema Tests', () => {
   beforeEach(() => {
     baseBody = {
       _id: new Types.ObjectId(),
-      class: new Types.ObjectId(),
+      course: new Types.ObjectId(),
       room: new Types.ObjectId(),
       teacher: new Types.ObjectId(),
       students: [],
       title: 'Test title',
       description: 'Test description',
+      day: new Date(), // @todo Write tests
       startTime: new Date(),
       endTime: new Date(),
     };
@@ -62,16 +63,16 @@ describe('LessonSchema Tests', () => {
     expect(errors.length).toBe(0);
   });
 
-  it('should fail validation if class is missing', async () => {
-    const body = { ...baseBody, class: undefined };
+  it('should fail validation if course is missing', async () => {
+    const body = { ...baseBody, course: undefined };
 
     const plain = plainToInstance(Lesson, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
-    expect(errors[0].property).toBe('class');
+    expect(errors[0].property).toBe('course');
     expect(errors[0].constraints?.['isNotEmpty']).toBe(
-      'class should not be empty'
+      'course should not be empty'
     );
   });
   it('should fail validation if room is missing', async () => {
@@ -147,17 +148,17 @@ describe('LessonSchema Tests', () => {
     );
   });
 
-  it('should fail validation if class is invalid type', async () => {
-    const body = { ...baseBody, class: 'invalid' };
+  it('should fail validation if course is invalid type', async () => {
+    const body = { ...baseBody, course: 'invalid' };
 
     const plain = plainToInstance(Lesson, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
-    expect(errors[0].property).toBe('class');
+    expect(errors[0].property).toBe('course');
 
     expect(errors[0].constraints?.['isObjectId']).toBe(
-      'class must be a valid ObjectId'
+      'course must be a valid ObjectId'
     );
   });
   it('should fail validation if room is invalid type', async () => {

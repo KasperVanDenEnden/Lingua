@@ -37,4 +37,9 @@ export class CourseService {
         return this.http
             .post<ICourse>(`${environment.dataApiUrl}/course`, data, this.auth.getHttpOptions());
     }
+
+    delete(id: Id) {
+        return this.http
+            .delete<ICourse>(`${environment.dataApiUrl}/course/${id}`, this.auth.getHttpOptions());
+    }
 }

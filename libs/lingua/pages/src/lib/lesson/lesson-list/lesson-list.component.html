@@ -56,11 +56,12 @@
     </div>
   </div>
 
-  <lingua-modal-delete
-    [isOpen]="isModalOpen"
-    [message]="recordToDelete ? 'Are you sure you want to delete ' + recordToDelete.title + '?' : ''"
-    title="Delete Record"
-    (close)="closeModal()"
-    (confirm)="confirmDelete()"
-  ></lingua-modal-delete>
 </main>
+
+<lingua-modal-delete
+  [isOpen]="isModalOpen"
+  [message]="recordToDelete ? 'Are you sure you want to delete ' + recordToDelete.title + '?' : ''"
+  title="Delete Record"
+  (close)="closeModal()"
+  (confirm)="confirmDelete()"
+></lingua-modal-delete>

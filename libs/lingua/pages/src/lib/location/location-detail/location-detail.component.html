@@ -12,6 +12,11 @@
             <i class="fa-solid fa-pencil"></i>
             Edit
           </a>
+          <button (click)="handleDelete()"
+            class="bg-primary-dark text-white px-4 py-2 ml-3 rounded-md hover:bg-primary-light transition">
+            <i class="fa-solid fa-trash"></i>
+            Delete
+        </button>
           <a [routerLink]="['/locations']"
             class="bg-primary-dark text-white px-4 py-2 ml-3 rounded-md hover:bg-primary-light transition">
             <i class="fa-solid fa-xmark"></i>
@@ -34,10 +39,7 @@
         </div>
         <div class="flex gap-md">
           <span class="text-sm font-medium text-gray-600">Adres: </span>
-          <span class="text-sm text-gray-800">{{ (location$ | async)?.street || 'No street available' }} {{ (location$ |
-            async)?.number || 'No number available' }}, {{ (location$ | async)?.postal || 'No postal available' }} {{
-            (location$ | async)?.city || 'No city available' }} {{ (location$ | async)?.province || 'No province
-            available' }}</span>
+          <span class="text-sm text-gray-800">{{ getLocationAddress((location$ | async)) }}</span>
         </div>
         <div class="flex gap-md">
           <span class="text-sm font-medium text-gray-600">Created by: </span>
@@ -53,3 +55,7 @@
     </div>
   </div>
 </main>
+
+<lingua-modal-delete [isOpen]="isModalOpen"
+  [message]="recordToDelete ? 'Are you sure you want to delete ' + recordToDelete.slug + '?' : ''" title="Delete Record"
+  (close)="closeModal()" (confirm)="confirmDelete()"></lingua-modal-delete>

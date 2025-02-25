@@ -37,4 +37,9 @@ export class UserService {
         return this.http
             .post<IUser>(`${environment.dataApiUrl}/user`, data, this.auth.getHttpOptions());
     }
+
+    delete(id: Id) {
+        return this.http
+            .delete<IUser>(`${environment.dataApiUrl}/user/${id}`, this.auth.getHttpOptions());
+    }
 }

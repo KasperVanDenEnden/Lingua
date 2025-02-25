@@ -34,7 +34,12 @@ export class LocationService {
     }
 
     create(data: ICreateLocation) {
-    return this.http
-    .post<ILocation>(`${environment.dataApiUrl}/location`, data, this.auth.getHttpOptions());
+        return this.http
+        .post<ILocation>(`${environment.dataApiUrl}/location`, data, this.auth.getHttpOptions());
     }
+
+      delete(id: Id) {
+            return this.http
+                .delete<ILocation>(`${environment.dataApiUrl}/location/${id}`, this.auth.getHttpOptions());
+        }
 }

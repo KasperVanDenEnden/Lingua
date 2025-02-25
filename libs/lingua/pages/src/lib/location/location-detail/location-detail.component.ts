@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { LocationService } from '@lingua/services';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormatService, LocationService, NotificationService } from '@lingua/services';
 import { ILocation, IUser } from '@lingua/api';
 import { Observable, Subscription } from 'rxjs';
 import { PagesModule } from '../../pages.module';
@@ -17,9 +17,15 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
   locationId?: string | null;
   createdByUser?: IUser | null;
 
+  isModalOpen = false;
+  recordToDelete?: ILocation | null;
+
   constructor(
     private locationService: LocationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notify:NotificationService,
+    private router:Router,
+    private format: FormatService
   ) {}
 
   ngOnInit(): void {
@@ -42,9 +48,37 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
         this.location$ = this.locationService.getLocationById(this.locationId);
         this.location$.subscribe(location => {
           this.createdByUser = location.createdBy as IUser;
+          this.recordToDelete = location;
         });
       }
     });
+  }
+
+  getLocationAddress(location: ILocation | null): string {
+    if(!location) return '';
+    return this.format.getLocationAddress(location);
+  }
+
+  handleDelete(): void {
+    this.isModalOpen = true;
+  }
+
+  confirmDelete(): void {
+    if (this.recordToDelete) {
+      this.locationService.delete(this.recordToDelete._id).subscribe({
+        next: () => {
+          this.notify.success('Gelukt!')
+          this.router.navigate(['/locations']);
+        },
+        error: (error) => {
+          this.notify.error(error);
+        },
+      });
+    }
+  }
+  
+  closeModal(): void {
+    this.isModalOpen = false;
   }
 
   isChildRouteActive(): boolean {

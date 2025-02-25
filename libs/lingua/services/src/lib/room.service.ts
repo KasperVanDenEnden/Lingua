@@ -37,4 +37,9 @@ export class RoomService {
         return this.http
             .post<IRoom>(`${environment.dataApiUrl}/room`, data, this.auth.getHttpOptions());
     }
+
+    delete(id: Id) {
+        return this.http
+            .delete<IRoom>(`${environment.dataApiUrl}/room/${id}`, this.auth.getHttpOptions());
+    }
 }

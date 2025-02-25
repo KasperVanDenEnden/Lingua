@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { RoomService } from '@lingua/services';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormatService, NotificationService, RoomService } from '@lingua/services';
 import { Observable, Subscription } from 'rxjs';
 import { ILocation, IRoom } from '@lingua/api';
 import { PagesModule } from '../../pages.module';
@@ -17,9 +17,15 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
   roomId?: string | null;
   location?: ILocation | null;
 
+  isModalOpen = false;
+  recordToDelete?: IRoom | null;
+
   constructor(
     private roomService: RoomService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notify: NotificationService,
+    private router: Router,
+    private format: FormatService
   ) {}
 
   ngOnInit(): void {
@@ -27,8 +33,7 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
 
     this.roomService.refresh$.subscribe(() => {
       this.loadRoom();
-    })
-
+    });
   }
   
   ngOnDestroy(): void {
@@ -43,20 +48,44 @@ export class RoomDetailComponent implements OnInit, OnDestroy {
         this.room$ = this.roomService.getRoomById(this.roomId);
         this.room$.subscribe(room => {
           this.location = room.location as ILocation;
+          this.recordToDelete = room;
         });
       }
     })
   }
 
-  getLocationAddress(): string {
-    return [
-      `${this.location?.street} ${this.location?.number}`.trim(),
-      `${this.location?.postal} ${this.location?.city}`.trim(),
-      this.location?.province
-    ].filter(Boolean).join(', ');
+  getRoomSlug(room:IRoom | null): string {
+    if(!room) return 'No slug available';
+    return this.format.getRoomSlug(room);
+  }
+
+  getLocationAddress(room:IRoom | null): string {
+    return this.format.getLocationAddress(room?.location as ILocation);
+  }
+
+  handleDelete(): void {
+    this.isModalOpen = true;
+  }
+
+  confirmDelete(): void {
+    if (this.recordToDelete) {
+      this.roomService.delete(this.recordToDelete._id).subscribe({
+        next: () => {
+          this.notify.success('Gelukt!')
+          this.router.navigate(['/lessons']);
+        },
+        error: (error) => {
+          this.notify.error(error);
+        },
+      });
+    }
+  }
+  
+  closeModal(): void {
+    this.isModalOpen = false;
   }
 
   isChildRouteActive(): boolean {
-    return this.route.children.length > 0; // Checkt of er een child actief is
+    return this.route.children.length > 0;
   }
 }

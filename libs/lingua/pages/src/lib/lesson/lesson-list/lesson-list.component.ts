@@ -23,8 +23,6 @@ export class LessonListComponent implements OnInit, OnDestroy {
   constructor(private lessonService: LessonService, private route: ActivatedRoute, private notify: NotificationService) {}
 
   ngOnInit(): void {
-    this.notify.success('Toastr is working!');
-
     this.loadLessons();
 
     this.lessonService.refresh$.subscribe(() => {

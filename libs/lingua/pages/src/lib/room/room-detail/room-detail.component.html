@@ -11,6 +11,11 @@
                         <i class="fa-solid fa-pencil"></i>
                         Edit
                     </a>
+                    <button (click)="handleDelete()"
+                        class="bg-primary-dark text-white px-4 py-2 ml-3 rounded-md hover:bg-primary-light transition">
+                        <i class="fa-solid fa-trash"></i>
+                        Delete
+                    </button>
                     <a [routerLink]="['/rooms']"
                         class="bg-primary-dark text-white px-4 py-2 ml-3 rounded-md hover:bg-primary-light transition">
                         <i class="fa-solid fa-xmark"></i>
@@ -21,25 +26,27 @@
             <div class="space-y-4">
                 <div class="flex gap-md">
                     <span class="text-sm font-medium text-black">Slug: </span>
-                    <span class="text-sm text-gray-800">{{ (room$ | async)?.slug || 'No slug available' }} </span>
+                    <span class="text-sm text-gray-800">{{ getRoomSlug((room$ | async)) }} </span>
                 </div>
                 <div class="flex gap-md">
                     <span class="text-sm font-medium text-black">Capacity: </span>
-                    <span class="text-sm text-gray-800">{{ (room$ | async)?.capacity || 'No capacity available'
-                        }}</span>
+                    <span class="text-sm text-gray-800">{{ (room$ | async)?.capacity }}</span>
                 </div>
                 <div class="flex gap-md">
                     <span class="text-sm font-medium text-black">Floor: </span>
-                    <span class="text-sm text-gray-800">{{ (room$ | async)?.floor || 'No floor available' }} </span>
+                    <span class="text-sm text-gray-800">{{ (room$ | async)?.floor }} </span>
                 </div>
                 <div class="flex gap-md">
                     <span class="text-sm font-medium text-black">Has monitor: </span>
-                    <span class="text-sm text-gray-800"><i class="fa-solid" [ngClass]="(room$ | async)?.hasMonitor ? 'fa-check text-green-500' : 'fa-xmark text-red-500'"></i> </span>
+                    <span class="text-sm text-gray-800"><i class="fa-solid"
+                            [ngClass]="(room$ | async)?.hasMonitor ? 'fa-check text-green-500' : 'fa-xmark text-red-500'"></i>
+                    </span>
                 </div>
 
                 <div class="flex gap-md">
                     <span class="text-sm font-medium text-black">Location: </span>
-                    <span class="text-sm text-gray-800">{{ getLocationAddress()}} <span class="font-medium text-primary-dark">({{ location?.slug}})</span></span>
+                    <span class="text-sm text-gray-800">{{ getLocationAddress((room$ | async))}} <span
+                            class="font-medium text-primary-dark">({{ location?.slug}})</span></span>
                 </div>
             </div>
         </div>
@@ -50,3 +57,7 @@
         </div>
     </div>
 </main>
+
+<lingua-modal-delete [isOpen]="isModalOpen"
+    [message]="recordToDelete ? 'Are you sure you want to delete ' + recordToDelete.slug + '?' : ''"
+    title="Delete Record" (close)="closeModal()" (confirm)="confirmDelete()"></lingua-modal-delete>

@@ -1,5 +1,5 @@
-import { IClass, IUpdateClassAssistant } from '@lingua/api';
-import { Class, ClassDocument } from '@lingua/schemas';
+import { ICourse, IUpdateCourseAssistant } from '@lingua/api';
+import { Course, CourseDocument } from '@lingua/schemas';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -9,7 +9,7 @@ export class AssistantService {
   private TAG = 'AssistantService';
 
   constructor(
-    @InjectModel(Class.name) private classModel: Model<ClassDocument>
+    @InjectModel(Course.name) private classModel: Model<CourseDocument>
   ) {}
 
   async getAssistants() {
@@ -59,26 +59,26 @@ export class AssistantService {
   }
 
   async addAssistant(
-    body :IUpdateClassAssistant
-  ): Promise<IClass> {
+    body :IUpdateCourseAssistant
+  ): Promise<ICourse> {
     Logger.log('addAssistant', this.TAG);
     const classId = body.class;
     const assistantId = body.assistant;
 
     Logger.log(typeof classId, typeof assistantId, 'Types')
     
-    const existingClass = await this.classModel.findOne({
+    const existingCourse = await this.classModel.findOne({
       _id: classId,
       assistants: assistantId,
     });
 
-    if (existingClass)
+    if (existingCourse)
       throw new HttpException(
         'Assistant already in class',
         HttpStatus.BAD_REQUEST
       );
 
-    const updatedClass = await this.classModel.findByIdAndUpdate(
+    const updatedCourse = await this.classModel.findByIdAndUpdate(
       classId,
       {
         $push: {
@@ -91,31 +91,31 @@ export class AssistantService {
       }
     );
 
-    if (!updatedClass)
-      throw new HttpException('Class not found', HttpStatus.NOT_FOUND);
+    if (!updatedCourse)
+      throw new HttpException('Course not found', HttpStatus.NOT_FOUND);
 
-    return updatedClass;
+    return updatedCourse;
   }
 
   async removeAssistant(
-    body:IUpdateClassAssistant
-  ): Promise<IClass> {
+    body:IUpdateCourseAssistant
+  ): Promise<ICourse> {
     Logger.log('removeAssistant', this.TAG);
     const classId = body.class;
     const assistantId = body.assistant;
 
-    const existingClass = await this.classModel.findOne({
+    const existingCourse = await this.classModel.findOne({
       _id: classId,
       assistants: assistantId,
     });
 
-    if (!existingClass)
+    if (!existingCourse)
       throw new HttpException(
         'Assistant not found in class',
         HttpStatus.NOT_FOUND
       );
 
-    const updatedClass = await this.classModel.findByIdAndUpdate(
+    const updatedCourse = await this.classModel.findByIdAndUpdate(
       classId,
       {
         $pull: {
@@ -128,9 +128,9 @@ export class AssistantService {
       }
     );
 
-    if (!updatedClass)
-      throw new HttpException('Class not found', HttpStatus.NOT_FOUND);
+    if (!updatedCourse)
+      throw new HttpException('Course not found', HttpStatus.NOT_FOUND);
 
-    return updatedClass;
+    return updatedCourse;
   }
 }

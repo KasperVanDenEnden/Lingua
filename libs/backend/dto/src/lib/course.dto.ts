@@ -1,4 +1,4 @@
-import { ClassStatus, ICreateClass, IsObjectId, Language } from '@lingua/api';
+import { CourseStatus, ICreateCourse, IsObjectId, Language } from '@lingua/api';
 import {
   ArrayMinSize,
   IsArray,
@@ -8,10 +8,10 @@ import {
 } from 'class-validator';
 import { Id } from '@lingua/api';
 
-export class CreateClassDto implements ICreateClass {
+export class CreateCourseDto implements ICreateCourse {
   @IsNotEmpty()
   @IsString()
-  status!: ClassStatus;
+  status!: CourseStatus;
 
   @IsNotEmpty()
   @IsString()

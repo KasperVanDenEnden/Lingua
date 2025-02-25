@@ -4,12 +4,12 @@ import { Test } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { validate } from 'class-validator';
-import { ClassRegistration, ClassRegistrationSchema } from './class-registration.schema';
+import { CourseRegistration, CourseRegistrationSchema } from './course-registration.schema';
 
-describe('ClassSchema Tests', () => {
+describe('CourseSchema Tests', () => {
   let mongod: MongoMemoryServer;
-  let classRegistrationModel: Model<ClassRegistration>;
-  let baseBody: Partial<ClassRegistration>;
+  let courseRegistrationModel: Model<CourseRegistration>;
+  let baseBody: Partial<CourseRegistration>;
 
   beforeAll(async () => {
     const app = await Test.createTestingModule({
@@ -23,21 +23,21 @@ describe('ClassSchema Tests', () => {
         }),
         MongooseModule.forFeature([
           {
-            name: ClassRegistration.name,
-            schema: ClassRegistrationSchema,
+            name: CourseRegistration.name,
+            schema: CourseRegistrationSchema,
           },
         ]),
       ],
     }).compile();
 
-    classRegistrationModel = app.get<Model<ClassRegistration>>(getModelToken(ClassRegistration.name));
-    await classRegistrationModel.ensureIndexes();
+    courseRegistrationModel = app.get<Model<CourseRegistration>>(getModelToken(CourseRegistration.name));
+    await courseRegistrationModel.ensureIndexes();
   });
 
   beforeEach(() => {
     baseBody = {
       _id: new Types.ObjectId(),
-      class: new Types.ObjectId(),
+      course: new Types.ObjectId(),
       student: new Types.ObjectId(),
       registeredAt: new Date(),
       unregisteredAt: new Date(),
@@ -52,30 +52,30 @@ describe('ClassSchema Tests', () => {
   it('should pass validation with valid data', async () => {
     const body = { ...baseBody };
 
-    const plain = plainToInstance(ClassRegistration, body);
+    const plain = plainToInstance(CourseRegistration, body);
     const errors = await validate(plain);
     console.log(errors)
 
     expect(errors.length).toBe(0);
   });
 
-  it('should fail validation if class is missing', async () => {
-    const body = { ...baseBody, class: undefined };
+  it('should fail validation if course is missing', async () => {
+    const body = { ...baseBody, course: undefined };
 
-    const plain = plainToInstance(ClassRegistration, body);
+    const plain = plainToInstance(CourseRegistration, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
-    expect(errors[0].property).toBe('class');
+    expect(errors[0].property).toBe('course');
     expect(errors[0].constraints?.['isNotEmpty']).toBe(
-      'class should not be empty'
+      'course should not be empty'
     );
   });
 
   it('should fail validation if student is missing', async () => {
     const body = { ...baseBody, student: undefined };
 
-    const plain = plainToInstance(ClassRegistration, body);
+    const plain = plainToInstance(CourseRegistration, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -88,7 +88,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if registeredAt is missing', async () => {
     const body = { ...baseBody, registeredAt: undefined };
 
-    const plain = plainToInstance(ClassRegistration, body);
+    const plain = plainToInstance(CourseRegistration, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -98,22 +98,22 @@ describe('ClassSchema Tests', () => {
     );
   });
 
-  it('should fail validation if class is invalid type', async () => {
-    const body = { ...baseBody, class: 'invalid'  };
+  it('should fail validation if course is invalid type', async () => {
+    const body = { ...baseBody, course: 'invalid'  };
 
-    const plain = plainToInstance(ClassRegistration, body);
+    const plain = plainToInstance(CourseRegistration, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
-    expect(errors[0].property).toBe('class');
+    expect(errors[0].property).toBe('course');
 
-    expect(errors[0].constraints?.['isObjectId']).toBe('class must be a valid ObjectId');
+    expect(errors[0].constraints?.['isObjectId']).toBe('course must be a valid ObjectId');
   });
 
   it('should fail validation if student is invalid type', async () => {
     const body = { ...baseBody, student: 'invalid' };
 
-    const plain = plainToInstance(ClassRegistration, body);
+    const plain = plainToInstance(CourseRegistration, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -127,7 +127,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if registeredAt is invalid type', async () => {
     const body = { ...baseBody, registeredAt: 'invalid'  };
 
-    const plain = plainToInstance(ClassRegistration, body);
+    const plain = plainToInstance(CourseRegistration, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -141,7 +141,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if unregisteredAt is invalid type', async () => {
     const body = { ...baseBody, unregisteredAt: 'invalid' };
 
-    const plain = plainToInstance(ClassRegistration, body);
+    const plain = plainToInstance(CourseRegistration, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);

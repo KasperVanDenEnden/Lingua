@@ -12,26 +12,26 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/role-auth.guard';
 import {
   BodyObjectIdsPipe,
-  IClassRegistration,
+  ICourseRegistration,
   Id,
   IUser,
   Role,
   stringObjectIdPipe,
 } from '@lingua/api';
 import { Roles } from '../auth/decorators/role.decorator';
-import { ClassRegistrationService } from './class-registration.service';
+import { CourseRegistrationService } from './course-registration.service';
 
 @Controller('class-registration')
 @UseGuards(JwtAuthGuard)
-export class ClassRegistrationController {
-  private TAG = 'ClassRegistrationController';
+export class CourseRegistrationController {
+  private TAG = 'CourseRegistrationController';
 
-  constructor(private classRegistrationService: ClassRegistrationService) {}
+  constructor(private classRegistrationService: CourseRegistrationService) {}
 
   @UseGuards(RolesGuard)
   @Roles(Role.Teacher, Role.Admin)
   @Get()
-  async getRegistrations(): Promise<IClassRegistration[]> {
+  async getRegistrations(): Promise<ICourseRegistration[]> {
     Logger.log('getRegistrations', this.TAG);
     return await this.classRegistrationService.getRegistrations();
   }
@@ -50,8 +50,8 @@ export class ClassRegistrationController {
   @Roles(Role.Student, Role.Admin)
   @Post()
   async register(
-    @Body(BodyObjectIdsPipe) body: IClassRegistration
-  ): Promise<IClassRegistration> {
+    @Body(BodyObjectIdsPipe) body: ICourseRegistration
+  ): Promise<ICourseRegistration> {
     Logger.log('register', this.TAG);
     return await this.classRegistrationService.register(body);
   }
@@ -61,7 +61,7 @@ export class ClassRegistrationController {
   @Put(':id')
   async unregister(
     @Param('id', stringObjectIdPipe) id: Id
-  ): Promise<IClassRegistration> {
+  ): Promise<ICourseRegistration> {
     Logger.log('unregister', this.TAG);
     return await this.classRegistrationService.unregister(id);
   }
@@ -71,7 +71,7 @@ export class ClassRegistrationController {
   @Get(':id')
   async delete(
     @Param('id', stringObjectIdPipe) id: Id
-  ): Promise<IClassRegistration> {
+  ): Promise<ICourseRegistration> {
     Logger.log('delete', this.TAG);
     return await this.classRegistrationService.delete(id);
   }

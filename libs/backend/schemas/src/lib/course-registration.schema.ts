@@ -1,21 +1,21 @@
-import { IClassRegistration, IsObjectId } from '@lingua/api';
+import { ICourseRegistration, IsObjectId } from '@lingua/api';
 import { Types } from 'mongoose';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { IsNotEmpty, IsDate } from 'class-validator';
 
-export type ClassRegistrationDocument = ClassRegistration & Document;
+export type CourseRegistrationDocument = CourseRegistration & Document;
 
 @Schema()
-export class ClassRegistration implements IClassRegistration {
+export class CourseRegistration implements ICourseRegistration {
   @Prop({ default: () => new Types.ObjectId() })
   @IsNotEmpty()
   @IsObjectId()
   _id!: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: 'Class' })
+  @Prop({ type: Types.ObjectId, ref: 'Course' })
   @IsNotEmpty()
   @IsObjectId()
-  class!: Types.ObjectId;
+  course!: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'User' })
   @IsNotEmpty()
@@ -32,4 +32,4 @@ export class ClassRegistration implements IClassRegistration {
   unregisteredAt!: Date;
 }
 
-export const ClassRegistrationSchema = SchemaFactory.createForClass(ClassRegistration);
+export const CourseRegistrationSchema = SchemaFactory.createForClass(CourseRegistration);

@@ -1,16 +1,16 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { Class, ClassSchema } from './class.schema';
+import { Course, CourseSchema } from './course.schema';
 import { disconnect, Model, Types } from 'mongoose';
 import { Test } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
-import { ClassStatus, Language } from '@lingua/api';
+import { CourseStatus, Language } from '@lingua/api';
 import { validate } from 'class-validator';
 
-describe('ClassSchema Tests', () => {
+describe('CourseSchema Tests', () => {
   let mongod: MongoMemoryServer;
-  let classModel: Model<Class>;
-  let baseBody: Partial<Class>;
+  let courseModel: Model<Course>;
+  let baseBody: Partial<Course>;
 
   beforeAll(async () => {
     const app = await Test.createTestingModule({
@@ -24,15 +24,15 @@ describe('ClassSchema Tests', () => {
         }),
         MongooseModule.forFeature([
           {
-            name: Class.name,
-            schema: ClassSchema,
+            name: Course.name,
+            schema: CourseSchema,
           },
         ]),
       ],
     }).compile();
 
-    classModel = app.get<Model<Class>>(getModelToken(Class.name));
-    await classModel.ensureIndexes();
+    courseModel = app.get<Model<Course>>(getModelToken(Course.name));
+    await courseModel.ensureIndexes();
   });
 
   beforeEach(() => {
@@ -40,7 +40,7 @@ describe('ClassSchema Tests', () => {
       _id: new Types.ObjectId(),
       title: 'Title',
       description: 'Description',
-      status: ClassStatus.Active,
+      status: CourseStatus.Active,
       createdOn: new Date(),
       language: Language.Dutch,
       teacher: new Types.ObjectId(),
@@ -57,7 +57,7 @@ describe('ClassSchema Tests', () => {
   it('should pass validation with valid data', async () => {
     const body = { ...baseBody };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBe(0);
@@ -66,7 +66,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if title is missing', async () => {
     const body = { ...baseBody, title: undefined };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -79,7 +79,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if description is missing', async () => {
     const body = { ...baseBody, description: undefined };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -92,7 +92,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if status is missing', async () => {
     const body = { ...baseBody, status: undefined };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -105,7 +105,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if createdOn is missing', async () => {
     const body = { ...baseBody, createdOn: undefined };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -118,7 +118,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if teacher is missing', async () => {
     const body = { ...baseBody, teacher: undefined };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -131,7 +131,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if assistants is missing', async () => {
     const body = { ...baseBody, assistants: undefined };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -144,7 +144,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if title is invalid type', async () => {
     const body = { ...baseBody, title: 0 };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -156,7 +156,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if description is invalid type', async () => {
     const body = { ...baseBody, description: 0 };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -170,7 +170,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if status is invalid type', async () => {
     const body = { ...baseBody, status: 0 };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -184,7 +184,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if createdOn is invalid type', async () => {
     const body = { ...baseBody, createdOn: 'invalid' };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -198,7 +198,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if language is invalid type', async () => {
     const body = { ...baseBody, language: 0 };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -212,7 +212,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if teacher is invalid type', async () => {
     const body = { ...baseBody, teacher: 'invalid' };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
@@ -226,7 +226,7 @@ describe('ClassSchema Tests', () => {
   it('should fail validation if assistants is invalid type', async () => {
     const body = { ...baseBody, assistants: 'invalid' };
 
-    const plain = plainToInstance(Class, body);
+    const plain = plainToInstance(Course, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);

@@ -1,19 +1,19 @@
-import { IClassRegistration, Id, IUser } from '@lingua/api';
-import { ClassRegistration, ClassRegistrationDocument } from '@lingua/schemas';
+import { ICourseRegistration, Id, IUser } from '@lingua/api';
+import { CourseRegistration, CourseRegistrationDocument } from '@lingua/schemas';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 @Injectable()
-export class ClassRegistrationService {
-  private TAG = 'ClassRegistrationService';
+export class CourseRegistrationService {
+  private TAG = 'CourseRegistrationService';
 
   constructor(
-    @InjectModel(ClassRegistration.name)
-    private classRegistrationModel: Model<ClassRegistrationDocument>
+    @InjectModel(CourseRegistration.name)
+    private classRegistrationModel: Model<CourseRegistrationDocument>
   ) {}
 
-  async getRegistrations(): Promise<IClassRegistration[]> {
+  async getRegistrations(): Promise<ICourseRegistration[]> {
     Logger.log('getRegistrations', this.TAG);
 
     const registrations = await this.classRegistrationModel.aggregate([
@@ -58,11 +58,11 @@ export class ClassRegistrationService {
     return registrations.map((reg: any) => reg.student);
   }
 
-  async register(body: IClassRegistration): Promise<IClassRegistration> {
+  async register(body: ICourseRegistration): Promise<ICourseRegistration> {
     Logger.log('register', this.TAG);
 
     const existingRecord = await this.classRegistrationModel.findOne({
-      class: body.class,
+      course: body.course,
       student: body.student,
       unregisteredAt: { $exists: false },
     });
@@ -76,10 +76,10 @@ export class ClassRegistrationService {
     return await this.classRegistrationModel.create(body);
   }
 
-  async unregister(id: Id): Promise<IClassRegistration> {
+  async unregister(id: Id): Promise<ICourseRegistration> {
     Logger.log('unregister', this.TAG);
 
-    const updatedClassRegistration =
+    const updatedCourseRegistration =
       await this.classRegistrationModel.findByIdAndUpdate(
         id,
         { unregisteredAt: Date.now() },
@@ -89,16 +89,16 @@ export class ClassRegistrationService {
         }
       );
 
-    if (!updatedClassRegistration)
+    if (!updatedCourseRegistration)
       throw new HttpException(
-        'Class registration not found',
+        'Course registration not found',
         HttpStatus.NOT_FOUND
       );
 
-    return updatedClassRegistration;
+    return updatedCourseRegistration;
   }
 
-  async delete(id: Id): Promise<IClassRegistration> {
+  async delete(id: Id): Promise<ICourseRegistration> {
     Logger.log('delete', this.TAG);
 
     const deletedRegistration =
@@ -106,7 +106,7 @@ export class ClassRegistrationService {
 
     if (!deletedRegistration)
       throw new HttpException(
-        'Class registration not found',
+        'Course registration not found',
         HttpStatus.NOT_FOUND
       );
 

@@ -20,7 +20,7 @@ export class LessonService {
         }
       })
       .populate('teacher')
-      .populate('class')
+      .populate('course')
       .populate('students')
       .exec();
   }
@@ -35,7 +35,7 @@ export class LessonService {
         }
       })
       .populate('teacher')
-      .populate('class')
+      .populate('course')
       .populate('students')
       .exec();
 

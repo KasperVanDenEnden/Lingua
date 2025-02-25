@@ -1,4 +1,4 @@
-import { BodyObjectIdsPipe, IClass, IUpdateClassAssistant, Role } from '@lingua/api';
+import { BodyObjectIdsPipe, ICourse, IUpdateCourseAssistant, Role } from '@lingua/api';
 import { Body, Controller, Get, Logger, Post, UseGuards } from '@nestjs/common';
 import { AssistantService } from './assistant.service';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
@@ -19,13 +19,13 @@ export class AssistantController {
   }
 
   @Post('add')
-  async addAssistant(@Body(BodyObjectIdsPipe) body: IUpdateClassAssistant): Promise<IClass> {
+  async addAssistant(@Body(BodyObjectIdsPipe) body: IUpdateCourseAssistant): Promise<ICourse> {
     Logger.log('addAssistant', this.Tag);
     return await this.assistantService.addAssistant(body);
   }
 
   @Post('remove')
-  async removeAssistant(@Body(BodyObjectIdsPipe) body: IUpdateClassAssistant): Promise<IClass> {
+  async removeAssistant(@Body(BodyObjectIdsPipe) body: IUpdateCourseAssistant): Promise<ICourse> {
     Logger.log('removeAssistant', this.Tag);
     return await this.assistantService.removeAssistant(body);
   }

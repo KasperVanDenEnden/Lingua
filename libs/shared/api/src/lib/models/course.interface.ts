@@ -2,7 +2,7 @@ import { Id } from './id';
 import { IUpsertReview } from './review.interface';
 import { IUser } from './user.interface';
 
-export enum ClassStatus {
+export enum CourseStatus {
   Active = 'Active',
   Archived = 'Archived',
 }
@@ -15,13 +15,13 @@ export enum Language {
   French = 'French',
 }
 
-export interface IClass {
+export interface ICourse {
   id?: Id;
   _id: Id;
   
   title: string;
   description: string;
-  status: ClassStatus;
+  status: CourseStatus;
   createdOn: Date;
   language: Language;
 
@@ -30,14 +30,14 @@ export interface IClass {
   reviews: IUpsertReview[]; // Nested reviews
 }
 
-export type ICreateClass = Pick<
-  IClass,
+export type ICreateCourse = Pick<
+ICourse,
   'status' | 'title' | 'description' | 'language' | 'teacher'
 >;
-export type IUpdateClass = Partial<Omit<IClass, 'id'>>;
-export type IUpsertClass = IClass;
+export type IUpdateCourse = Partial<Omit<ICourse, 'id'>>;
+export type IUpsertCourse = ICourse;
 
-export type IUpdateClassAssistant = {
+export type IUpdateCourseAssistant = {
   class: string,
   assistant: Id
 }

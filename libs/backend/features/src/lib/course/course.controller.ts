@@ -9,33 +9,33 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { ClassService } from './class.service';
+import { CourseService } from './course.service';
 import {
-  IClass,
+  ICourse,
   stringObjectIdPipe,
   Id,
   BodyObjectIdsPipe,
-  IUpdateClass,
+  IUpdateCourse,
   Role,
 } from '@lingua/api';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/role-auth.guard';
 import { Roles } from '../auth/decorators/role.decorator';
 
-@Controller('class')
+@Controller('course')
 @UseGuards(JwtAuthGuard)
-export class ClassController {
-  private TAG = 'ClassController';
-  constructor(private classService: ClassService) {}
+export class CourseController {
+  private TAG = 'CourseController';
+  constructor(private classService: CourseService) {}
 
   @Get()
-  async getAll(): Promise<IClass[]> {
+  async getAll(): Promise<ICourse[]> {
     Logger.log('getAll', this.TAG);
     return await this.classService.getAll();
   }
 
   @Get(':id')
-  async getOne(@Param('id', stringObjectIdPipe) id: Id): Promise<IClass> {
+  async getOne(@Param('id', stringObjectIdPipe) id: Id): Promise<ICourse> {
     Logger.log('getAll', this.TAG);
     return await this.classService.getOne(id);
   }
@@ -43,7 +43,7 @@ export class ClassController {
   @UseGuards(RolesGuard)
   @Roles(Role.Teacher, Role.Admin)
   @Post()
-  async create(@Body(BodyObjectIdsPipe) body: IClass): Promise<IClass> {
+  async create(@Body(BodyObjectIdsPipe) body: ICourse): Promise<ICourse> {
     Logger.log('create', this.TAG);
     return await this.classService.create(body);
   }
@@ -53,8 +53,8 @@ export class ClassController {
   @Put(':id')
   async update(
     @Param('id', stringObjectIdPipe) id: Id,
-    @Body(BodyObjectIdsPipe) body: IUpdateClass
-  ): Promise<IClass> {
+    @Body(BodyObjectIdsPipe) body: IUpdateCourse
+  ): Promise<ICourse> {
     Logger.log('update', this.TAG);
     return await this.classService.update(id, body);
   }

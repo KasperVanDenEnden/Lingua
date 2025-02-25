@@ -1,4 +1,4 @@
-import { ClassStatus, IClass, IsObjectId, IUpsertReview, Language } from '@lingua/api';
+import { CourseStatus, ICourse, IsObjectId, IUpsertReview, Language } from '@lingua/api';
 import { Types } from 'mongoose';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import {
@@ -11,10 +11,10 @@ import {
 } from 'class-validator';
 import { ReviewSchema } from './review.schema';
 
-export type ClassDocument = Class & Document;
+export type CourseDocument = Course & Document;
 
 @Schema()
-export class Class implements IClass {
+export class Course implements ICourse {
   @Prop({ default: () => new Types.ObjectId() })
   @IsNotEmpty()
   @IsObjectId()
@@ -30,10 +30,10 @@ export class Class implements IClass {
   @IsString()
   description!: string;
 
-  @Prop({ type: String, enum: Object.values(ClassStatus) })
+  @Prop({ type: String, enum: Object.values(CourseStatus) })
   @IsNotEmpty()
-  @IsEnum(ClassStatus, { message: 'Status must be a valid enum value' })
-  status!: ClassStatus;
+  @IsEnum(CourseStatus, { message: 'Status must be a valid enum value' })
+  status!: CourseStatus;
 
   @Prop({ default: Date.now() })
   @IsNotEmpty()
@@ -64,4 +64,4 @@ export class Class implements IClass {
   reviews!: IUpsertReview[];
 }
 
-export const ClassSchema = SchemaFactory.createForClass(Class);
+export const CourseSchema = SchemaFactory.createForClass(Course);

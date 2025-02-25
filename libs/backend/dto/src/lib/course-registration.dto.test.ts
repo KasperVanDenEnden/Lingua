@@ -1,13 +1,13 @@
 import { Types } from "mongoose";
 import { validate } from "class-validator";
-import { CreateClassRegistrationDto } from "./class-registration.dto";
+import { CreateCourseRegistrationDto } from "./course-registration.dto";
 
-describe('ClassDto Tests', () => {
-    let DTO: CreateClassRegistrationDto;
+describe('CourseDto Tests', () => {
+    let DTO: CreateCourseRegistrationDto;
 
     beforeEach(() => {
-        DTO = new CreateClassRegistrationDto();
-        DTO.class = new Types.ObjectId();
+        DTO = new CreateCourseRegistrationDto();
+        DTO.course = new Types.ObjectId();
         DTO.student = new Types.ObjectId(); 
     });
 
@@ -16,13 +16,13 @@ describe('ClassDto Tests', () => {
         expect(errors.length).toBe(0);
     })
 
-    it('should fail validation when class is missing', async () => {
-        DTO.class = undefined as any;
+    it('should fail validation when course is missing', async () => {
+        DTO.course = undefined as any;
         const errors = await validate(DTO);
         
         expect(errors.length).toBeGreaterThan(0);
-        expect(errors[0].property).toBe('class');
-        expect(errors[0].constraints?.["isNotEmpty"]).toBe('class should not be empty');
+        expect(errors[0].property).toBe('course');
+        expect(errors[0].constraints?.["isNotEmpty"]).toBe('course should not be empty');
     })
     
     it('should fail validation when student is missing', async () => {
@@ -34,13 +34,13 @@ describe('ClassDto Tests', () => {
         expect(errors[0].constraints?.["isNotEmpty"]).toBe('student should not be empty');
     })
     
-    it('should fail validation when class is not valid type', async () => {
-        DTO.class = 'invalid' as any;
+    it('should fail validation when course is not valid type', async () => {
+        DTO.course = 'invalid' as any;
         const errors = await validate(DTO);
 
         expect(errors.length).toBeGreaterThan(0);
-        expect(errors[0].property).toBe('class');
-        expect(errors[0].constraints?.["isObjectId"]).toBe('class must be a valid ObjectId');
+        expect(errors[0].property).toBe('course');
+        expect(errors[0].constraints?.["isObjectId"]).toBe('course must be a valid ObjectId');
     })
 
     it('should fail validation when capacity is not valid type', async () => {

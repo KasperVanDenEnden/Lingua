@@ -9,7 +9,7 @@ export class CreateReviewDto implements ICreateReview {
 
   @IsNotEmpty()
   @IsObjectId()
-  class!: Types.ObjectId;
+  course!: Types.ObjectId;
 
   @IsNotEmpty()
   @IsString()

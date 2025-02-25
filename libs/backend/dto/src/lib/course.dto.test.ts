@@ -1,13 +1,13 @@
 import { Types } from "mongoose";
 import { validate } from "class-validator";
-import { CreateClassDto } from "./class.dto";
-import { ClassStatus, Language } from "@lingua/api";
-describe('ClassDto Tests', () => {
-    let DTO: CreateClassDto;
+import { CreateCourseDto } from "./course.dto";
+import { CourseStatus, Language } from "@lingua/api";
+describe('CourseDto Tests', () => {
+    let DTO: CreateCourseDto;
 
     beforeEach(() => {
-        DTO = new CreateClassDto();
-        DTO.status = ClassStatus.Active; //@todo Write tests
+        DTO = new CreateCourseDto();
+        DTO.status = CourseStatus.Active; //@todo Write tests
         DTO.teacher = new Types.ObjectId();
         DTO.assistants = [new Types.ObjectId(),new Types.ObjectId()]; 
         DTO.title = 'Title';

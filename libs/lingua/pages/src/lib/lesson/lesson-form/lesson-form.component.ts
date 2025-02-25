@@ -34,7 +34,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
 
   lessonForm: FormGroup = new FormGroup({
     teacher: new FormControl(null, Validators.required),
-    class: new FormControl(null, Validators.required),
+    course: new FormControl(null, Validators.required),
     room: new FormControl(null, Validators.required),
     day: new FormControl(null, Validators.required),
     startTime: new FormControl(null, Validators.required),
@@ -75,7 +75,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
           }
         });
 
-        this.lessonForm.get('class')?.valueChanges.subscribe(selectedCourseId => {
+        this.lessonForm.get('course')?.valueChanges.subscribe(selectedCourseId => {
           this.updateTeacherOptions();
         });
       },
@@ -117,7 +117,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
   
   updateTeacherOptions() {
     console.log('updating teachers dropdown');
-    const selectedCourseId = this.lessonForm.get('class')?.value;
+    const selectedCourseId = this.lessonForm.get('course')?.value;
     if(!selectedCourseId || !this.courses || !this.teachers) {
       this.filteredTeachers = [];
       return;

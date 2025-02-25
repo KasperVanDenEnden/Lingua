@@ -37,4 +37,9 @@ export class LessonService {
         return this.http
             .post<ILesson>(`${environment.dataApiUrl}/lesson`, data, this.auth.getHttpOptions());
     }
+
+    delete(id: Id) {
+        return this.http
+            .delete<ILesson>(`${environment.dataApiUrl}/lesson/${id}`, this.auth.getHttpOptions());
+    }
 }

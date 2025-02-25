@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LinguaCommonModule } from '@lingua/common';
 import { Observable, Subscription } from 'rxjs';
-import { IClass, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
+import { ICourse, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
 import { LessonService } from '../lesson.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
@@ -40,7 +40,7 @@ export class LessonListComponent implements OnInit, OnDestroy {
   }
 
   getClass(lesson:ILesson) {
-    return (lesson.class as IClass)?.title || ''
+    return (lesson.course as ICourse)?.title || ''
   }
 
   getTeacher(lesson: ILesson): string {

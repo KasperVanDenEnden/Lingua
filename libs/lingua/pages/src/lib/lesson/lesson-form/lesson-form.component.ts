@@ -8,13 +8,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { forkJoin, Subscription } from 'rxjs';
-import { IClass, ICreateLesson, Id, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
+import { ICourse, ICreateLesson, Id, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
 import { LessonService } from '../lesson.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Types } from 'mongoose';
 import { UserService } from '../../user/user.service';
 import { RoomService } from '../../room/room.service';
-import { ClassService } from '../../class/class.service';
+import { CourseService } from '../../course/course.service';
 
 @Component({
   selector: 'lingua-lesson-form',
@@ -27,7 +27,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
   isEditMode?: boolean;
   existId!: Id;
 
-  classes?: IClass[] | null;
+  courses?: ICourse[] | null;
   rooms?: IRoom[] | null;
   teachers?: IUser[] | null;
   filteredTeachers: IUser[] = [];
@@ -47,7 +47,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
     private lessonService: LessonService,
     private userService: UserService,
     private roomService: RoomService,
-    private classService: ClassService
+    private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
@@ -55,12 +55,12 @@ export class LessonFormComponent implements OnInit, OnDestroy {
     forkJoin({
       teachers: this.userService.getUsers(),
       rooms: this.roomService.getRooms(),
-      classes: this.classService.getClasses(),
+      courses: this.courseService.getCourses(),
     }).subscribe({
       next: (results) => {
         this.teachers = results.teachers.filter((user) => user.role === 'teacher');
         this.rooms = results.rooms;
-        this.classes = results.classes.filter(cls => cls.status !== 'Archived');  
+        this.courses = results.courses.filter(course => course.status !== 'Archived');  
 
         // Nadat de gegevens geladen zijn, laad je de lesgegevens (indien bewerken)
         this.route.parent?.paramMap.subscribe((params) => {
@@ -75,7 +75,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
           }
         });
 
-        this.lessonForm.get('class')?.valueChanges.subscribe(selectedClassId => {
+        this.lessonForm.get('class')?.valueChanges.subscribe(selectedCourseId => {
           this.updateTeacherOptions();
         });
       },
@@ -96,7 +96,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
         // Update de form-waarden
         this.lessonForm.patchValue({
           teacher: lesson.teacher._id,
-          class: lesson.class._id,
+          course: lesson.course._id,
           room: lesson.room._id,
           day: formatDate(lesson.day, 'yyyy-MM-dd', 'en'),
           startTime: formatDate(lesson.startTime, 'HH:mm', 'en'),
@@ -117,19 +117,19 @@ export class LessonFormComponent implements OnInit, OnDestroy {
   
   updateTeacherOptions() {
     console.log('updating teachers dropdown');
-    const selectedClassId = this.lessonForm.get('class')?.value;
-    if(!selectedClassId || !this.classes || !this.teachers) {
+    const selectedCourseId = this.lessonForm.get('class')?.value;
+    if(!selectedCourseId || !this.courses || !this.teachers) {
       this.filteredTeachers = [];
       return;
     }
     
-    const selectedClass = this.classes.find(cl => cl._id === selectedClassId);
-    if (selectedClass) {
+    const selectedCourse = this.courses.find(courses => courses._id === selectedCourseId);
+    if (selectedCourse) {
       console.log('Filtering gestart');
 
       const assignedTeacherIds = [
-        selectedClass.teacher,  // Hoofdleraar ID (direct toegevoegd)
-        ...(Array.isArray(selectedClass.assistants) ? selectedClass.assistants : [])  // Assistants IDs (al als IDs)
+        selectedCourse.teacher,  // Hoofdleraar ID (direct toegevoegd)
+        ...(Array.isArray(selectedCourse.assistants) ? selectedCourse.assistants : [])  // Assistants IDs (al als IDs)
       ].filter(id => id);
       
       console.log('Toegewezen leraren:', assignedTeacherIds);
@@ -149,7 +149,7 @@ export class LessonFormComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     const data: ICreateLesson = {
       teacher: this.lessonForm.value.teacher,
-      class: this.lessonForm.value.class,
+      course: this.lessonForm.value.course,
       room: this.lessonForm.value.room,
       day: this.lessonForm.value.day,
       startTime: this.convertTimeStringToDate(this.lessonForm.value.startTime),

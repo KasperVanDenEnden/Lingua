@@ -38,6 +38,6 @@ export type IUpdateCourse = Partial<Omit<ICourse, 'id'>>;
 export type IUpsertCourse = ICourse;
 
 export type IUpdateCourseAssistant = {
-  class: string,
+  course: string,
   assistant: Id
 }

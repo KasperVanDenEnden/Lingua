@@ -1,4 +1,4 @@
-import { ICreateClass, Id, IClass, IUpdateClass } from "@lingua/api";
+import { Id, ICourse, IUpdateCourse, ICreateCourse } from "@lingua/api";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "@lingua/util-env";
 import { AuthService } from "../auth/auth.service";
@@ -8,7 +8,7 @@ import { Injectable } from "@angular/core";
 @Injectable({
     providedIn: 'root'
 })
-export class ClassService {
+export class CourseService {
     private refreshSubject = new BehaviorSubject<boolean>(false);
     refresh$ = this.refreshSubject.asObservable();
 
@@ -18,23 +18,23 @@ export class ClassService {
         this.refreshSubject.next(true)
     }
 
-    getClasses(): Observable<IClass[]> {
+    getCourses(): Observable<ICourse[]> {
         return this.http
-            .get<IClass[]>(`${environment.dataApiUrl}/class`, this.auth.getHttpOptions());
+            .get<ICourse[]>(`${environment.dataApiUrl}/course`, this.auth.getHttpOptions());
     }
 
-    getClassById(id: string): Observable<IClass> {
+    getCourseById(id: string): Observable<ICourse> {
         return this.http
-            .get<IClass>(`${environment.dataApiUrl}/class/${id}`, this.auth.getHttpOptions());
+            .get<ICourse>(`${environment.dataApiUrl}/course/${id}`, this.auth.getHttpOptions());
     }
 
-    update(data: IUpdateClass, id: Id) {
+    update(data: IUpdateCourse, id: Id) {
         return this.http
-            .put<IClass>(`${environment.dataApiUrl}/class/${id}`, data, this.auth.getHttpOptions());
+            .put<ICourse>(`${environment.dataApiUrl}/course/${id}`, data, this.auth.getHttpOptions());
     }
 
-    create(data: ICreateClass) {
+    create(data: ICreateCourse) {
         return this.http
-            .post<IClass>(`${environment.dataApiUrl}/class`, data, this.auth.getHttpOptions());
+            .post<ICourse>(`${environment.dataApiUrl}/course`, data, this.auth.getHttpOptions());
     }
 }

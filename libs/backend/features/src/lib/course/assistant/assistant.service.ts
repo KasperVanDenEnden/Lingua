@@ -9,13 +9,13 @@ export class AssistantService {
   private TAG = 'AssistantService';
 
   constructor(
-    @InjectModel(Course.name) private classModel: Model<CourseDocument>
+    @InjectModel(Course.name) private courseModel: Model<CourseDocument>
   ) {}
 
   async getAssistants() {
     Logger.log('getAssistants', this.TAG);
 
-    const assistantRecords = await this.classModel.aggregate([
+    const assistantRecords = await this.courseModel.aggregate([
       // Unwind the assistants array
       { $unwind: '$assistants' },
 
@@ -29,19 +29,19 @@ export class AssistantService {
         },
       },
 
-      // Lookup to populate full class details
+      // Lookup to populate full course details
       {
         $lookup: {
-          from: 'classes',
+          from: 'courses',
           localField: '_id',
           foreignField: '_id',
-          as: 'classDetails',
+          as: 'courseDetails',
         },
       },
 
-      // Unwind the assistantDetails and classdetails
+      // Unwind the assistantDetails and coursedetails
       { $unwind: '$assistantDetails' },
-      { $unwind: '$classDetails' },
+      { $unwind: '$courseDetails' },
 
       // Filter for teachers
       { $match: { 'assistantDetails.role': 'teacher' } },
@@ -50,7 +50,7 @@ export class AssistantService {
       {
         $project: {
           assistant: '$assistantDetails',
-          class: '$classDetails',
+          course: '$courseDetails',
         },
       },
     ]);
@@ -62,24 +62,24 @@ export class AssistantService {
     body :IUpdateCourseAssistant
   ): Promise<ICourse> {
     Logger.log('addAssistant', this.TAG);
-    const classId = body.class;
+    const courseId = body.course;
     const assistantId = body.assistant;
 
-    Logger.log(typeof classId, typeof assistantId, 'Types')
+    Logger.log(typeof courseId, typeof assistantId, 'Types')
     
-    const existingCourse = await this.classModel.findOne({
-      _id: classId,
+    const existingCourse = await this.courseModel.findOne({
+      _id: courseId,
       assistants: assistantId,
     });
 
     if (existingCourse)
       throw new HttpException(
-        'Assistant already in class',
+        'Assistant already in course',
         HttpStatus.BAD_REQUEST
       );
 
-    const updatedCourse = await this.classModel.findByIdAndUpdate(
-      classId,
+    const updatedCourse = await this.courseModel.findByIdAndUpdate(
+      courseId,
       {
         $push: {
           assistants: assistantId,
@@ -101,22 +101,22 @@ export class AssistantService {
     body:IUpdateCourseAssistant
   ): Promise<ICourse> {
     Logger.log('removeAssistant', this.TAG);
-    const classId = body.class;
+    const courseId = body.course;
     const assistantId = body.assistant;
 
-    const existingCourse = await this.classModel.findOne({
-      _id: classId,
+    const existingCourse = await this.courseModel.findOne({
+      _id: courseId,
       assistants: assistantId,
     });
 
     if (!existingCourse)
       throw new HttpException(
-        'Assistant not found in class',
+        'Assistant not found in course',
         HttpStatus.NOT_FOUND
       );
 
-    const updatedCourse = await this.classModel.findByIdAndUpdate(
-      classId,
+    const updatedCourse = await this.courseModel.findByIdAndUpdate(
+      courseId,
       {
         $pull: {
           assistants: assistantId,

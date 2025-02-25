@@ -5,8 +5,8 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { Types } from 'mongoose';
 import { Subscription } from 'rxjs';
-import { UserService } from '../../user/user.service';
-import { CourseService } from '../course.service';
+import { UserService } from '../../../../../services/src/lib/user.service';
+import { CourseService } from '../../../../../services/src/lib/course.service';
 import { LinguaCommonModule } from '@lingua/common';
 
 @Component({

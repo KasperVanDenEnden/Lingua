@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LocationService } from '../location.service';
-import { ILocation } from '@lingua/api';
+import { LocationService } from '@lingua/services';
 import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LinguaCommonModule } from '@lingua/common';
+import { ILocation } from '@lingua/api';
 
 @Component({
   selector: 'lingua-location-list',

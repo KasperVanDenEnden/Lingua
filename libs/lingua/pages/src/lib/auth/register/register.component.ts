@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription, switchMap } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../../../../services/src/lib/auth/auth.service';
 import { Router } from '@angular/router';
 import { ICreateUser } from '@lingua/api';
 import { LinguaCommonModule } from '@lingua/common';

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LinguaCommonModule } from '@lingua/common';
 import { Observable, Subscription } from 'rxjs';
 import { ICourse, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
-import { LessonService } from '../lesson.service';
+import { LessonService } from '../../../../../services/src/lib/lesson.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({

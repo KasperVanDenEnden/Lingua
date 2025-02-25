@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../../../../services/src/lib/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   FormControl,

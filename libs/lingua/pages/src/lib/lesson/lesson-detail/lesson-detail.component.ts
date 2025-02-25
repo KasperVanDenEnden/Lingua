@@ -4,7 +4,7 @@ import { LinguaCommonModule } from '@lingua/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ICourse, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
 import { Subscription, Observable } from 'rxjs';
-import { LessonService } from '../lesson.service';
+import { LessonService } from '../../../../../services/src/lib/lesson.service';
 
 @Component({
   selector: 'lingua-lesson-detail',

@@ -9,12 +9,9 @@ import {
 } from '@angular/forms';
 import { forkJoin, Subscription } from 'rxjs';
 import { ICourse, ICreateLesson, Id, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
-import { LessonService } from '../lesson.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Types } from 'mongoose';
-import { UserService } from '../../user/user.service';
-import { RoomService } from '../../room/room.service';
-import { CourseService } from '../../course/course.service';
+import { LessonService, UserService, RoomService, CourseService } from '@lingua/services';
 
 @Component({
   selector: 'lingua-lesson-form',

@@ -4,7 +4,7 @@ import { LinguaCommonModule } from '@lingua/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ILocation, IRoom } from '@lingua/api';
 import { Observable, Subscription } from 'rxjs';
-import { RoomService } from '@lingua/pages';
+import { RoomService } from '@lingua/services';
 
 
 @Component({

@@ -1,6 +1,6 @@
 import { ICourse, Id, IUpdateCourseAssistant } from "@lingua/api";
 import { environment } from "@lingua/util-env";
-import { AuthService } from "../auth/auth.service";
+import { AuthService } from "./auth/auth.service";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";

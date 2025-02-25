@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ICourse, IUser } from '@lingua/api';
 import { Subscription, Observable } from 'rxjs';
-import { UserService } from '../../user/user.service';
-import { CourseService } from '../course.service';
-import { CourseAssistantService } from '../course-assistant.service';
+import { UserService } from '../../../../../services/src/lib/user.service';
+import { CourseService } from '../../../../../services/src/lib/course.service';
+import { CourseAssistantService } from '../../../../../services/src/lib/course-assistant.service';
 import { LinguaCommonModule } from '@lingua/common';
 import { FormsModule } from '@angular/forms';
 

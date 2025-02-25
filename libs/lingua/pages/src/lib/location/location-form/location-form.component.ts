@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LocationService } from '../location.service';
+import { LocationService } from '@lingua/services';
 import { Subscription } from 'rxjs';
 import {
   FormControl,
@@ -12,7 +12,7 @@ import {
 import { ICreateLocation, Id, ILocation, IUser } from '@lingua/api';
 import { LinguaCommonModule } from '@lingua/common';
 import { Types } from 'mongoose';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '@lingua/services';
 
 @Component({
   selector: 'lingua-location-form',

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { LocationService } from '../location.service';
+import { LocationService } from '@lingua/services';
 import { ILocation, IUser } from '@lingua/api';
 import { Observable, Subscription } from 'rxjs';
 import { LinguaCommonModule } from '@lingua/common';

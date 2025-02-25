@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ICourse } from '@lingua/api';
-import { CourseService } from '../course.service';
+import { CourseService } from '../../../../../services/src/lib/course.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
 import { LinguaCommonModule } from '@lingua/common';

@@ -5,9 +5,8 @@ import { LinguaCommonModule } from '@lingua/common';
 import { Subscription } from 'rxjs';
 import { Id, IRoom, ICreateRoom, ILocation } from '@lingua/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoomService } from '../room.service';
 import { Types } from 'mongoose';
-import { LocationService } from '../../location/location.service';
+import { LocationService, RoomService } from '@lingua/services';
 
 @Component({
   selector: 'lingua-room-form',

@@ -1,5 +1,10 @@
+/* Import Toastr CSS */
+@import 'node_modules/ngx-toastr/toastr.css';
+
+/* Import Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* You can add global styles to this file, and also import other style files */
+
+/* You can add other global styles here as well */

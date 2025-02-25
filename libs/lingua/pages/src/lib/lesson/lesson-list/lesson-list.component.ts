@@ -6,6 +6,7 @@ import { ICourse, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
 import { LessonService } from '@lingua/services';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { UiModule } from '@lingua/ui';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'lingua-lesson-list',
@@ -22,9 +23,11 @@ export class LessonListComponent implements OnInit, OnDestroy {
   isModalOpen = false;
   recordToDelete?: ILesson | null;
 
-  constructor(private lessonService: LessonService, private route: ActivatedRoute) {}
+  constructor(private lessonService: LessonService, private route: ActivatedRoute, private toastr: ToastrService) {}
 
   ngOnInit(): void {
+    this.toastr.success('Toastr is working!', 'Test');
+
     this.loadLessons();
 
     this.lessonService.refresh$.subscribe(() => {
@@ -77,6 +80,7 @@ export class LessonListComponent implements OnInit, OnDestroy {
           // Reload the list after successful deletion
           this.loadLessons();
           // Show success message (optional)
+          this.toastr.success('Gelukt!', 'Success!')
         },
         error: (error) => {
           console.error('Error deleting lesson:', error);

@@ -15,7 +15,7 @@ import { LocationFormComponent } from './location/location-form/location-form.co
     RegisterComponent,
     LocationListComponent,
     LocationDetailComponent,
-    LocationFormComponent
+    LocationFormComponent,
   ],
   exports: [
     PagesComponent,
@@ -23,7 +23,7 @@ import { LocationFormComponent } from './location/location-form/location-form.co
     RegisterComponent,
     LocationListComponent,
     LocationDetailComponent,
-    LocationFormComponent
+    LocationFormComponent,
   ]
 })
 export class PagesModule { }

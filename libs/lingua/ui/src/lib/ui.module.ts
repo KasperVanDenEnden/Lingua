@@ -3,13 +3,15 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CardComponent } from "./cards/card/card.component";
 import { ModalDeleteComponent } from "./modals/modal-delete/modal-delete.component";
+import { ModalComponent } from "./modals/modal/modal.component";
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         CardComponent,
-        ModalDeleteComponent
+        ModalDeleteComponent,
+        ModalComponent
     ],
     declarations: [
         
@@ -18,7 +20,8 @@ import { ModalDeleteComponent } from "./modals/modal-delete/modal-delete.compone
     ],
     exports: [
         CardComponent,
-        ModalDeleteComponent
+        ModalDeleteComponent,
+        ModalComponent
     ]
 })
 export class UiModule {}

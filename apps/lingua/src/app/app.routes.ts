@@ -94,6 +94,14 @@ export const appRoutes: Route[] = [
     ]
   },
   {
+    path: 'users',
+    canActivate: [AuthGuard],
+    component: UserDetailComponent, //TEMP: Create a user-list component.
+    children: [
+      { path: 'new', pathMatch: 'full', component: UserFormComponent, canActivate: [RolesGuard] , data: { role: 'admin' } },
+    ]
+  },
+  {
     path: 'user/:id',
     canActivate: [AuthGuard],
     component: UserDetailComponent,

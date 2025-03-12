@@ -19,7 +19,7 @@
                     </select>
                     <div *ngIf="courseForm.get('status')?.touched && courseForm.get('status')?.invalid"
                         class="text-red-500 text-sm mt-1">
-                        <span *ngIf="courseForm.get('status')?.errors?.['required']">Selecteer een optie</span>
+                        <span *ngIf="courseForm.get('status')?.errors?.['required']">Select an option</span>
                     </div>
                 </div>
             }

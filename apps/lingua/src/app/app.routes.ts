@@ -19,6 +19,7 @@ import {
   RoomListComponent,
   UserDetailComponent,
   UserFormComponent,
+  UserListComponent,
 } from '@lingua/pages';
 import { NgModule } from '@angular/core';
 import { AuthGuard, RolesGuard } from '@lingua/services';
@@ -96,9 +97,19 @@ export const appRoutes: Route[] = [
   {
     path: 'users',
     canActivate: [AuthGuard],
-    component: UserDetailComponent, //TEMP: Create a user-list component.
+    component: UserListComponent,
     children: [
       { path: 'new', pathMatch: 'full', component: UserFormComponent, canActivate: [RolesGuard] , data: { role: 'admin' } },
+    ]
+  },
+  
+  {
+    path: 'users/:id',
+    canActivate: [AuthGuard, RolesGuard],
+    data: { role: 'admin'},
+    component: UserDetailComponent,
+    children: [
+      { path: 'edit', pathMatch: 'full', component: UserFormComponent},
     ]
   },
   {

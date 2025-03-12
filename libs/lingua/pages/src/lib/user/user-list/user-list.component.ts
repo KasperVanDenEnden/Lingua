@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PagesModule } from '../../pages.module';
-import { NotificationService, UserService } from '@lingua/services';
+import { AuthService, NotificationService, UserService } from '@lingua/services';
 import { ActivatedRoute } from '@angular/router';
-import { IUser } from '@lingua/api';
+import { IUser, Role } from '@lingua/api';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
@@ -23,7 +23,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +67,9 @@ export class UserListComponent implements OnInit, OnDestroy {
         },
       });
     }
+  }
+  isAdmin(): boolean {
+    return 'admin' === this.authService.getUserRole();
   }
 
   closeModal(): void {

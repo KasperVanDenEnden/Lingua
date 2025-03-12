@@ -13,3 +13,7 @@ export * from './lib/models/course-registration.interface';
 // Pipes
 export * from './lib/pipes/stringObjectIdPipe';
 export * from './lib/pipes/bodyObjectIdsPipe';
+
+
+// Validators
+export * from './lib/validators/passwordMatch.validator'

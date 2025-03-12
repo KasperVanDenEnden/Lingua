@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from "@lingua/util-env";
 import { ICreateUser, IUser } from "@lingua/api";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ChangePasswordDto } from "@lingua/dto";
 
 @Injectable({
     providedIn: 'root'
@@ -112,6 +113,11 @@ import { ActivatedRoute, Router } from "@angular/router";
           return of(undefined);
         })
       );
+    }
+
+    changePassword(data: ChangePasswordDto, id: string): Observable<IUser> {
+      return this.http
+            .put<IUser>(`${environment.dataApiUrl}/auth/${id}/change-password`, data, this.getHttpOptions());
     }
   
     // Log user out / delete from local storage

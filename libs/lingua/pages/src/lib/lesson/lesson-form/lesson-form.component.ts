@@ -41,6 +41,9 @@ export class LessonFormComponent implements OnInit, OnDestroy {
     teacher: new FormControl(null, Validators.required),
     course: new FormControl(null, Validators.required),
     room: new FormControl(null, Validators.required),
+    status: new FormControl(null, Validators.required),
+    title: new FormControl(null, Validators.required),
+    description: new FormControl(null, Validators.required),
     day: new FormControl(null, Validators.required),
     startTime: new FormControl(null, Validators.required),
     endTime: new FormControl(null, Validators.required),
@@ -101,11 +104,15 @@ export class LessonFormComponent implements OnInit, OnDestroy {
   loadLessonData(id: string) {
     this.formSub = this.lessonService.getLessonById(id).subscribe({
       next: (lesson: ILesson) => {
+        console.log(lesson);
         // Update de form-waarden
         this.lessonForm.patchValue({
           teacher: lesson.teacher._id,
           course: lesson.course._id,
           room: lesson.room._id,
+          status: lesson.status,
+          title: lesson.title,
+          description: lesson.description,
           day: formatDate(lesson.day, 'yyyy-MM-dd', 'en'),
           startTime: formatDate(lesson.startTime, 'HH:mm', 'en'),
           endTime: formatDate(lesson.endTime, 'HH:mm', 'en'),
@@ -168,6 +175,9 @@ export class LessonFormComponent implements OnInit, OnDestroy {
       teacher: this.lessonForm.value.teacher,
       course: this.lessonForm.value.course,
       room: this.lessonForm.value.room,
+      status: this.lessonForm.value.status,
+      title: this.lessonForm.value.title,
+      description: this.lessonForm.value.description,
       day: this.lessonForm.value.day,
       startTime: this.convertTimeStringToDate(this.lessonForm.value.startTime),
       endTime: this.convertTimeStringToDate(this.lessonForm.value.endTime),

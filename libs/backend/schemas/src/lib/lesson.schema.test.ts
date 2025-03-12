@@ -5,6 +5,7 @@ import { Test } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { validate } from 'class-validator';
+import { LessonStatus } from '@lingua/api';
 
 describe('LessonSchema Tests', () => {
   let mongod: MongoMemoryServer;
@@ -41,6 +42,7 @@ describe('LessonSchema Tests', () => {
       room: new Types.ObjectId(),
       teacher: new Types.ObjectId(),
       students: [],
+      status: LessonStatus.Open,
       title: 'Test title',
       description: 'Test description',
       day: new Date(), // @todo Write tests
@@ -97,6 +99,18 @@ describe('LessonSchema Tests', () => {
     expect(errors[0].property).toBe('teacher');
     expect(errors[0].constraints?.['isNotEmpty']).toBe(
       'teacher should not be empty'
+    );
+  });
+  it('should fail validation if status is missing', async () => {
+    const body = { ...baseBody, status: undefined };
+
+    const plain = plainToInstance(Lesson, body);
+    const errors = await validate(plain);
+
+    expect(errors.length).toBeGreaterThan(0);
+    expect(errors[0].property).toBe('status');
+    expect(errors[0].constraints?.['isNotEmpty']).toBe(
+      'status should not be empty'
     );
   });
   it('should fail validation if title is missing', async () => {
@@ -187,6 +201,19 @@ describe('LessonSchema Tests', () => {
       'teacher must be a valid ObjectId'
     );
   });
+
+  it('should fail validation if status is invalid type', async () => {
+    const body = { ...baseBody, status: 0 };
+
+    const plain = plainToInstance(Lesson, body);
+    const errors = await validate(plain);
+
+    expect(errors.length).toBeGreaterThan(0);
+    expect(errors[0].property).toBe('status');
+
+    expect(errors[0].constraints?.['isEnum']).toBe('Status must be a valid enum value');
+  });
+
   it('should fail validation if title is invalid type', async () => {
     const body = { ...baseBody, title: 0 };
 

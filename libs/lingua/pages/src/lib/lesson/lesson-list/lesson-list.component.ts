@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { ICourse, ILesson, ILocation, IRoom, IUser } from '@lingua/api';
+import { ICourse, ILesson, ILocation, IRoom, IUser, LessonStatus } from '@lingua/api';
 import { LessonService, NotificationService } from '@lingua/services';
 import { ActivatedRoute } from '@angular/router';
 import { PagesModule } from '../../pages.module';
@@ -58,6 +58,23 @@ export class LessonListComponent implements OnInit, OnDestroy {
     if (!room || !location) return;
   
     return `${location.slug}-${room.floor}.${room.slug}`;
+  }
+
+  getStatusStyle(status: LessonStatus | undefined): string {
+    switch (status) {
+      case 'Concept':
+        return 'text-gray-500 border-gray-300';
+      case 'Open':
+        return 'text-green-500 border-green-500';
+      case 'Full':
+        return 'text-amber-600 border-amber-500';
+      case 'Suspended':
+        return 'text-orange-500 border-orange-500';
+      case 'Canceled':
+        return 'text-primary-dark border-primary-dark';
+      default:
+        return 'text-gray-500 border-gray-500';
+    }
   }
   
   handleDelete(record: ILesson): void {

@@ -3,16 +3,11 @@ on:
   push:
     branches:
       - master  # This will run when changes are pushed directly to master
-  pull_request:
-    types:
-      - closed  # This will trigger when a PR is closed
-    branches:
-      - master  # Only for PRs targeting the master branch
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     # Run only if the PR was merged (not just closed without merging)
-    if: github.event_name != 'pull_request' || (github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master')
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v4

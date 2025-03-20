@@ -2,7 +2,7 @@ name: Build and deploy a Node.js app and an Angular app to an Azure web app
 on:
   push:
     branches:
-      - master  # This will run when changes are pushed directly to master
+      - main  # This will run when changes are pushed directly to master
   workflow_dispatch:
 
 jobs:

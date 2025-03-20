@@ -2,7 +2,11 @@
   "name": "@lingua/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "deploy": "nx run lingua:build",
+    "build": "nx run-many -t build",
+    "test": "nx run-many -t test"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^19.1.7",

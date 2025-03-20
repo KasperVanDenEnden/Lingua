@@ -1,14 +1,15 @@
-import { LoginDto } from '@lingua/dto';
+import { ChangePasswordDto, LoginDto } from '@lingua/dto';
 import { User, UserDocument } from '@lingua/schemas';
-import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { ICreateUser } from '@lingua/api';
 
 @Injectable()
 export class AuthService {
+  
   private TAG = 'AuthService';
 
   constructor(
@@ -65,5 +66,26 @@ export class AuthService {
     const payload = { sub: user._id, email: user.email, role: user.role };
     
     return { access_token: this.jwtService.sign(payload) };
+  }
+
+  async changePassword(changePasswordDto: ChangePasswordDto, id: Types.ObjectId) {
+    Logger.log('changePassowrd', this.TAG);
+
+    const existingUser = await this.userModel.findById(id);
+
+    if(!existingUser) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+
+    const isMatch = await bcrypt.compare(changePasswordDto.oldPassword, existingUser.password)
+
+    if(!isMatch) throw new HttpException('Old pasword is incorrect', HttpStatus.BAD_REQUEST);
+
+    const HashedNewPassword = await bcrypt.hash(changePasswordDto.newPassword, 10);
+
+    existingUser.password = HashedNewPassword;
+    await existingUser.save();
+
+    Logger.log('Password updates succesfully', this.TAG);
+
+    return { message: 'Passwrd updated succesfully'}
   }
 }

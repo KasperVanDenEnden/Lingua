@@ -62,9 +62,7 @@ export class LocationService {
   async delete(id: Id) {
     Logger.log('delete', this.TAG);
 
-    const deletedLocation = await this.locationModel.findByIdAndDelete({
-      _id: id,
-    });
+    const deletedLocation = await this.locationModel.findByIdAndDelete(id);
 
     if (!deletedLocation)
       throw new HttpException('Location not found', HttpStatus.NOT_FOUND);

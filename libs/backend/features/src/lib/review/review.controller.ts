@@ -2,11 +2,9 @@ import {
   Body,
   Controller,
   Delete,
-  Get,
   Logger,
   Param,
   Post,
-  Put,
   UseGuards,
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
@@ -14,7 +12,6 @@ import {
   BodyObjectIdsPipe,
   IReview,
   Id,
-  IUpdateReview,
   stringObjectIdPipe,
 } from '@lingua/api';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';

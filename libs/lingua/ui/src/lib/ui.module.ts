@@ -2,12 +2,16 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CardComponent } from "./cards/card/card.component";
+import { ModalDeleteComponent } from "./modals/modal-delete/modal-delete.component";
+import { ModalComponent } from "./modals/modal/modal.component";
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        CardComponent
+        CardComponent,
+        ModalDeleteComponent,
+        ModalComponent
     ],
     declarations: [
         
@@ -16,6 +20,8 @@ import { CardComponent } from "./cards/card/card.component";
     ],
     exports: [
         CardComponent,
+        ModalDeleteComponent,
+        ModalComponent
     ]
 })
-export class UiMoodule {}
+export class UiModule {}

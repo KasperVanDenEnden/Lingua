@@ -1,17 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LinguaCommonModule } from '@lingua/common';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Id, IRoom, ICreateRoom, ILocation } from '@lingua/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoomService } from '../room.service';
 import { Types } from 'mongoose';
-import { LocationService } from '../../location/location.service';
+import { LocationService, RoomService } from '@lingua/services';
+import { PagesModule } from '../../pages.module';
 
 @Component({
   selector: 'lingua-room-form',
-  imports: [CommonModule, ReactiveFormsModule, LinguaCommonModule],
+  imports: [PagesModule],
   templateUrl: './room-form.component.html',
   styleUrl: './room-form.component.css',
 })
@@ -125,7 +123,7 @@ export class RoomFormComponent implements OnInit, OnDestroy {
         this.router.navigate(['rooms', updatedRoom._id]);
       })
     } else {
-      this.roomService.create(data).subscribe((room) => {
+      this.roomService.create(data).subscribe(() => {
         this.roomService.triggerRefresh();
         this.router.navigate(['/rooms'])
       })

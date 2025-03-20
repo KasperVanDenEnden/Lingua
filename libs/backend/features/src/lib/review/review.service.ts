@@ -1,5 +1,5 @@
 import { IReview, Id } from '@lingua/api';
-import { Class, ClassDocument } from '@lingua/schemas';
+import { Course, CourseDocument } from '@lingua/schemas';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
@@ -8,12 +8,12 @@ import { Model, Types } from 'mongoose';
 export class ReviewService {
   private TAG = 'ReviewService';
   constructor(
-    @InjectModel(Class.name) private classModel: Model<ClassDocument>
+    @InjectModel(Course.name) private courseModel: Model<CourseDocument>
   ) {}
 
   //   async getAll(): Promise<IReview[]> {
   //     Logger.log('getAll', this.TAG);
-  //     return await this.classModel.find();
+  //     return await this.courseModel.find();
   //   }
 
   //   async getOne(id: Id): Promise<IReview> {
@@ -29,8 +29,8 @@ export class ReviewService {
   async create(body: IReview): Promise<IReview> {
     Logger.log('create', this.TAG);
 
-    const updatedClass = await this.classModel.findByIdAndUpdate(
-      { _id: new Types.ObjectId(body.class) },
+    const updatedCourse = await this.courseModel.findByIdAndUpdate(
+      { _id: new Types.ObjectId(body.course as Id) },
       {
         $push: {
           comments: body,
@@ -42,8 +42,8 @@ export class ReviewService {
       }
     );
 
-    if (!updatedClass)
-      throw new HttpException('Class not found', HttpStatus.NOT_FOUND);
+    if (!updatedCourse)
+      throw new HttpException('Course not found', HttpStatus.NOT_FOUND);
 
     return body;
   }
@@ -51,7 +51,7 @@ export class ReviewService {
   //   async update(id: Id, changes: IUpdateComment): Promise<IReview> {
   //     Logger.log('update', this.TAG);
 
-  //     const updatedComment = await this.classModel.findByIdAndUpdate(
+  //     const updatedComment = await this.courseModel.findByIdAndUpdate(
   //       id,
   //       changes,
   //       { new: true }
@@ -66,7 +66,7 @@ export class ReviewService {
   async delete(id: Id, classId: Id) {
     Logger.log('delete', this.TAG);
 
-    const updatedClass = await this.classModel.findByIdAndUpdate(
+    const updatedCourse = await this.courseModel.findByIdAndUpdate(
       classId,
       {
         $pull: {
@@ -79,8 +79,8 @@ export class ReviewService {
       }
     );
 
-    if (!updatedClass)
-      throw new HttpException('Class not found', HttpStatus.NOT_FOUND);
+    if (!updatedCourse)
+      throw new HttpException('Course not found', HttpStatus.NOT_FOUND);
 
     return;
   }

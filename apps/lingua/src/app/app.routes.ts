@@ -1,8 +1,8 @@
 import { Route, RouterModule } from '@angular/router';
 import {
-  ClassDetailComponent,
-  ClassFormComponent,
-  ClassListComponent,
+  CourseDetailComponent,
+  CourseFormComponent,
+  CourseListComponent,
   DashboardComponent,
   LessonDetailComponent,
   LessonFormComponent,
@@ -12,71 +12,117 @@ import {
   LocationListComponent,
   LoginComponent,
   PagesComponent,
+  PasswordChangeComponent,
   RegisterComponent,
   RoomDetailComponent,
   RoomFormComponent,
   RoomListComponent,
+  UserDetailComponent,
+  UserFormComponent,
+  UserListComponent,
 } from '@lingua/pages';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { NgModule } from '@angular/core';
-import { AuthGuard, RolesGuard } from '@lingua/pages';
+import { AuthGuard, RolesGuard } from '@lingua/services';
 import { CommonComponent } from '@lingua/common';
 
 export const appRoutes: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard, RolesGuard] },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
+    path: 'locations',
+    component: LocationListComponent,
     canActivate: [AuthGuard, RolesGuard],
+    children: [
+      { path: 'new', pathMatch: 'full', component: LocationFormComponent, canActivate: [RolesGuard], data: { role: 'teacher' } }
+    ]
   },
-  { path: 'locations', component: LocationListComponent, canActivate: [AuthGuard, RolesGuard], children: [
-    { path: 'new',pathMatch:'full', component: LocationFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} },
-  ] },
   {
     path: 'locations/:id',
     canActivate: [AuthGuard],
     component: LocationDetailComponent,
     children: [
-      { path: 'edit', pathMatch:'full', component: LocationFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} },
-    ],
+      { path: 'edit', pathMatch: 'full', component: LocationFormComponent, canActivate: [RolesGuard], data: { role: 'teacher' } }
+    ]
   },
-  { path: 'rooms', component: RoomListComponent, canActivate: [AuthGuard], children: [
-    { path: 'new', pathMatch: 'full', component: RoomFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} }
-  ] },
+  {
+    path: 'rooms',
+    component: RoomListComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'new', pathMatch: 'full', component: RoomFormComponent, canActivate: [RolesGuard], data: { role: 'teacher' } }
+    ]
+  },
   {
     path: 'rooms/:id',
     canActivate: [AuthGuard],
     component: RoomDetailComponent,
     children: [
-      { path: 'edit', pathMatch:'full', component: RoomFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} },
+      { path: 'edit', pathMatch: 'full', component: RoomFormComponent, canActivate: [RolesGuard], data: { role: 'teacher' } }
     ]
   },
-  { path: 'classes', component: ClassListComponent, canActivate: [AuthGuard], children: [
-    { path: 'new', pathMatch: 'full', component: ClassFormComponent , canActivate: [RolesGuard], data: { role: 'teacher'}}
-  ] },
   {
-    path: 'classes/:id',
+    path: 'courses',
+    component: CourseListComponent,
     canActivate: [AuthGuard],
-    component: ClassDetailComponent,
     children: [
-      { path: 'edit', pathMatch:'full', component: ClassFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} },
+      { path: 'new', pathMatch: 'full', component: CourseFormComponent, canActivate: [RolesGuard], data: { role: 'teacher' } }
     ]
   },
-  { path: 'lessons', component: LessonListComponent, canActivate: [AuthGuard], children: [
-    { path: 'new', pathMatch: 'full', component: LessonFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} }
-  ] },
+  {
+    path: 'courses/:id',
+    canActivate: [AuthGuard],
+    component: CourseDetailComponent,
+    children: [
+      { path: 'edit', pathMatch: 'full', component: CourseFormComponent, canActivate: [RolesGuard], data: { role: 'teacher' } }
+    ]
+  },
+  {
+    path: 'lessons',
+    component: LessonListComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'new', pathMatch: 'full', component: LessonFormComponent, canActivate: [RolesGuard], data: { role: 'teacher' } }
+    ]
+  },
   {
     path: 'lessons/:id',
     canActivate: [AuthGuard],
     component: LessonDetailComponent,
     children: [
-      { path: 'edit', pathMatch:'full', component: LessonFormComponent, canActivate: [RolesGuard], data: { role: 'teacher'} },
+    { path: 'edit', pathMatch: 'full', component: LessonFormComponent, canActivate: [RolesGuard], data: { role: 'teacher' } }
     ]
   },
-  { path: 'pages', component: PagesComponent},
-  { path: 'access-denied', component: CommonComponent},
+  {
+    path: 'users',
+    canActivate: [AuthGuard],
+    component: UserListComponent,
+    children: [
+      { path: 'new', pathMatch: 'full', component: UserFormComponent, canActivate: [RolesGuard] , data: { role: 'admin' } },
+    ]
+  },
+  
+  {
+    path: 'users/:id',
+    canActivate: [AuthGuard, RolesGuard],
+    data: { role: 'admin'},
+    component: UserDetailComponent,
+    children: [
+      { path: 'edit', pathMatch: 'full', component: UserFormComponent},
+    ]
+  },
+  {
+    path: 'user/:id',
+    canActivate: [AuthGuard],
+    component: UserDetailComponent,
+    children: [
+      { path: 'edit', pathMatch: 'full', component: UserFormComponent },
+      { path: 'change-password', pathMatch: 'full', component: PasswordChangeComponent }
+    ]
+  },
+  { path: 'pages', component: PagesComponent },
+  { path: 'access-denied', component: CommonComponent },
 ];
 
 @NgModule({

@@ -1,19 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AuthService } from '@lingua/services';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { LinguaCommonModule } from '@lingua/common';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PagesModule } from '../../pages.module';
 
 @Component({
   selector: 'lingua-login',
-  imports: [CommonModule, ReactiveFormsModule, LinguaCommonModule],
+  imports: [PagesModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

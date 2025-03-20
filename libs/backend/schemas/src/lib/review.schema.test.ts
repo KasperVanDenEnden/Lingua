@@ -38,7 +38,7 @@ describe('ReviewSchema Tests', () => {
     baseBody = {
       _id: new Types.ObjectId(),
       student: new Types.ObjectId(),
-      class: new Types.ObjectId(),
+      course: new Types.ObjectId(),
       comment: 'Test comment',
       rating: 0,
       createdAt: new Date(),
@@ -71,16 +71,16 @@ describe('ReviewSchema Tests', () => {
       'student should not be empty'
     );
   });
-  it('should fail validation if class is missing', async () => {
-    const body = { ...baseBody, class: undefined };
+  it('should fail validation if course is missing', async () => {
+    const body = { ...baseBody, course: undefined };
 
     const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
-    expect(errors[0].property).toBe('class');
+    expect(errors[0].property).toBe('course');
     expect(errors[0].constraints?.['isNotEmpty']).toBe(
-      'class should not be empty'
+      'course should not be empty'
     );
   });
   it('should fail validation if comment is missing', async () => {
@@ -133,17 +133,17 @@ describe('ReviewSchema Tests', () => {
       'student must be a valid ObjectId'
     );
   });
-  it('should fail validation if class is invalid type', async () => {
-    const body = { ...baseBody, class: 'invalid' };
+  it('should fail validation if course is invalid type', async () => {
+    const body = { ...baseBody, course: 'invalid' };
 
     const plain = plainToInstance(Review, body);
     const errors = await validate(plain);
 
     expect(errors.length).toBeGreaterThan(0);
-    expect(errors[0].property).toBe('class');
+    expect(errors[0].property).toBe('course');
 
     expect(errors[0].constraints?.['isObjectId']).toBe(
-      'class must be a valid ObjectId'
+      'course must be a valid ObjectId'
     );
   });
   it('should fail validation if comment is invalid type', async () => {

@@ -23,3 +23,8 @@ export class CreateUserDto implements ICreateUser {
   @IsString()
   password!: string;
 }
+
+export class ChangePasswordDto {
+  oldPassword!:string;
+  newPassword!:string;
+}

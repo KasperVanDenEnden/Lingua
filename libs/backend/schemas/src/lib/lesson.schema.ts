@@ -1,4 +1,4 @@
-import { ILesson, IsObjectId } from '@lingua/api';
+import { ILesson, IsObjectId, LessonStatus } from '@lingua/api';
 import { Types } from 'mongoose';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import {
@@ -7,6 +7,7 @@ import {
   IsDate,
   IsArray,
   ArrayMinSize,
+  IsEnum,
 } from 'class-validator';
 
 export type LessonDocument = Lesson & Document;
@@ -17,17 +18,17 @@ export class Lesson implements ILesson {
   @IsObjectId()
   @IsNotEmpty()
   _id!: Types.ObjectId;
-
-  @Prop({ type: Types.ObjectId, ref: 'Class' })
+  
+  @Prop({ type: Types.ObjectId, ref: 'Course' })
   @IsNotEmpty()
   @IsObjectId()
-  class!: Types.ObjectId;
-
+  course!: Types.ObjectId;
+  
   @Prop({ type: Types.ObjectId, ref: 'Room' })
   @IsNotEmpty()
   @IsObjectId()
   room!: Types.ObjectId;
-
+  
   @Prop({ type: Types.ObjectId, ref: 'User' })
   @IsNotEmpty()
   @IsObjectId()
@@ -43,6 +44,11 @@ export class Lesson implements ILesson {
   @ArrayMinSize(0, { message: 'Assistants must be an array (can be empty)' })
   students!: Types.ObjectId[];
   
+  @Prop({ type: String, enum: Object.values(LessonStatus) })
+  @IsEnum(LessonStatus, { message: 'Status must be a valid enum value'})
+  @IsNotEmpty()
+  status!: LessonStatus;
+
   @Prop()
   @IsNotEmpty()
   @IsString()

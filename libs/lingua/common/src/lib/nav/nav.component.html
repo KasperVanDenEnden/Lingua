@@ -48,7 +48,8 @@
                         class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">All
                         courses</a>
                     <a routerLink="#"
-                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">My courses</a>
+                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">My
+                        courses</a>
                 </div>
             </lingua-dropdown>
 
@@ -60,7 +61,8 @@
                         class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">All
                         lessons</a>
                     <a routerLink="#"
-                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">My lessons</a>
+                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">My
+                        lessons</a>
                 </div>
             </lingua-dropdown>
 
@@ -88,12 +90,17 @@
                 <span dropdown-button><i class="fa-solid fa-user"></i></span>
 
                 <div dropdown-items>
-                    <a routerLink="/lessons"
+                    <a [routerLink]="['/user', currentUser.id]"
                         class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">
                         <span aria-hidden="true"><i class="fa-solid fa-user mr-2"></i></span>
                         Profile
                     </a>
-                    <a (click)="logout()" (keydown.enter)="logout()" tabindex="0"
+                    <a [routerLink]="['/users']"
+                        class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">
+                        <span aria-hidden="true"><i class="fa-solid fa-users mr-2"></i></span>
+                        Users
+                    </a>
+                    <a (click)="openLogoutModal()" (keydown.enter)="openLogoutModal()" tabindex="0"
                         class="block px-4 py-2 text-sm text-gray-900 hover:bg-secondary-base whitespace-nowrap">
                         <span aria-hidden="true"><i class="fa-solid fa-right-from-bracket mr-2"></i>
                             Log out </span>
@@ -178,16 +185,24 @@
                         <!-- Overige mobile menu items behouden -->
                         <a routerLink="/pages"
                             class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-secondary-base">About</a>
-                        <a routerLink="/lessons"
+                        @if(currentUser) {
+
+                        <a [routerLink]="['/user', currentUser.id]"
                             class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-secondary-base">
                             <span aria-hidden="true"><i class="fa-solid fa-user mr-2"></i></span>
                             Profile
                         </a>
-                        <a (click)="logout()" (keydown.enter)="logout()" tabindex="0"
+                        <a routerLink="/users"
+                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-secondary-base">
+                            <span aria-hidden="true"><i class="fa-solid fa-users mr-2"></i></span>
+                            Users
+                        </a>
+                        <a (click)="openLogoutModal()" (keydown.enter)="openLogoutModal()" tabindex="0"
                             class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-secondary-base">
                             <span aria-hidden="true"><i class="fa-solid fa-right-from-bracket mr-2"></i>
                                 Log out </span>
                         </a>
+                        }
                         <div class="text-center p-1">
                             <span class="text-xs text-gray-500">Lingua v1.0</span>
                         </div>
@@ -198,3 +213,6 @@
     </div>
     }
 </header>
+
+<lingua-modal [isOpen]="isLogoutModalOpen" [message]="'Are you sure you want to logout?'" title="Logout confirmation"
+    (close)="closeLogoutModal()" (confirm)="logout()"></lingua-modal>

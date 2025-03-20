@@ -6,11 +6,13 @@ import {
   Post,
   UseGuards,
   Request,
+  Put,
+  Param,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto } from '@lingua/dto';
+import { ChangePasswordDto, LoginDto } from '@lingua/dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { ICreateUser } from '@lingua/api';
+import { ICreateUser, Id, stringObjectIdPipe } from '@lingua/api';
 
 @Controller('auth')
 export class AuthController {
@@ -33,5 +35,13 @@ export class AuthController {
   @Get('profile')
   getProfile(@Request() req: any) {
     return req.user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put(':id/change-password')
+  async changePassword(@Body() changePasswordDto: ChangePasswordDto, @Param('id', stringObjectIdPipe) id: Id) {
+    Logger.log('changePassword', this.TAG);
+    
+    return this.authService.changePassword(changePasswordDto, id);
   }
 }

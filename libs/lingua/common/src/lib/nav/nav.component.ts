@@ -4,10 +4,11 @@ import { Subscription } from 'rxjs';
 import { IUser } from '@lingua/api';
 import { AuthService } from '@lingua/services';
 import { Router, RouterLink } from '@angular/router';
+import { UiModule } from '@lingua/ui';
 
 @Component({
   selector: 'lingua-nav',
-  imports: [DropdownComponent, RouterLink],
+  imports: [DropdownComponent, RouterLink, UiModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
 })
@@ -22,6 +23,8 @@ export class NavComponent implements OnInit, OnDestroy  {
   currentUser: IUser | undefined;
   email: string | undefined;
   role: string | undefined;
+
+  isLogoutModalOpen = false;
 
   constructor(
     @Inject(AuthService) public auth: AuthService,
@@ -68,6 +71,14 @@ export class NavComponent implements OnInit, OnDestroy  {
   
   toggleLessonMenu() {
     this.isLessonMenuOpen = !this.isLessonMenuOpen;
+  }
+
+  openLogoutModal() {
+    this.isLogoutModalOpen = true
+  }
+
+  closeLogoutModal() {
+    this.isLogoutModalOpen = false;
   }
 
   logout() {

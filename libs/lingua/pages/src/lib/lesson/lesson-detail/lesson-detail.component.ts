@@ -76,9 +76,7 @@ export class LessonDetailComponent implements OnInit, OnDestroy {
   }
 
   confirmDelete(): void {
-    console.log('confirmed deletion');
     if (this.recordToDelete) {
-      console.log('recordToDeleteIsSet', this.recordToDelete._id)
       this.lessonService.delete(this.recordToDelete._id).subscribe({
         next: () => {
           this.notify.success('Gelukt!')

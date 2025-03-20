@@ -7,9 +7,8 @@ on:
 
 jobs:
   build-and-deploy:
-    # Run only if the PR was merged (not just closed without merging)
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js version
         uses: actions/setup-node@v3
@@ -20,11 +19,28 @@ jobs:
           npm install --legacy-peer-deps
           npm run build --if-present
           npm run test --if-present
+
+      - name: List files in dist folder
+        run: |
+          echo "Listing dist folder contents"
+          ls -R ${GITHUB_WORKSPACE}/dist
+
       - name: Zip artifacts for deployment
         run: |
-          echo ${GITHUB_WORKSPACE}
-          cd ${GITHUB_WORKSPACE}/dist/apps/data-api/ && zip ${GITHUB_WORKSPACE}/data-api-release.zip ./* -r
-          cd ${GITHUB_WORKSPACE}/dist/apps/lingua/ && zip ${GITHUB_WORKSPACE}/lingua-release.zip ./* -r
+          if [ -d "${GITHUB_WORKSPACE}/dist/apps/data-api" ]; then
+            cd ${GITHUB_WORKSPACE}/dist/apps/data-api/ && zip ${GITHUB_WORKSPACE}/data-api-release.zip ./* -r
+          else
+            echo "Directory ${GITHUB_WORKSPACE}/dist/apps/data-api does not exist."
+            exit 1
+          fi
+
+          if [ -d "${GITHUB_WORKSPACE}/dist/apps/lingua" ]; then
+            cd ${GITHUB_WORKSPACE}/dist/apps/lingua/ && zip ${GITHUB_WORKSPACE}/lingua-release.zip ./* -r
+          else
+            echo "Directory ${GITHUB_WORKSPACE}/dist/apps/lingua does not exist."
+            exit 1
+          fi
+
       - name: Upload lingua artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
